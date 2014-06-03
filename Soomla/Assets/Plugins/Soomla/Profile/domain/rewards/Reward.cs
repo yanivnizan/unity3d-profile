@@ -25,6 +25,7 @@ namespace Soomla.Profile {
 
 		public string RewardId;
 		public string Name;
+		public bool   Repeatable;
 		
 		/// <summary>
 		/// Constructor.
@@ -33,6 +34,7 @@ namespace Soomla.Profile {
 		{
 			RewardId = rewardId;
 			Name = name;
+			Repeatable = false;
 		}
 		
 //#if UNITY_ANDROID && !UNITY_EDITOR
@@ -56,6 +58,7 @@ namespace Soomla.Profile {
 			JSONObject obj = new JSONObject(JSONObject.Type.OBJECT);
 			obj.AddField(PJSONConsts.BP_REWARD_REWARDID, RewardId);
 			obj.AddField(PJSONConsts.BP_NAME, Name);
+			obj.AddField(PJSONConsts.BP_REWARD_REPEAT, Repeatable);
 			
 			return obj;
 		}

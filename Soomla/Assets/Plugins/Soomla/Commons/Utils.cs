@@ -19,7 +19,7 @@ namespace Soomla {
 	/// <summary>
 	/// This class provides Log functions that output debug and error messages.
 	/// </summary>
-	public static class StoreUtils {
+	public static class Utils {
 
 		/// <summary>
 		/// Creates Log Debug message according to given tag and message.

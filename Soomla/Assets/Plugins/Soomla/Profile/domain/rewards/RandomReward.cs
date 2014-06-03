@@ -32,6 +32,7 @@ namespace Soomla.Profile {
 			: base(rewardId, name)
 		{
 			Rewards = rewards;
+			Repeatable = true;
 		}
 		
 //#if UNITY_ANDROID && !UNITY_EDITOR

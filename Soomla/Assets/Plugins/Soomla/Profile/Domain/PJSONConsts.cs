@@ -38,6 +38,7 @@ namespace Soomla.Profile {
 		public const string BP_REWARD_REWARDID   = "rewardId";
 		public const string BP_REWARD_AMOUNT     = "amount";
 		public const string BP_REWARD_ICONURL    = "iconUrl";
+		public const string BP_REWARD_REPEAT     = "repeatable";
 
 		/** Global **/
 		

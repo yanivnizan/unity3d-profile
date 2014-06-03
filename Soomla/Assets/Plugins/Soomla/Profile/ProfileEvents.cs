@@ -45,7 +45,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Not used here.</param>
 		public void onLoginCancelled(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelledEvent");
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelledEvent");
 
 			ProfileEvents.OnLoginCancelled();
 		}
@@ -54,7 +54,7 @@ namespace Soomla.Profile {
 
 		/// </summary>
 		public void onUserProfileUpdated(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
 
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -65,13 +65,13 @@ namespace Soomla.Profile {
 
 		/// </summary>
 		public void onLoginFailed(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
 
 			ProfileEvents.OnLoginFailed(message);
 		}
 
 		public void onLoginFinished(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
 
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -79,19 +79,19 @@ namespace Soomla.Profile {
 		}
 
 		public void onLoginStarted(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted:" + message);
 
 			ProfileEvents.OnLoginStarted(Provider.fromString(message));
 		}
 
 		public void onLogoutFailed(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
 			
 			ProfileEvents.OnLogoutFailed(message);
 		}
 		
 		public void onLogoutFinished(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
 			
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -99,13 +99,13 @@ namespace Soomla.Profile {
 		}
 		
 		public void onLogoutStarted(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted:" + message);
 
 			ProfileEvents.OnLogoutStarted(Provider.fromString(message));
 		}
 
 		public void onSocialActionFailed(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
 
 			JSONObject jsonObj = new JSONObject(message);
 			string satStr = jsonObj["socialActionType"].str;
@@ -116,14 +116,14 @@ namespace Soomla.Profile {
 		}
 
 		public void onSocialActionFinished(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
 			
 			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
 			ProfileEvents.OnSocialActionFinished(sat);
 		}
 
 		public void onSocialActionStarted(string message) {
-			StoreUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
 			
 			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
 			ProfileEvents.OnSocialActionStarted(sat);

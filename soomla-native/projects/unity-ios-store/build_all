@@ -1,0 +1,5 @@
+rm -rf ../../../Soomla/Assets/Soomla/compilations/ios/debug
+rm -rf ../../../Soomla/Assets/Soomla/compilations/ios/release
+
+xcodebuild -configuration Debug -sdk iphoneos build CREATING_UNIVERSAL_DIR=$PWD/../../../Soomla/Assets/Soomla/compilations/ios/debug
+xcodebuild -configuration Release -sdk iphoneos build CREATING_UNIVERSAL_DIR=$PWD/../../../Soomla/Assets/Soomla/compilations/ios/release

@@ -1,0 +1,325 @@
+TUnityiOSStore
+v6
+r1
+cCheck dependencies
+cProcessPCH++ /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch /Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+cLibtool /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a normal armv7
+cCpHeader SoomlaUnity/UnityCommons.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h
+cCpHeader SoomlaUnity/UnityStoreAssets.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreAssets.h
+cCpHeader SoomlaUnity/UnityStoreEventDispatcher.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreEventDispatcher.h
+
+N/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch
+c0000000052E06674000000000000017B
+t1390438004
+s379
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk
+c0000000053119F860000000000000132
+t1393663878
+s306
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/SDKSettings.plist
+c00000000531EDD11000000000000036B
+t1394531601
+s875
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/CoreServices/SystemVersion.plist
+c00000000531EDD11000000000000019E
+t1394531601
+s414
+
+N/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c00000000531EDD130000000000A90C10
+t1394531603
+s11078672
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h
+t1384883315
+s139
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreAssets.h
+t1384883315
+s235
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreEventDispatcher.h
+t1384883315
+s181
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a
+t2
+s0
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityCommons.h
+c00000000533D21A1000000000000008B
+t1396515233
+s139
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.h
+c000000005274E17500000000000000EB
+t1383391605
+s235
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm
+c000000005274E1B000000000000018EB
+t1383391664
+s6379
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm
+c00000000533D0CFF00000000000009F7
+t1396509951
+s2551
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.h
+c00000000527F7B6A00000000000000B5
+t1384086378
+s181
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm
+c00000000533D20150000000000001703
+t1396514837
+s5891
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm
+c0000000051BD6C1500000000000021C5
+t1371368469
+s8645
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm
+c00000000518108A4000000000000178F
+t1367410852
+s6031
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o
+t1396518426
+s31344
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o
+t1396518426
+s13628
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o
+t1396518426
+s28120
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o
+t1396518426
+s33540
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o
+t1396518426
+s21240
+
+N/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityiOSStore.LinkFileList
+c00000000533D2E19000000000000037E
+t1396518425
+s894
+
+N/var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch
+t1396518426
+s6287592
+
+CCheck dependencies
+r0
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies18"Check dependencies3108a89965edb841^cb14b79965edb841^---0#1#1#--18"Check dependencies36"D5A623D1-B891-4789-BE30-D8F55D45BA3E-
+
+CCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211226.216147
+e418211226.346101
+r1
+xCompileC
+xbuild/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/IStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/data/JSONConsts.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrencyPack.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/PurchasableVirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrency.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/VirtualGood.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualCategory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/NonConsumableItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/SingleUseVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/LifetimeVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/EquippableVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/SingleUsePackVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/UpgradeVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreUtils.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection114"Compile /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm228"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o [1mSoomlaUnity/UnityStoreAssets.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler7880379a65edb841^c79b589a65edb841^---0#0#1#-19%DVTDocumentLocation2@113"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm0000000000000000^5353"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o [1mSoomlaUnity/UnityStoreAssets.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc -include /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch -MMD -MT dependencies -MF /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.d --serialize-diagnostics /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.dia -c /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.mm -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreAssets.o36"64077B13-4743-4E56-9485-F0E68A2BBE25-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211226.216777
+e418211226.328752
+r1
+xCompileC
+xbuild/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/IStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualCategory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrency.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/VirtualGood.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/PurchasableVirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/MarketItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrencyPack.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreController.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/exceptions/VirtualItemNotFoundException.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/exceptions/NotEnoughGoodsException.h
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityCommons.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreConfig.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/NonConsumableItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/data/StoreInfo.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/PurchaseTypes/PurchaseWithMarket.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/PurchaseTypes/PurchaseType.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/data/ObscuredNSUserDefaults.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection118"Compile /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm236"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o [1mSoomlaUnity/UnityStoreController.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compilerc5ac379a65edb841^4a29549a65edb841^---0#0#1#-19%DVTDocumentLocation2@117"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm0000000000000000^5377"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o [1mSoomlaUnity/UnityStoreController.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc -include /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch -MMD -MT dependencies -MF /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.d --serialize-diagnostics /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.dia -c /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreController.mm -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreController.o36"E6AA8F0A-CD38-461C-9E47-C4755475ADC1-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211226.216458
+e418211226.346821
+r1
+xCompileC
+xbuild/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/EventHandling.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/MarketItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/VirtualGood.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/PurchasableVirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrency.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/EquippableVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/LifetimeVG.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/UpgradeVG.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection123"Compile /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm246"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o [1mSoomlaUnity/UnityStoreEventDispatcher.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler9e96379a65edb841^a7c9589a65edb841^---0#0#1#-19%DVTDocumentLocation2@122"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm0000000000000000^5407"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o [1mSoomlaUnity/UnityStoreEventDispatcher.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc -include /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch -MMD -MT dependencies -MF /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.d --serialize-diagnostics /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.dia -c /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreEventDispatcher.mm -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreEventDispatcher.o36"0EFED688-63EF-49E0-86C0-C38D559D6B0A-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211226.217734
+e418211226.356888
+r1
+xCompileC
+xbuild/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/IStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualCategory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrency.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/VirtualGood.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/PurchasableVirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrencyPack.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreInventory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreController.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/exceptions/VirtualItemNotFoundException.h
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityCommons.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/data/StoreInfo.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/NonConsumableItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreUtils.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection112"Compile /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm224"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o [1mSoomlaUnity/UnityStoreInfo.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compilerd8f5379a65edb841^255d5b9a65edb841^---0#0#1#-19%DVTDocumentLocation2@111"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm0000000000000000^5341"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o [1mSoomlaUnity/UnityStoreInfo.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc -include /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch -MMD -MT dependencies -MF /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.d --serialize-diagnostics /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.dia -c /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInfo.mm -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInfo.o36"09E5D0BC-AB8C-477F-9589-9B0AC3784079-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCompileC build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211226.217141
+e418211226.342329
+r1
+xCompileC
+xbuild/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/IStoreAssets.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualCategory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrency.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/VirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualGoods/VirtualGood.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/PurchasableVirtualItem.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies/VirtualCurrencyPack.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreInventory.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/StoreController.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/exceptions/VirtualItemNotFoundException.h
+d/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityCommons.h
+d/Users/refaelos/work/soomla/unity3d-store/submodules/ios-store/SoomlaiOSStore/exceptions/InsufficientFundsException.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection117"Compile /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm234"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o [1mSoomlaUnity/UnityStoreInventory.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compilerc9c6379a65edb841^23a3579a65edb841^---0#0#1#-19%DVTDocumentLocation2@116"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm0000000000000000^5371"[1mCompileC[0m build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o [1mSoomlaUnity/UnityStoreInventory.mm[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc -include /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch -MMD -MT dependencies -MF /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.d --serialize-diagnostics /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.dia -c /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityStoreInventory.mm -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityStoreInventory.o36"6E6AA56D-DBB0-4419-B252-471105F54027-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCpHeader SoomlaUnity/UnityCommons.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h
+s418211226.367439
+e418211226.368420
+r1
+xCpHeader
+xSoomlaUnity/UnityCommons.h
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection114"Copy /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h161"[1mCpHeader[0m SoomlaUnity/UnityCommons.h [1m/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h[0m67285e9a65edb841^3b515e9a65edb841^---0#0#1#-19%DVTDocumentLocation2@116"file:///Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h0000000000000000^1165"[1mCpHeader[0m SoomlaUnity/UnityCommons.h [1m/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityCommons.h[0m    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/SoomlaUnity/UnityCommons.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private36"092E8842-41DE-4A67-A4A7-756AA9ABB6F8-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CCpHeader SoomlaUnity/UnityStoreAssets.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreAssets.h
+r0
+
+CCpHeader SoomlaUnity/UnityStoreEventDispatcher.h /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/headers/private/UnityStoreEventDispatcher.h
+r0
+
+CLibtool /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a normal armv7
+s418211226.357671
+e418211226.367020
+r1
+xLibtool
+x/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a
+xnormal
+xarmv7
+o/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: -dynamic not specified the following flags are invalid: -ObjC 
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection126"[1mLibtool[0m /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a normal armv7126"[1mLibtool[0m /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a normal armv7afb15b9a65edb841^e0f55d9a65edb841^-159"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool: -dynamic not specified the following flags are invalid: -ObjC -0#0#1#--1542"[1mLibtool[0m /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a normal armv7    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export IPHONEOS_DEPLOYMENT_TARGET=6.0    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool -static -arch_only armv7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -L/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -L../../../Soomla/Assets/Plugins/iOS -filelist /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/Objects-normal/armv7/UnityiOSStore.LinkFileList -ObjC -framework Foundation -o /Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/libUnityiOSStore.a36"F6C18D3F-47E1-4C1B-877F-1966F5E77936-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+
+CProcessPCH++ /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch /Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler
+s418211225.718384
+e418211226.215363
+r1
+xProcessPCH++
+x/var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch
+x/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch
+xnormal
+xarmv7
+xobjective-c++
+xcom.apple.compilers.llvm.clang.1_0.compiler
+d/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch
+d/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UnityTrampolineConfigure.h
+d/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_Common.h
+d/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Preprocessor.h
+d/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity/UnityInterface.h
+lSLF06#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection129"Precompile /Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch413"[1mProcessPCH++[0m /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch [1m/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compilerf129b89965edb841^5723379a65edb841^---0#0#1#-19%DVTDocumentLocation2@125"file:///Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch0000000000000000^5410"[1mProcessPCH++[0m /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch [1m/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch[0m normal armv7 objective-c++ com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store    export LANG=en_US.US-ASCII    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@rails328/bin:/Users/refaelos/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/refaelos/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/.rvm/bin:/Users/refaelos/android-sdk-macosx/platform-tools:/Users/refaelos/android-sdk-macosx/tools:/Users/refaelos/android-sdk-macosx/build-tools/18.1.1:/Users/refaelos/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/npm/bin:/opt/X11/bin"    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++-header -arch armv7 -fmessage-length=163 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -fcolor-diagnostics -std=gnu++11 -stdlib=libc++ -fobjc-arc -Wno-trigraphs -fpascal-strings -O0 -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-implicit-atomic-properties -Wno-receiver-is-weak -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wduplicate-method-match -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-shorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -DDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -g -Wno-sign-conversion -miphoneos-version-min=6.0 -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-generated-files.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-own-target-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-all-target-headers.hmap -iquote /Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/UnityiOSStore-project-headers.hmap -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/PluginBase -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/UI -I/Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/Unity -I../../../submodules/ios-store/SoomlaiOSStore -I../../../submodules/ios-store/SoomlaiOSStore/data -I../../../submodules/ios-store/SoomlaiOSStore/domain -I../../../submodules/ios-store/SoomlaiOSStore/exceptions -I../../../submodules/ios-store/SoomlaiOSStore/FBEncryptor -I../../../submodules/ios-store/SoomlaiOSStore/OpenUDID -I../../../submodules/ios-store/SoomlaiOSStore/PurchaseTypes -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualCurrencies -I../../../submodules/ios-store/SoomlaiOSStore/domain/virtualGoods -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources/armv7 -I/Users/refaelos/work/soomla/unity3d-store/soomla-native/projects/ios-store/build/UnityiOSStore.build/Debug-iphoneos/UnityiOSStore.build/DerivedSources -F/Users/refaelos/work/soomla/unity3d-store/soomla-native/compilations/ios/debug -fno-objc-arc --serialize-diagnostics /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.dia -MMD -MT dependencies -MF /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.d -c /Applications/Unity/Unity.app/Contents/PlaybackEngines/iPhonePlayer/iPhone-Trampoline/Classes/iPhone_target_Prefix.pch -o /var/folders/ws/nn5dvvm55m767k4twt2r5yzh0000gn/C/com.apple.DeveloperTools/5.1-5B130a/Xcode/SharedPrecompiledHeaders/iPhone_target_Prefix-frmssuuwpojmtecvyeqrnkiolglt/iPhone_target_Prefix.pch.pch36"8E452487-728E-421E-AB54-D1FD1DF1920C-
+bAFC67C38-D60B-419C-B0F7-CD1340C9B306
+

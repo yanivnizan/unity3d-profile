@@ -2,11 +2,11 @@ package com.soomla.profile.unity;
 
 import android.text.TextUtils;
 
-import com.soomla.blueprint.rewards.BadgeReward;
-import com.soomla.blueprint.rewards.Reward;
 import com.soomla.profile.SoomlaProfile;
 import com.soomla.profile.domain.IProvider;
 import com.soomla.profile.domain.UserProfile;
+import com.soomla.profile.domain.rewards.BadgeReward;
+import com.soomla.profile.domain.rewards.Reward;
 import com.soomla.profile.exceptions.ProviderNotFoundException;
 import com.soomla.profile.exceptions.UserProfileNotFoundException;
 import com.unity3d.player.UnityPlayer;
@@ -22,7 +22,7 @@ public class UnitySoomlaProfile {
             JSONObject rewardObj = new JSONObject(rewardJSON);
             Reward reward = new BadgeReward(rewardObj);
 
-            SoomlaProfile.getInstance().updateStatus(UnityPlayer.currentActivity, provider, status, reward);
+            SoomlaProfile.getInstance().updateStatus(provider, status, reward);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class UnitySoomlaProfile {
 
     public static UserProfile getUserProfileLocally(String providerStr) throws ProviderNotFoundException, UserProfileNotFoundException {
         IProvider.Provider provider = IProvider.Provider.getEnum(providerStr);
-        return SoomlaProfile.getInstance().getUserProfileLocally(provider);
+        return SoomlaProfile.getInstance().getStoredUserProfile(provider);
     }
 
     public static void logout(String providerStr) throws ProviderNotFoundException{

@@ -43,13 +43,22 @@ namespace Soomla.Profile {
 //		{
 //		}
 //#endif
-//		/// <summary>
-//		/// see parent.
-//		/// </summary>
-//		public Reward(JSONObject jsonVg)
-//		{
-//
-//		}
+
+		
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		public Reward(JSONObject jsonReward)
+		{
+			RewardId = jsonReward[PJSONConsts.BP_REWARD_REWARDID].str;
+			Name = jsonReward[PJSONConsts.BP_NAME].str;
+			JSONObject repeatObj = jsonReward[PJSONConsts.BP_REWARD_REPEAT];
+			if (repeatObj) {
+				Repeatable = repeatObj.b;
+			} else {
+				Repeatable = false;
+			}
+		}
 
 		/// <summary>
 		/// see parent.
@@ -61,6 +70,25 @@ namespace Soomla.Profile {
 			obj.AddField(PJSONConsts.BP_REWARD_REPEAT, Repeatable);
 			
 			return obj;
+		}
+
+		public static Reward fromJSONObject(JSONObject rewardObj) {
+			Reward reward = null;
+			if (rewardObj) {
+				string type = rewardObj[PJSONConsts.BP_TYPE].str;
+				if (type == "badge") {
+					reward = new BadgeReward(rewardObj);
+				} else if (type == "item") {
+					reward = new VirtualItemReward(rewardObj);
+				} else if (type == "random") {
+					reward = new RandomReward(rewardObj);
+				} else if (type == "sequence") {
+					reward = new SequenceReward(rewardObj);
+				} else {
+					Utils.LogError("SOOMLA/UNITY Reward", "Unknown reward type: " + type);
+				}
+			}
+			return reward;
 		}
 
 	}

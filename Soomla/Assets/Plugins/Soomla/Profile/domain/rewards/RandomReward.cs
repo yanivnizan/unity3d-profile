@@ -21,19 +21,19 @@ namespace Soomla.Profile {
 
 	/// <summary>
 	/// </summary>
-	public class SequenceReward : Reward {
+	public class RandomReward : Reward {
 		public List<Reward> Rewards;
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 
-		public SequenceReward(string rewardId, string name, List<Reward> rewards)
+		public RandomReward(string rewardId, string name, List<Reward> rewards)
 			: base(rewardId, name)
 		{
 			Rewards = rewards;
-			Repeatable = true;
 		}
+
 		
 //#if UNITY_ANDROID && !UNITY_EDITOR
 //		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
@@ -41,17 +41,24 @@ namespace Soomla.Profile {
 //		{
 //		}
 //#endif
-//		/// <summary>
-//		/// see parent.
-//		/// </summary>
-//		public SingleUseVG(JSONObject jsonVg)
-//			: base(jsonVg)
-//		{
-//		}
-//
+
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		public RandomReward(JSONObject jsonReward)
+			: base(jsonReward)
+		{
+			ArrayList rewardsObj = jsonReward[PJSONConsts.BP_REWARDS].list;
+			Rewards = new List<Reward>();
+			foreach(JSONObject rewardObj in rewardsObj) {
+				Rewards.Add(Reward.fromJSONObject(rewardObj));
+			}
+		}
+
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
-			
+			obj.AddField(PJSONConsts.BP_TYPE, "random");
+
 			JSONObject rewardsObj = new JSONObject(JSONObject.Type.ARRAY);
 			foreach(Reward r in Rewards) {
 				rewardsObj.Add(r.toJSONObject());

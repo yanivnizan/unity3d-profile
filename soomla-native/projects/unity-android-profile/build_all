@@ -1,0 +1,1 @@
+ant -buildfile unity-android-profile.xml -Dsoomla.filename="UnityAndroidProfile" all

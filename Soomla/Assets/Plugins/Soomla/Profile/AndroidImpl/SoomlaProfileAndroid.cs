@@ -41,7 +41,7 @@ namespace Soomla.Profile {
 
 			using(AndroidJavaClass jniSoomlaProfileClass = new AndroidJavaClass("com.soomla.profile.SoomlaProfile")) {
 				AndroidJavaObject jniSoomlaProfile = jniSoomlaProfileClass.CallStatic<AndroidJavaObject>("getInstance");
-				jniSoomlaProfile.Call<bool>("initialize");
+				jniSoomlaProfile.Call("initialize");
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
@@ -52,7 +52,38 @@ namespace Soomla.Profile {
 		protected override void _updateStatus(Provider provider, string status, Reward reward) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
-				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "updateStatus", provider.ToString(), status, reward.toJSONObject().print());
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "updateStatus", provider.ToString(), status, rewardJSON);
+			}
+			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+		}
+
+		protected override void _updateStory(Provider provider, string message, string name, 
+		                                    string caption, string description, string link,
+		                                    string pictureUrl, Reward reward) {
+			AndroidJNI.PushLocalFrame(100);
+			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "updateStory", provider.ToString(), message, name,
+				                                 caption, description, link, pictureUrl, rewardJSON);
+			}
+			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+		}
+
+		protected override void _getContacts(Provider provider, Reward reward) {
+			AndroidJNI.PushLocalFrame(100);
+			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "getContacts", provider.ToString(), rewardJSON);
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
@@ -60,11 +91,11 @@ namespace Soomla.Profile {
 		/// <summary>
 
 		/// </summary>
-		protected override UserProfile _getUserProfileLocally(Provider provider) {
+		protected override UserProfile _getStoredUserProfile(Provider provider) {
 			JSONObject upObj = null;
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
-				string upJSON = ProfileJNIHandler.CallStatic<string>(jniSoomlaProfile, "getUserProfileLocally", provider.ToString());
+				string upJSON = ProfileJNIHandler.CallStatic<string>(jniSoomlaProfile, "getStoredUserProfile", provider.ToString());
 				upObj = new JSONObject(upJSON);
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
@@ -93,7 +124,11 @@ namespace Soomla.Profile {
 		protected override void _login(Provider provider, Reward reward) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
-				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "login", provider.ToString(), reward.toJSONObject().print());
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "login", provider.ToString(), rewardJSON);
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}

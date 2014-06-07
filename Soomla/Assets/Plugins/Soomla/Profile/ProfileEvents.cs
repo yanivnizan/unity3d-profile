@@ -129,6 +129,38 @@ namespace Soomla.Profile {
 			ProfileEvents.OnSocialActionStarted(sat);
 		}
 
+		public void onGetContactsFailedEvent(string message) {
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
+
+			ProfileEvents.OnGetContactsFailedEvent(message);
+		}
+		
+		public void onGetContactsFinishedEvent(string message) {
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
+
+			JSONObject contactsObj = new JSONObject(message);
+			List<UserProfile> contacts = new List<UserProfile>();
+			foreach (JSONObject upObj in contactsObj.list) {
+				contacts.Add(new UserProfile(upObj));
+			}
+			ProfileEvents.OnGetContactsFinishedEvent(contacts);
+		}
+		
+		public void onGetContactsStartedEvent(string message) {
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
+			ProfileEvents.OnGetContactsStartedEvent();
+		}
+
+		public void onRewardGivenEvent(string message) {
+			Utils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
+
+			JSONObject resObj = new JSONObject(message);
+			JSONObject rewardObj = new JSONObject(resObj["reward"]);
+			Reward reward = Reward.fromJSONObject(rewardObj);
+			bool isBadge = resObj["isBadge"].b;
+			ProfileEvents.OnRewardGivenEvent(reward, isBadge);
+		}
+
 
 		public delegate void Action();
 
@@ -154,5 +186,12 @@ namespace Soomla.Profile {
 
 		public static Action<SocialActionType> OnSocialActionStarted = delegate {};
 
+		public static Action<string> OnGetContactsFailedEvent = delegate {};
+		
+		public static Action<List<UserProfile>> OnGetContactsFinishedEvent = delegate {};
+		
+		public static Action OnGetContactsStartedEvent = delegate {};
+
+		public static Action<Reward, bool> OnRewardGivenEvent = delegate {};
 	}
 }

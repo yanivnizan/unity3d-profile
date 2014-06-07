@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_unityandroidprofile" default="compile.module.unityandroidprofile">
+  <dirname property="module.unityandroidprofile.basedir" file="${ant.file.module_unityandroidprofile}"/>
+
+  <property name="module.jdk.home.unityandroidprofile" value="${jdk.home.android}"/>
+  <property name="module.jdk.bin.unityandroidprofile" value="${jdk.bin.android}"/>
+  <property name="module.jdk.classpath.unityandroidprofile" value="jdk.classpath.android"/>
+
+  <property name="compiler.args.unityandroidprofile" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+
+  <property name="unityandroidprofile.output.dir" value="${module.unityandroidprofile.basedir}/out/production/UnityAndroidProfile"/>
+
+  <path id="unityandroidprofile.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+
+  <path id="unityandroidprofile.module.production.classpath">
+    <path refid="${module.jdk.classpath.unityandroidprofile}"/>
+    <pathelement location="${basedir}/libs/unity-classes.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
+  </path>
+
+  <path id="unityandroidprofile.runtime.production.module.classpath">
+    <pathelement location="${unityandroidprofile.output.dir}"/>
+    <pathelement location="${basedir}/libs/unity-classes.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
+  </path>
+
+  <path id="unityandroidprofile.module.classpath">
+    <path refid="${module.jdk.classpath.unityandroidprofile}"/>
+    <pathelement location="${unityandroidprofile.output.dir}"/>
+    <pathelement location="${basedir}/libs/unity-classes.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
+  </path>
+
+  <path id="unityandroidprofile.runtime.module.classpath">
+    <pathelement location="${unityandroidprofile.output.dir}"/>
+    <pathelement location="${basedir}/libs/unity-classes.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
+  </path>
+
+
+  <patternset id="excluded.from.module.unityandroidprofile">
+    <patternset refid="ignored.files"/>
+  </patternset>
+
+  <patternset id="excluded.from.compilation.unityandroidprofile">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.unityandroidprofile"/>
+  </patternset>
+
+  <path id="unityandroidprofile.module.sourcepath">
+    <dirset dir="${module.unityandroidprofile.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+
+
+
+  <target name="compile.module.unityandroidprofile" depends="compile.module.unityandroidprofile.production" description="Compile module UnityAndroidProfile"/>
+
+  <target name="compile.module.unityandroidprofile.production" description="Compile module UnityAndroidProfile; production classes">
+    <mkdir dir="${unityandroidprofile.output.dir}"/>
+    <javac destdir="${unityandroidprofile.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.unityandroidprofile}/javac">
+      <compilerarg line="${compiler.args.unityandroidprofile}"/>
+      <bootclasspath refid="unityandroidprofile.module.bootclasspath"/>
+      <classpath refid="unityandroidprofile.module.production.classpath"/>
+      <src refid="unityandroidprofile.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.unityandroidprofile"/>
+    </javac>
+
+    <copy todir="${unityandroidprofile.output.dir}">
+      <fileset dir="${module.unityandroidprofile.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.unityandroidprofile"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="clean.module.unityandroidprofile" description="cleanup module">
+    <delete dir="${unityandroidprofile.output.dir}"/>
+  </target>
+</project>

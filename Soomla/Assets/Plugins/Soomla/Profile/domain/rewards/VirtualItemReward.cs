@@ -41,18 +41,22 @@ namespace Soomla.Profile {
 //		{
 //		}
 //#endif
-//		/// <summary>
-//		/// see parent.
-//		/// </summary>
-//		public SingleUseVG(JSONObject jsonVg)
-//			: base(jsonVg)
-//		{
-//		}
-//
+
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		public VirtualItemReward(JSONObject jsonReward)
+			: base(jsonReward)
+		{
+			AssociatedItemId = jsonReward[PJSONConsts.BP_ASSOCITEMID].str;
+			Amount = (int)jsonReward[PJSONConsts.BP_REWARD_AMOUNT].n;
+		}
+
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_ASSOCITEMID, AssociatedItemId);
 			obj.AddField(PJSONConsts.BP_REWARD_AMOUNT, Amount);
+			obj.AddField(PJSONConsts.BP_TYPE, "item");
 			
 			return obj;
 		}

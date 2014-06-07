@@ -43,17 +43,22 @@ namespace Soomla.Profile {
 //		{
 //		}
 //#endif
-//		/// <summary>
-//		/// see parent.
-//		/// </summary>
-//		public SingleUseVG(JSONObject jsonVg)
-//			: base(jsonVg)
-//		{
-//		}
-//
+
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		public BadgeReward(JSONObject jsonReward)
+			: base(jsonReward)
+		{
+			IconUrl = jsonReward[PJSONConsts.BP_REWARD_ICONURL].str;
+		}
+
+
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_REWARD_ICONURL, IconUrl);
+			obj.AddField(PJSONConsts.BP_TYPE, "badge");
+
 			
 			return obj;
 		}

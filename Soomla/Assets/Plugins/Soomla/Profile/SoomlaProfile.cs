@@ -39,12 +39,34 @@ namespace Soomla.Profile
 			instance._initialize();
 		}
 
+
+
 		public static void UpdateStatus(Provider provider, string status, Reward reward) {
 			instance._updateStatus(provider, status, reward);
 		}
 
-		public static UserProfile GetUserProfileLocally(Provider provider) {
-			return instance._getUserProfileLocally(provider);
+		public static void UpdateStory(Provider provider, string message, string name, 
+		                               string caption, string description, string link,
+		                               string pictureUrl, Reward reward) {
+			instance._updateStory(provider, message, name, caption, description, link, pictureUrl, reward);
+		}
+
+//		public static void UploadImage(Provider provider, string message, string filename,
+//		                               byte[] imageBytes, int quality, Reward reward) {
+//			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
+//		}
+//
+//		public static void UploadImage(Provider provider, string message, string filePath,
+//		                               Reward reward) {
+//			instance._uploadImage(provider, message, filePath, reward);
+//		}
+
+		public static void GetContacts(Provider provider, Reward reward) {
+			instance._getContacts(provider, reward);
+		}
+
+		public static UserProfile GetStoredUserProfile(Provider provider) {
+			return instance._getStoredUserProfile(provider);
 		}
 
 		public static void Logout(Provider provider) {
@@ -60,7 +82,19 @@ namespace Soomla.Profile
 
 		protected virtual void _updateStatus(Provider provider, string status, Reward reward) { }
 
-		protected virtual UserProfile _getUserProfileLocally(Provider provider) { return null; }
+		protected virtual void _updateStory(Provider provider, string message, string name, 
+		                                    string caption, string description, string link,
+		                                    string pictureUrl, Reward reward) { }
+
+//		protected virtual void _uploadImage(Provider provider, string message, string filename,
+//		                                    byte[] imageBytes, int quality, Reward reward) { }
+//
+//		protected virtual void _uploadImage(Provider provider, string message, string filePath,
+//		                                    Reward reward) { }
+
+		protected virtual void _getContacts(Provider provider, Reward reward) { }
+
+		protected virtual UserProfile _getStoredUserProfile(Provider provider) { return null; }
 
 		protected virtual void _logout(Provider provider) { }
 

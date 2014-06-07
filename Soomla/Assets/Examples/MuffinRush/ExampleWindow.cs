@@ -82,11 +82,6 @@ namespace Soomla.Example {
 		/// Use this for initialization.
 		/// </summary>
 		void Start () {
-			handler = new ExampleEventHandler();
-			
-			StoreController.Initialize(new MuffinRushAssets());
-			SoomlaProfile.Initialize();
-
 			tImgDirect = (Texture2D)Resources.Load("SoomlaStore/images/img_direct");
 			fgoodDog = (Font)Resources.Load("SoomlaStore/GoodDog" + fontSuffix);
 			fgoodDogSmall = (Font)Resources.Load("SoomlaStore/GoodDog_small" + fontSuffix);
@@ -101,6 +96,28 @@ namespace Soomla.Example {
 			tTitle = (Font)Resources.Load("SoomlaStore/Title" + fontSuffix);
 			tFacebook = (Texture2D)Resources.Load("SoomlaStore/images/facebook");
 			tTwitter = (Texture2D)Resources.Load("SoomlaStore/images/twitter");
+
+			handler = new ExampleEventHandler();
+			
+			StoreController.Initialize(new MuffinRushAssets());
+			SoomlaProfile.Initialize();
+
+			ProfileEvents.OnLoginFinished += OnLoginFinished;
+		}
+
+		private VirtualGood vgToGive = null;
+		private void OnLoginFinished(UserProfile userProfile) {
+			if (userProfile.Provider == Provider.FACEBOOK) {
+				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 10, vgToGive.ItemId);
+				reward.Repeatable = true;
+				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
+			} else if (userProfile.Provider == Provider.TWITTER) {
+				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 11, vgToGive.ItemId);
+				reward.Repeatable = true;
+				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
+			} else {
+				Utils.LogError("SOOMLA/UNITY ExampleWindow", "Unknown provider after login finished.");
+			}
 		}
 
 		public static ExampleWindow GetInstance() {
@@ -113,9 +130,9 @@ namespace Soomla.Example {
 			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
 				itemsTextures[vg.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vg.Name);
 			}
-			foreach(VirtualCurrencyPack vcp in ExampleLocalStoreInfo.VirtualCurrencyPacks){
-				itemsTextures[vcp.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vcp.Name);
-			}
+//			foreach(VirtualCurrencyPack vcp in ExampleLocalStoreInfo.VirtualCurrencyPacks){
+//				itemsTextures[vcp.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vcp.Name);
+//			}
 		}
 
 		/// <summary>
@@ -270,15 +287,15 @@ namespace Soomla.Example {
 				GUI.Label(new Rect(productSize + 10f,y+productSize/3f,Screen.width-productSize-15f,productSize/3f),vg.Description);
 
 				GUI.color = Color.white;
-				if(GUI.Button(new Rect(Screen.width/2f,y+productSize*2/3f,30f, 30f), tFacebook, GUIStyle.none)) {
+				if(GUI.Button(new Rect(Screen.width/2f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY facebook clicked");
+					vgToGive = vg;
 					SoomlaProfile.Login(Provider.FACEBOOK, null);
-					SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "Hey there.. i'm here (facebook)", new VirtualItemReward("status_" + vg.ItemId, "", 10, vg.ItemId));
 				}
-				if(GUI.Button(new Rect(40f+Screen.width/2f,y+productSize*2/3f,30f, 30f), tTwitter, GUIStyle.none)) {
+				if(GUI.Button(new Rect(70f+Screen.width/2f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY twitter clicked");
+					vgToGive = vg;
 					SoomlaProfile.Login(Provider.TWITTER, null);
-					SoomlaProfile.UpdateStatus(Provider.TWITTER, "Hey there.. i'm here (twitter)", new VirtualItemReward("status_" + vg.ItemId, "", 11, vg.ItemId));
 				}
 
 				GUI.color = Color.black;

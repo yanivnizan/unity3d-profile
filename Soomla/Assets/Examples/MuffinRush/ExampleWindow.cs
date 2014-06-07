@@ -103,6 +103,15 @@ namespace Soomla.Example {
 			SoomlaProfile.Initialize();
 
 			ProfileEvents.OnLoginFinished += OnLoginFinished;
+			ProfileEvents.OnSocialActionFinished += OnSocialActionFinished;
+			ProfileEvents.OnSocialActionFailed += OnSocialActionFailed;
+			ProfileEvents.OnSocialActionStarted += OnSocialActionStarted;
+
+			#if UNITY_IPHONE
+			Handheld.SetActivityIndicatorStyle(iOSActivityIndicatorStyle.Gray);
+			#elif UNITY_ANDROID
+			Handheld.SetActivityIndicatorStyle(AndroidActivityIndicatorStyle.Small);
+			#endif
 		}
 
 		private VirtualGood vgToGive = null;
@@ -110,14 +119,28 @@ namespace Soomla.Example {
 			if (userProfile.Provider == Provider.FACEBOOK) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 10, vgToGive.ItemId);
 				reward.Repeatable = true;
-				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
+//				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
+				SoomlaProfile.UpdateStory(Provider.FACEBOOK, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 11, vgToGive.ItemId);
 				reward.Repeatable = true;
 				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
+//				SoomlaProfile.UpdateStory(Provider.TWITTER, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else {
 				Utils.LogError("SOOMLA/UNITY ExampleWindow", "Unknown provider after login finished.");
 			}
+		}
+
+		private void OnSocialActionFinished(SocialActionType socialActionType) {
+			Handheld.StopActivityIndicator();
+		}
+
+		private void OnSocialActionFailed(SocialActionType socialActionType, string message) {
+			Handheld.StopActivityIndicator();
+		}
+
+		private void OnSocialActionStarted(SocialActionType socialActionType) {
+			Handheld.StartActivityIndicator();			
 		}
 
 		public static ExampleWindow GetInstance() {
@@ -130,9 +153,6 @@ namespace Soomla.Example {
 			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
 				itemsTextures[vg.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vg.Name);
 			}
-//			foreach(VirtualCurrencyPack vcp in ExampleLocalStoreInfo.VirtualCurrencyPacks){
-//				itemsTextures[vcp.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vcp.Name);
-//			}
 		}
 
 		/// <summary>

@@ -23,6 +23,7 @@ namespace Soomla.Profile {
 	{
 		public const string UP_PROVIDER         = "provider";
 		public const string UP_PROFILEID        = "profileId";
+		public const string UP_USERNAME         = "username";
 		public const string UP_EMAIL            = "email";
 		public const string UP_FIRSTNAME        = "firstName";
 		public const string UP_LASTNAME         = "lastName";
@@ -31,6 +32,7 @@ namespace Soomla.Profile {
 		public const string UP_GENDER           = "gender";
 		public const string UP_LANGUAGE         = "language";
 		public const string UP_BIRTHDAY         = "birthday";
+
 
 		/** Reward **/
 		

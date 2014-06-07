@@ -12,10 +12,11 @@ namespace Soomla.Profile
 {
 		public enum SocialActionType
 		{
-			UPDATE_STATUS,
-			PUBLISH_FEED,
-			UPLOAD_IMAGE,
-			UPLOAD_VIDEO
+			UPDATE_STATUS
+			, UPDATE_STORY
+			, UPLOAD_IMAGE
+			, GET_CONTACTS
+			, GET_FEEDS
 		}
 }
 

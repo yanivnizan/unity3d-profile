@@ -34,6 +34,7 @@ namespace Soomla.Profile {
 
 		public string ProfileId;
 		public string Email;
+		public string Username;
 		public string FirstName;
 		public string LastName;
 		public string AvatarLink;
@@ -45,13 +46,11 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-		protected UserProfile(Provider provider, string profileId, string firstName, string lastName, string email)
+		protected UserProfile(Provider provider, string profileId, string username)
 		{
 			this.Provider = provider;
 			this.ProfileId = profileId;
-			this.FirstName = firstName;
-			this.LastName = lastName;
-			this.Email = email;
+			this.Username = username;
 		}
 		
 //#if UNITY_ANDROID && !UNITY_EDITOR
@@ -69,11 +68,24 @@ namespace Soomla.Profile {
 		/// <param name="jsonUP">A JSONObject representation of the wanted <c>UserProfile</c>.</param>
 		public UserProfile(JSONObject jsonUP) {
 			this.Provider = Provider.fromString(jsonUP[PJSONConsts.UP_PROVIDER].str);
+			this.Username = jsonUP[PJSONConsts.UP_USERNAME].str;
 			this.ProfileId = jsonUP[PJSONConsts.UP_PROFILEID].str;
-			this.FirstName = jsonUP[PJSONConsts.UP_FIRSTNAME].str;
-			this.LastName = jsonUP[PJSONConsts.UP_LASTNAME].str;
-			this.Email = jsonUP[PJSONConsts.UP_EMAIL].str;
 
+			if (jsonUP[PJSONConsts.UP_FIRSTNAME]) {
+				this.FirstName = jsonUP[PJSONConsts.UP_FIRSTNAME].str;
+			} else {
+				this.FirstName = "";
+			}
+			if (jsonUP[PJSONConsts.UP_LASTNAME]) {
+				this.LastName = jsonUP[PJSONConsts.UP_LASTNAME].str;
+			} else {
+				this.LastName = "";
+			}
+			if (jsonUP[PJSONConsts.UP_EMAIL]) {
+				this.Email = jsonUP[PJSONConsts.UP_EMAIL].str;
+			} else {
+				this.Email = "";
+			}
 			if (jsonUP[PJSONConsts.UP_AVATAR]) {
 				this.AvatarLink = jsonUP[PJSONConsts.UP_AVATAR].str;
 			} else {

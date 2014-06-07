@@ -155,7 +155,7 @@ namespace Soomla.Profile {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
 
 			JSONObject resObj = new JSONObject(message);
-			JSONObject rewardObj = new JSONObject(resObj["reward"]);
+			JSONObject rewardObj = resObj["reward"];
 			Reward reward = Reward.fromJSONObject(rewardObj);
 			bool isBadge = resObj["isBadge"].b;
 			ProfileEvents.OnRewardGivenEvent(reward, isBadge);

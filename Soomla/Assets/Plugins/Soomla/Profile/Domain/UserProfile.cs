@@ -19,14 +19,9 @@ using System;
 namespace Soomla.Profile {
 
 	/// <summary>
-
+	/// This class holds information about the user for a specific <c>Provider</c>.
 	/// </summary>
 	public class UserProfile {
-
-//#if UNITY_IOS && !UNITY_EDITOR
-//		[DllImport ("__Internal")]
-//		private static extern int storeAssets_Save(string type, string viJSON);
-//#endif
 
 		private const string TAG = "SOOMLA UserProfile";
 
@@ -46,20 +41,15 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
+		/// <param name="provider">The provider this <c>UserProfile</c> belongs to.</param>
+		/// <param name="profileId">A unique id that identifies the current user with the provider.</param>
+		/// <param name="username">The username of the current user in the provider.</param>
 		protected UserProfile(Provider provider, string profileId, string username)
 		{
 			this.Provider = provider;
 			this.ProfileId = profileId;
 			this.Username = username;
 		}
-		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		protected VirtualItem(AndroidJavaObject jniVirtualItem) {
-//			this.Name = jniVirtualItem.Call<string>("getName");
-//			this.Description = jniVirtualItem.Call<string>("getDescription");
-//			this.ItemId = jniVirtualItem.Call<string>("getItemId");
-//		}
-//#endif
 
 		/// <summary>
 		/// Constructor.
@@ -112,74 +102,28 @@ namespace Soomla.Profile {
 				this.Birthday = "";
 			}
 		}
-//		
-//		/// <summary>
-//		/// Converts the current <c>VirtualItem</c> to a JSONObject.
-//		/// </summary>
-//		/// <returns>A <c>JSONObject</c> representation of the current <c>VirtualItem</c>.</returns>
-//		public virtual JSONObject toJSONObject() {
-//			JSONObject obj = new JSONObject(JSONObject.Type.OBJECT);
-//			obj.AddField(JSONConsts.ITEM_NAME, this.Name);
-//			obj.AddField(JSONConsts.ITEM_DESCRIPTION, this.Description);
-//			obj.AddField(JSONConsts.ITEM_ITEMID, this.ItemId);
-//			
-//			return obj;
-//		}
-
-
 		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		private static bool isInstanceOf(AndroidJavaObject jniItem, string classJniStr) {
-//			System.IntPtr cls = AndroidJNI.FindClass(classJniStr);
-//			return AndroidJNI.IsInstanceOf(jniItem.GetRawObject(), cls);
-//		}
-//		
-//		public static VirtualItem factoryItemFromJNI(AndroidJavaObject jniItem) {
-//			StoreUtils.LogDebug(TAG, "Trying to create VirtualItem with itemId: " + jniItem.Call<string>("getItemId"));
-//			
-//			if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualGoods/SingleUseVG")) {
-//				return new SingleUseVG(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualGoods/EquippableVG")) {
-//				return new EquippableVG(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualGoods/UpgradeVG")) {
-//				return new UpgradeVG(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualGoods/LifetimeVG")) {
-//				return new LifetimeVG(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualGoods/SingleUsePackVG")) {
-//				return new SingleUsePackVG(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualCurrencies/VirtualCurrency")) {
-//				return new VirtualCurrency(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/virtualCurrencies/VirtualCurrencyPack")) {
-//				return new VirtualCurrencyPack(jniItem);
-//			} else if (isInstanceOf(jniItem, "com/soomla/store/domain/NonConsumableItem")) {
-//				return new NonConsumableItem(jniItem);
-//			} else {
-//				StoreUtils.LogError(TAG, "Couldn't determine what type of class is the given jniItem.");
-//			}
-//			
-//			return null;
-//		}
-//#endif
+		/// <summary>
+		/// Converts the current <c>UserProfile</c> to a JSONObject.
+		/// </summary>
+		/// <returns>A <c>JSONObject</c> representation of the current <c>UserProfile</c>.</returns>
+		public virtual JSONObject toJSONObject() {
+			JSONObject obj = new JSONObject(JSONObject.Type.OBJECT);
+			obj.AddField(PJSONConsts.UP_PROVIDER, this.Provider.ToString());
+			obj.AddField(PJSONConsts.UP_USERNAME, this.Username);
+			obj.AddField(PJSONConsts.UP_PROFILEID, this.ProfileId);
+			obj.AddField(PJSONConsts.UP_FIRSTNAME, this.FirstName);
+			obj.AddField(PJSONConsts.UP_LASTNAME, this.LastName);
+			obj.AddField(PJSONConsts.UP_EMAIL, this.Email);
+			obj.AddField(PJSONConsts.UP_AVATAR, this.AvatarLink);
+			obj.AddField(PJSONConsts.UP_LOCATION, this.Location);
+			obj.AddField(PJSONConsts.UP_GENDER, this.Gender);
+			obj.AddField(PJSONConsts.UP_LANGUAGE, this.Language);
+			obj.AddField(PJSONConsts.UP_BIRTHDAY, this.Birthday);
+			
+			return obj;
+		}
 
-//		/// <summary>
-//		/// Saves this instance according to type.
-//		/// </summary>
-//		/// <param name="type">type</param>
-//		protected void save(string type) 
-//		{
-//#if !UNITY_EDITOR
-//			string viJSON = this.toJSONObject().print();
-//#if UNITY_IOS
-//			storeAssets_Save(type, viJSON);
-//#elif UNITY_ANDROID
-//			AndroidJNI.PushLocalFrame(100);
-//			using(AndroidJavaClass jniStoreAssets = new AndroidJavaClass("com.soomla.unity.StoreAssets")) {
-//				jniStoreAssets.CallStatic("save", type, viJSON);
-//			}
-//			AndroidJNI.PopLocalFrame(IntPtr.Zero);
-//#endif
-//#endif
-//		}
 	}
 }
 

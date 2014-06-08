@@ -21,6 +21,9 @@ namespace Soomla.Profile {
 	/// </summary>
 	public static class PJSONConsts
 	{
+
+		/** UserProfile **/
+
 		public const string UP_PROVIDER         = "provider";
 		public const string UP_PROFILEID        = "profileId";
 		public const string UP_USERNAME         = "username";

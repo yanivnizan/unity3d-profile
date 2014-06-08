@@ -41,7 +41,7 @@ namespace Soomla.Profile {
 		}
 
 		/// <summary>
-
+		/// Will be called when login is cancelled.
 		/// </summary>
 		/// <param name="message">Not used here.</param>
 		public void onLoginCancelled(string message) {
@@ -51,8 +51,9 @@ namespace Soomla.Profile {
 		}
 
 		/// <summary>
-
+		/// Will be called when a user profile is updated.
 		/// </summary>
+		/// <param name="message">will contain a JSON representation of the UserProfile.</param>
 		public void onUserProfileUpdated(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
 
@@ -62,14 +63,19 @@ namespace Soomla.Profile {
 		}
 
 		/// <summary>
-
+		/// Will be called when login fails.
 		/// </summary>
+		/// <param name="message">Will contain the failure message.</param>
 		public void onLoginFailed(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
 
 			ProfileEvents.OnLoginFailed(message);
 		}
 
+		/// <summary>
+		/// Will be called when login finished.
+		/// </summary>
+		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
 		public void onLoginFinished(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
 
@@ -78,18 +84,30 @@ namespace Soomla.Profile {
 			ProfileEvents.OnLoginFinished(up);
 		}
 
+		/// <summary>
+		/// Will be called when login started.
+		/// </summary>
+		/// <param name="message">Will contain the provider as string.</param>
 		public void onLoginStarted(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted:" + message);
 
 			ProfileEvents.OnLoginStarted(Provider.fromString(message));
 		}
 
+		/// <summary>
+		/// Will be called when logout fails.
+		/// </summary>
+		/// <param name="message">Will contain the failure message.</param>
 		public void onLogoutFailed(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
 			
 			ProfileEvents.OnLogoutFailed(message);
 		}
-		
+
+		/// <summary>
+		/// Will be called when logout finished.
+		/// </summary>
+		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
 		public void onLogoutFinished(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
 			
@@ -97,13 +115,21 @@ namespace Soomla.Profile {
 			UserProfile up = new UserProfile(upJSON);
 			ProfileEvents.OnLogoutFinished(up);
 		}
-		
+
+		/// <summary>
+		/// Will be called when logout started.
+		/// </summary>
+		/// <param name="message">Will contain the provider as string.</param>
 		public void onLogoutStarted(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted:" + message);
 
 			ProfileEvents.OnLogoutStarted(Provider.fromString(message));
 		}
 
+		/// <summary>
+		/// Will be called when a social action fails.
+		/// </summary>
+		/// <param name="message">Will contain the social action type as string and the error message.</param>
 		public void onSocialActionFailed(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
 
@@ -115,6 +141,10 @@ namespace Soomla.Profile {
 			ProfileEvents.OnSocialActionFailed(sat, errMsg);
 		}
 
+		/// <summary>
+		/// Will be called when a social action finishes.
+		/// </summary>
+		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionFinished(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
 			
@@ -122,6 +152,10 @@ namespace Soomla.Profile {
 			ProfileEvents.OnSocialActionFinished(sat);
 		}
 
+		/// <summary>
+		/// Will be called when a social action started.
+		/// </summary>
+		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionStarted(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
 			
@@ -129,12 +163,20 @@ namespace Soomla.Profile {
 			ProfileEvents.OnSocialActionStarted(sat);
 		}
 
+		/// <summary>
+		/// Will be called when contacts were failed to be fetched.
+		/// </summary>
+		/// <param name="message">Will contain the failure message.</param>
 		public void onGetContactsFailedEvent(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
 
 			ProfileEvents.OnGetContactsFailedEvent(message);
 		}
-		
+
+		/// <summary>
+		/// Will be called when contacts were fetched from the social provider.
+		/// </summary>
+		/// <param name="message">Will contain an array of UserProfiles as JSON.</param>
 		public void onGetContactsFinishedEvent(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
 
@@ -145,12 +187,20 @@ namespace Soomla.Profile {
 			}
 			ProfileEvents.OnGetContactsFinishedEvent(contacts);
 		}
-		
+
+		/// <summary>
+		/// Will be called when contacts fetching process has started.
+		/// </summary>
+		/// <param name="message">Not used here.</param>
 		public void onGetContactsStartedEvent(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
 			ProfileEvents.OnGetContactsStartedEvent();
 		}
 
+		/// <summary>
+		/// Will be called when a reward was given to the user.
+		/// </summary>
+		/// <param name="message">Will contain a JSON representation of a <c>Reward</c> and a flag saying if it's a Badge or not.</param>
 		public void onRewardGivenEvent(string message) {
 			Utils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
 

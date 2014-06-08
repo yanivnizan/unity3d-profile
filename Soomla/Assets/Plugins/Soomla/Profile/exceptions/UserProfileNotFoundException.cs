@@ -17,7 +17,7 @@ using System;
 namespace Soomla.Profile {
 
 	/// <summary>
-
+	/// An exception that's thrown when the user profile is not found.
 	/// </summary>
 	public class UserProfileNotFoundException : Exception {
 

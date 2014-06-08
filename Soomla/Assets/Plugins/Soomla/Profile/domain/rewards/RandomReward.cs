@@ -20,6 +20,11 @@ using System.Collections.Generic;
 namespace Soomla.Profile {	
 
 	/// <summary>
+	/// A specific type of <code>Reward</code> that holds of list of other
+	/// rewards. When this reward is given, it randomly chooses a reward from
+	///	the list of rewards it internally holds.  For example: a user can earn a mystery box
+	///	reward (<code>RandomReward</code>, which in fact grants the user a random reward between a
+	/// "Mayor" badge (<code>BadgeReward</code>) and a speed boost (<code>VirtualItemReward</code>)
 	/// </summary>
 	public class RandomReward : Reward {
 		public List<Reward> Rewards;
@@ -27,24 +32,19 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-
+		/// <param name="rewardId">see parent.</param>
+		/// <param name="name">see parent.</param>
+		/// <param name="rewards">A list of rewards from which to choose the reward randomly.</param>
 		public RandomReward(string rewardId, string name, List<Reward> rewards)
 			: base(rewardId, name)
 		{
 			Rewards = rewards;
 		}
 
-		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
-//			: base(jniSingleUseVG)
-//		{
-//		}
-//#endif
-
 		/// <summary>
-		/// see parent.
+		/// Constructor.
 		/// </summary>
+		/// <param name="jsonReward">see parent.</param>
 		public RandomReward(JSONObject jsonReward)
 			: base(jsonReward)
 		{
@@ -55,6 +55,10 @@ namespace Soomla.Profile {
 			}
 		}
 
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		/// <returns>see parent.</returns>
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_TYPE, "random");
@@ -67,13 +71,6 @@ namespace Soomla.Profile {
 			
 			return obj;
 		}
-//
-//		/// <summary>
-//		/// Saves this instance.
-//		/// </summary>
-//		public void save() 
-//		{
-//			save("SingleUseVG");
-//		}
+
 	}
 }

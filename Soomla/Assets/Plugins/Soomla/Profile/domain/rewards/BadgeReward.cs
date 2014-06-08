@@ -19,6 +19,9 @@ using System.Collections;
 namespace Soomla.Profile {	
 
 	/// <summary>
+	/// A specific type of <code>Reward</code> that represents a badge
+	/// with an icon. For example: when the user achieves a top score,
+	/// the user can earn a "Highest Score" badge reward.
 	/// </summary>
 	public class BadgeReward : Reward {
 		public string IconUrl;
@@ -26,23 +29,24 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
+		/// <param name="rewardId">see parent</param>
+		/// <param name="name">see parent</param>
 		public BadgeReward(string rewardId, string name)
 			: base(rewardId, name)
 		{
 		}
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="rewardId">see parent</param>
+		/// <param name="name">see parent</param>
+		/// <param name="iconUrl">A url to the icon of this Badge on the device.</param>
 		public BadgeReward(string rewardId, string name, string iconUrl)
 			: base(rewardId, name)
 		{
 			IconUrl = iconUrl;
 		}
-		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
-//			: base(jniSingleUseVG)
-//		{
-//		}
-//#endif
 
 		/// <summary>
 		/// see parent.
@@ -53,7 +57,10 @@ namespace Soomla.Profile {
 			IconUrl = jsonReward[PJSONConsts.BP_REWARD_ICONURL].str;
 		}
 
-
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <returns>see parent</returns>
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_REWARD_ICONURL, IconUrl);

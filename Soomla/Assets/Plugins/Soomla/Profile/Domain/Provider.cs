@@ -15,6 +15,9 @@
 using System;
 namespace Soomla.Profile
 {
+	/// <summary>
+	/// A string enumeration of social providers.
+	/// </summary>
 	public sealed class Provider
 	{
 		private readonly string name;

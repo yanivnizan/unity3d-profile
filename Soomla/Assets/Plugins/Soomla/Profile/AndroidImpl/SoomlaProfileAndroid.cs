@@ -21,16 +21,14 @@ namespace Soomla.Profile {
 	/// <summary>
 	/// <c>SoomlaProfile</c> for Android. 
 	/// This class holds the basic assets needed to operate the Profile module.
-	/// This is the only class you need to initialize in order to use the SOOMLA Profile SDK.
+	/// 
+	/// 
+	/// See comments for functions in parent.
 	/// </summary>
 	public class SoomlaProfileAndroid : SoomlaProfile {
 
 #if UNITY_ANDROID
 
-		/// <summary>
-		/// Initializes the SOOMLA Profile SDK.
-		/// </summary>
-		/// </exception>
 		protected override void _initialize() {
 
 			AndroidJNI.PushLocalFrame(100);
@@ -46,9 +44,6 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
-		/// <summary>
-
-		/// </summary>
 		protected override void _updateStatus(Provider provider, string status, Reward reward) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
@@ -88,9 +83,6 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
-		/// <summary>
-
-		/// </summary>
 		protected override UserProfile _getStoredUserProfile(Provider provider) {
 			JSONObject upObj = null;
 			AndroidJNI.PushLocalFrame(100);
@@ -107,9 +99,6 @@ namespace Soomla.Profile {
 			}
 		}
 
-		/// <summary>/
-
-		/// </summary>
 		protected override void _logout(Provider provider) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
@@ -118,9 +107,6 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
-		/// <summary>
-
-		/// </summary>
 		protected override void _login(Provider provider, Reward reward) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {

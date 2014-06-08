@@ -17,7 +17,7 @@ using System;
 namespace Soomla.Profile {
 
 	/// <summary>
-
+	/// Exception that's thrown when a wrong provider was provided to functions.
 	/// </summary>
 	public class ProviderNotFoundException : Exception {
 

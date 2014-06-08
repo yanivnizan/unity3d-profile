@@ -4,12 +4,12 @@ unity3_preps.py
 prepare_platforms
 for_deploy_pack
 
-soomla-native/projects/unity-android-store/.idea/artifacts
-soomla-native/projects/unity-android-store/.idea/workspace.xml
-soomla-native/projects/unity-android-store/local.properties
-soomla-native/projects/unity-android-store/out
+soomla-native/projects/unity-android-profile/.idea/artifacts
+soomla-native/projects/unity-android-profile/.idea/workspace.xml
+soomla-native/projects/unity-android-profile/local.properties
+soomla-native/projects/unity-android-profile/out
 
-soomla-native/projects/unity-ios-store/build
+soomla-native/projects/unity-ios-profile/build
 
 create_deploys
 create_unity.log

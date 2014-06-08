@@ -18,14 +18,14 @@ using System;
 namespace Soomla.Profile {
 
 	/// <summary>
-	/// This class uses JNI and provides functions that call SOOMLA's android-store.
+	/// This class uses JNI and provides functions that call SOOMLA's android-profile.
 	/// </summary>
 	public static class ProfileJNIHandler {
 
 #if UNITY_ANDROID
 
 		/// <summary>
-		/// Calls android-store static function that returns void and receives a params arguments. 
+		/// Calls android-profile static function that returns void and receives a params arguments. 
 		/// </summary>
 		public static void CallStaticVoid(AndroidJavaClass jniObject, string method, params object[] args) {
 			if(!Application.isEditor){
@@ -36,11 +36,11 @@ namespace Soomla.Profile {
 		}
 
 		/// <summary>
-		/// Calls android-store static function that has a return value and receives a string argument. 
+		/// Calls android-profile static function that has a return value and receives a string argument. 
 		/// </summary>
 		/// <param name="jniObject">A type-less instance of any Java class.</param>
-		/// <param name="method">The method to call in android-store.</param>
-		/// <param name="arg0">The method's string argument.</param>
+		/// <param name="method">The method to call in android-profile.</param>
+		/// <param name="args">The method's arguments.</param>
 		/// <returns>Return value of the function called.</returns>
 		public static T CallStatic<T>(AndroidJavaClass jniObject, string method, params object[] args) {
 			if (!Application.isEditor) {
@@ -55,8 +55,7 @@ namespace Soomla.Profile {
 		}
 
 		/// <summary>
-		/// Throws one of the exceptions (<c>InsufficientFundsException</c>, <c>VirtualItemNotFoundException</c>, or 
-		/// <c>NotEnoughGoodsException</c>) if needed. 
+		/// Throws one of the exceptions (<c>UserProfileNotFoundException</c> or <c>ProviderNotFoundException</c> if needed. 
 		/// </summary>
 		public static void checkExceptions ()
 		{

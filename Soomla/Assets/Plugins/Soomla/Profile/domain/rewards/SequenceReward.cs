@@ -20,6 +20,10 @@ using System.Collections.Generic;
 namespace Soomla.Profile {	
 
 	/// <summary>
+	/// A specific type of <code>Reward</code> that holds of list of other rewards
+	/// in a certain sequence.  The rewards are given in ascending order.  For example,
+	/// in a Karate game the user can progress between belts and can be rewarded a
+	///	sequence of: blue belt, yellow belt, green belt, brown belt, black belt
 	/// </summary>
 	public class SequenceReward : Reward {
 		public List<Reward> Rewards;
@@ -27,24 +31,20 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-
+		/// <param name="rewardId">see parent.</param>
+		/// <param name="name">see parent.</param>
+		/// <param name="rewards">The list of rewards in the sequence.</param>
 		public SequenceReward(string rewardId, string name, List<Reward> rewards)
 			: base(rewardId, name)
 		{
 			Rewards = rewards;
 			Repeatable = true;
 		}
-		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
-//			: base(jniSingleUseVG)
-//		{
-//		}
-//#endif
 
 		/// <summary>
-		/// see parent.
+		/// Constructor.
 		/// </summary>
+		/// <param name="jsonReward">see parent.</param>
 		public SequenceReward(JSONObject jsonReward)
 			: base(jsonReward)
 		{
@@ -56,6 +56,10 @@ namespace Soomla.Profile {
 			Repeatable = true;
 		}
 
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		/// <returns>see parent.</returns>
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_TYPE, "sequence");
@@ -68,13 +72,6 @@ namespace Soomla.Profile {
 			
 			return obj;
 		}
-//
-//		/// <summary>
-//		/// Saves this instance.
-//		/// </summary>
-//		public void save() 
-//		{
-//			save("SingleUseVG");
-//		}
+
 	}
 }

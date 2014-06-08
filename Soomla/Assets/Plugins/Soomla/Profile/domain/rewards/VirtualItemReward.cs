@@ -18,7 +18,12 @@ using System.Collections;
 
 namespace Soomla.Profile {	
 
+
 	/// <summary>
+	/// A specific type of <code>Reward</code> that has an associated
+	/// virtual item.  The user is given this virtual item when the reward
+	///	is granted.  For example: a user can earn a life reward (<code>VirtualItemReward</code>)
+	/// which rewards the user with one life (<code>SingleUseVG</code>).
 	/// </summary>
 	public class VirtualItemReward : Reward {
 		public int Amount;
@@ -27,24 +32,21 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Constructor.
 		/// </summary>
-
+		/// <param name="rewardId">see parent.</param>
+		/// <param name="name">see parent.</param>
+		/// <param name="amount">The amount to give of the associated item when the reward is given.</param>
+		/// <param name="associatedItemId">The ID of the virtual item associated with this reward.</param>
 		public VirtualItemReward(string rewardId, string name, int amount, string associatedItemId)
 			: base(rewardId, name)
 		{
 			AssociatedItemId = associatedItemId;
 			Amount = amount;
 		}
-		
-//#if UNITY_ANDROID && !UNITY_EDITOR
-//		public SingleUseVG(AndroidJavaObject jniSingleUseVG) 
-//			: base(jniSingleUseVG)
-//		{
-//		}
-//#endif
 
 		/// <summary>
-		/// see parent.
+		/// Constructor.
 		/// </summary>
+		/// <param name="jsonReward">see parent.</param>
 		public VirtualItemReward(JSONObject jsonReward)
 			: base(jsonReward)
 		{
@@ -52,6 +54,10 @@ namespace Soomla.Profile {
 			Amount = (int)jsonReward[PJSONConsts.BP_REWARD_AMOUNT].n;
 		}
 
+		/// <summary>
+		/// see parent.
+		/// </summary>
+		/// <returns>see parent.</returns>
 		public override JSONObject toJSONObject() {
 			JSONObject obj = base.toJSONObject();
 			obj.AddField(PJSONConsts.BP_ASSOCITEMID, AssociatedItemId);
@@ -60,13 +66,6 @@ namespace Soomla.Profile {
 			
 			return obj;
 		}
-//
-//		/// <summary>
-//		/// Saves this instance.
-//		/// </summary>
-//		public void save() 
-//		{
-//			save("SingleUseVG");
-//		}
+
 	}
 }

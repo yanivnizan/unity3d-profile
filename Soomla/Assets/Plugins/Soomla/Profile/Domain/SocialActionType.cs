@@ -10,13 +10,16 @@
 using System;
 namespace Soomla.Profile
 {
-		public enum SocialActionType
-		{
-			UPDATE_STATUS
-			, UPDATE_STORY
-			, UPLOAD_IMAGE
-			, GET_CONTACTS
-			, GET_FEEDS
-		}
+	/// <summary>
+	/// This enum is used to distinguish between social actions in social events.
+	/// </summary>
+	public enum SocialActionType
+	{
+		UPDATE_STATUS
+		, UPDATE_STORY
+		, UPLOAD_IMAGE
+		, GET_CONTACTS
+		, GET_FEEDS
+	}
 }
 

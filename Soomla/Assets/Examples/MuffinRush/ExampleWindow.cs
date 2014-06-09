@@ -31,7 +31,6 @@ namespace Soomla.Example {
 		private Vector2 goodsScrollPosition = Vector2.zero;
 		private bool isDragging = false;
 		private Vector2 startTouch = Vector2.zero;
-		private static ExampleEventHandler handler;
 		
 		public string fontSuffix = "";
 	
@@ -64,16 +63,14 @@ namespace Soomla.Example {
 		private Texture2D tLogoNew;
 		private Font fgoodDog;
 		private Font fgoodDogSmall;
-		private Font fTitle;
 		private Texture2D tWhitePixel;
 		private Texture2D tMuffins;
 		private Font fName;
 		private Font fDesc;
-		private Font fBuy;
+		private Font fTitle;
 		private Texture2D tBack;
 		private Texture2D tFacebook;
 		private Texture2D tTwitter;
-		private Font tTitle;
 		private Dictionary<string, Texture2D> itemsTextures;
 
 
@@ -91,21 +88,17 @@ namespace Soomla.Example {
 			tMuffins = (Texture2D)Resources.Load("SoomlaStore/images/Muffins");
 			fName = (Font)Resources.Load("SoomlaStore/Name" + fontSuffix);
 			fDesc = (Font)Resources.Load("SoomlaStore/Description" + fontSuffix);
-			fBuy = (Font)Resources.Load("SoomlaStore/Buy" + fontSuffix);
 			tBack = (Texture2D)Resources.Load("SoomlaStore/images/back");
-			tTitle = (Font)Resources.Load("SoomlaStore/Title" + fontSuffix);
 			tFacebook = (Texture2D)Resources.Load("SoomlaStore/images/facebook");
 			tTwitter = (Texture2D)Resources.Load("SoomlaStore/images/twitter");
-
-			handler = new ExampleEventHandler();
-			
-			StoreController.Initialize(new MuffinRushAssets());
-			SoomlaProfile.Initialize();
 
 			ProfileEvents.OnLoginFinished += OnLoginFinished;
 			ProfileEvents.OnSocialActionFinished += OnSocialActionFinished;
 			ProfileEvents.OnSocialActionFailed += OnSocialActionFailed;
-			ProfileEvents.OnSocialActionStarted += OnSocialActionStarted;
+			StoreEvents.OnStoreControllerInitialized += onStoreControllerInitialized;
+
+			StoreController.Initialize(new MuffinRushAssets());
+			SoomlaProfile.Initialize();
 
 			#if UNITY_IPHONE
 			Handheld.SetActivityIndicatorStyle(iOSActivityIndicatorStyle.Gray);
@@ -139,18 +132,25 @@ namespace Soomla.Example {
 			Handheld.StopActivityIndicator();
 		}
 
-		private void OnSocialActionStarted(SocialActionType socialActionType) {
-			Handheld.StartActivityIndicator();			
-		}
-
-		public static ExampleWindow GetInstance() {
-			return instance;
-		}
-
-		public void setupItemsTextures() {
+		/// <summary>
+		/// Handles a store controller initialized event.
+		/// </summary>
+		public void onStoreControllerInitialized() {
+			
+			// some usage examples for add/remove currency
+			// some examples
+			if (StoreInfo.GetVirtualCurrencies().Count>0) {
+				try {
+					StoreInventory.GiveItem(StoreInfo.GetVirtualCurrencies()[0].ItemId,4000);
+					Utils.LogDebug("SOOMLA ExampleEventHandler", "Currency balance:" + StoreInventory.GetItemBalance(StoreInfo.GetVirtualCurrencies()[0].ItemId));
+				} catch (VirtualItemNotFoundException ex){
+					Utils.LogError("SOOMLA ExampleEventHandler", ex.Message);
+				}
+			}
+			
 			itemsTextures = new Dictionary<string, Texture2D>();
-
-			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
+			
+			foreach(VirtualGood vg in StoreInfo.GetVirtualGoods()){
 				itemsTextures[vg.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vg.Name);
 			}
 		}
@@ -266,7 +266,8 @@ namespace Soomla.Example {
 			GUI.Label(new Rect(10,10,Screen.width-10,Screen.height-10),"SOOMLA Example Store");
 			GUI.color = Color.black;
 			GUI.skin.label.alignment = TextAnchor.UpperRight;
-			GUI.Label(new Rect(10,10,Screen.width-40,Screen.height),""+ ExampleLocalStoreInfo.CurrencyBalance);
+			string itemId = StoreInfo.GetVirtualCurrencies()[0].ItemId;
+			GUI.Label(new Rect(10,10,Screen.width-40,Screen.height),""+ StoreInventory.GetItemBalance(itemId));
 			GUI.skin.label.alignment = TextAnchor.MiddleCenter;
 			GUI.skin.label.font = fTitle;
 			GUI.Label(new Rect(0,Screen.height/8f,Screen.width,Screen.height/8f),"Virtual Goods");
@@ -275,14 +276,14 @@ namespace Soomla.Example {
 			GUI.color = backupColor;
 			GUI.DrawTexture(new Rect(Screen.width-30,10,30,30), tMuffins);
 			float productSize = Screen.width*0.30f;
-			List<VirtualGood> goods = ExampleLocalStoreInfo.VirtualGoods;
+			List<VirtualGood> goods = StoreInfo.GetVirtualGoods();
 			float totalHeight = goods.Count*productSize;
 			//Here we start a scrollView, the first rectangle is the position of the scrollView on the screen,
 			//the second rectangle is the size of the panel inside the scrollView.
 			//All rectangles after this point are relative to the position of the scrollView.
 			goodsScrollPosition = GUI.BeginScrollView(new Rect(0,Screen.height*2f/8f,Screen.width,Screen.height*5f/8f),goodsScrollPosition,new Rect(0,0,Screen.width,totalHeight));
 			float y = 0;
-			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
+			foreach(VirtualGood vg in StoreInfo.GetVirtualGoods()){
 				GUI.color = backupColor;
 //				if(GUI.Button(new Rect(0,y,Screen.width,productSize),"") && !isDragging){
 //					Debug.Log("SOOMLA/UNITY wants to buy: " + vg.Name);
@@ -309,18 +310,21 @@ namespace Soomla.Example {
 				GUI.color = Color.white;
 				if(GUI.Button(new Rect(Screen.width/2f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY facebook clicked");
+					Handheld.StartActivityIndicator();	
 					vgToGive = vg;
 					SoomlaProfile.Login(Provider.FACEBOOK, null);
 				}
 				if(GUI.Button(new Rect(70f+Screen.width/2f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY twitter clicked");
+					Handheld.StartActivityIndicator();	
 					vgToGive = vg;
 					SoomlaProfile.Login(Provider.TWITTER, null);
 				}
 
 				GUI.color = Color.black;
 //				GUI.Label(new Rect(Screen.width/2f,y+productSize*2/3f,Screen.width,productSize/3f),"price:" + ((PurchaseWithVirtualItem)vg.PurchaseType).Amount);
-				GUI.Label(new Rect(Screen.width*3/4f,y+productSize*2/3f,Screen.width,productSize/3f), "Balance:" + ExampleLocalStoreInfo.GoodsBalances[vg.ItemId]);
+
+				GUI.Label(new Rect(Screen.width*3/4f,y+productSize*2/3f,Screen.width,productSize/3f), "Balance:" + StoreInventory.GetItemBalance(vg.ItemId));
 //				GUI.skin.label.alignment = TextAnchor.UpperRight;
 //				GUI.skin.label.font = fBuy;
 //				GUI.Label(new Rect(0,y,Screen.width-10,productSize),"Click to buy");

@@ -28,7 +28,7 @@ namespace Soomla {
 		/// <param name="message">Debug message to output to log.</param>
 		public static void LogDebug(string tag, string message)
 		{
-			if (Debug.isDebugBuild) {
+			if (Debug.isDebugBuild && SoomSettings.DebugMessages) {
 				Debug.Log(string.Format("{0} {1}", tag, message));
 			}
 		}

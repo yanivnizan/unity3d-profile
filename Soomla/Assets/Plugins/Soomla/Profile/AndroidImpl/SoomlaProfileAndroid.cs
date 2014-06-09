@@ -22,7 +22,6 @@ namespace Soomla.Profile {
 	/// <c>SoomlaProfile</c> for Android. 
 	/// This class holds the basic assets needed to operate the Profile module.
 	/// 
-	/// 
 	/// See comments for functions in parent.
 	/// </summary>
 	public class SoomlaProfileAndroid : SoomlaProfile {

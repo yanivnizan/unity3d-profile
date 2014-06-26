@@ -16,6 +16,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+using Soomla.Store;
+
 namespace Soomla.Example {
 
 	/// <summary>

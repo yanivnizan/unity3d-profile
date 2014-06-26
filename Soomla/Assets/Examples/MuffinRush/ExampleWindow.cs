@@ -16,7 +16,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+
+using Soomla;
 using Soomla.Profile;
+using Soomla.Store;
 
 namespace Soomla.Example {
 
@@ -95,9 +98,9 @@ namespace Soomla.Example {
 			ProfileEvents.OnLoginFinished += OnLoginFinished;
 			ProfileEvents.OnSocialActionFinished += OnSocialActionFinished;
 			ProfileEvents.OnSocialActionFailed += OnSocialActionFailed;
-			StoreEvents.OnStoreControllerInitialized += onStoreControllerInitialized;
+			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
 
-			StoreController.Initialize(new MuffinRushAssets());
+			SoomlaStore.Initialize(new MuffinRushAssets());
 			SoomlaProfile.Initialize();
 
 			#if UNITY_IPHONE
@@ -110,17 +113,17 @@ namespace Soomla.Example {
 		private VirtualGood vgToGive = null;
 		private void OnLoginFinished(UserProfile userProfile) {
 			if (userProfile.Provider == Provider.FACEBOOK) {
-				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 10, vgToGive.ItemId);
+				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
 				reward.Repeatable = true;
 //				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
 				SoomlaProfile.UpdateStory(Provider.FACEBOOK, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else if (userProfile.Provider == Provider.TWITTER) {
-				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", 11, vgToGive.ItemId);
+				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
 				reward.Repeatable = true;
 				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
 //				SoomlaProfile.UpdateStory(Provider.TWITTER, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else {
-				Utils.LogError("SOOMLA/UNITY ExampleWindow", "Unknown provider after login finished.");
+				SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow", "Unknown provider after login finished.");
 			}
 		}
 
@@ -133,18 +136,18 @@ namespace Soomla.Example {
 		}
 
 		/// <summary>
-		/// Handles a store controller initialized event.
+		/// Handles a soomla store initialized event.
 		/// </summary>
-		public void onStoreControllerInitialized() {
+		public void OnSoomlaStoreInitialized() {
 			
 			// some usage examples for add/remove currency
 			// some examples
 			if (StoreInfo.GetVirtualCurrencies().Count>0) {
 				try {
 					StoreInventory.GiveItem(StoreInfo.GetVirtualCurrencies()[0].ItemId,4000);
-					Utils.LogDebug("SOOMLA ExampleEventHandler", "Currency balance:" + StoreInventory.GetItemBalance(StoreInfo.GetVirtualCurrencies()[0].ItemId));
+					SoomlaUtils.LogDebug("SOOMLA ExampleEventHandler", "Currency balance:" + StoreInventory.GetItemBalance(StoreInfo.GetVirtualCurrencies()[0].ItemId));
 				} catch (VirtualItemNotFoundException ex){
-					Utils.LogError("SOOMLA ExampleEventHandler", ex.Message);
+					SoomlaUtils.LogError("SOOMLA ExampleEventHandler", ex.Message);
 				}
 			}
 			

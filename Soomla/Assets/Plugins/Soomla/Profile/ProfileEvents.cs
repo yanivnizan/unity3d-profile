@@ -45,7 +45,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Not used here.</param>
 		public void onLoginCancelled(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelledEvent");
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelledEvent");
 
 			ProfileEvents.OnLoginCancelled();
 		}
@@ -55,7 +55,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">will contain a JSON representation of the UserProfile.</param>
 		public void onUserProfileUpdated(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
 
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -67,7 +67,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the failure message.</param>
 		public void onLoginFailed(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
 
 			ProfileEvents.OnLoginFailed(message);
 		}
@@ -77,7 +77,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
 		public void onLoginFinished(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
 
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -89,7 +89,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the provider as string.</param>
 		public void onLoginStarted(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginStarted:" + message);
 
 			ProfileEvents.OnLoginStarted(Provider.fromString(message));
 		}
@@ -99,7 +99,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the failure message.</param>
 		public void onLogoutFailed(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
 			
 			ProfileEvents.OnLogoutFailed(message);
 		}
@@ -109,7 +109,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
 		public void onLogoutFinished(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
 			
 			JSONObject upJSON = new JSONObject(message);
 			UserProfile up = new UserProfile(upJSON);
@@ -121,7 +121,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the provider as string.</param>
 		public void onLogoutStarted(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutStarted:" + message);
 
 			ProfileEvents.OnLogoutStarted(Provider.fromString(message));
 		}
@@ -131,7 +131,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the social action type as string and the error message.</param>
 		public void onSocialActionFailed(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
 
 			JSONObject jsonObj = new JSONObject(message);
 			string satStr = jsonObj["socialActionType"].str;
@@ -146,7 +146,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionFinished(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
 			
 			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
 			ProfileEvents.OnSocialActionFinished(sat);
@@ -157,7 +157,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionStarted(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
 			
 			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
 			ProfileEvents.OnSocialActionStarted(sat);
@@ -168,7 +168,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain the failure message.</param>
 		public void onGetContactsFailedEvent(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
 
 			ProfileEvents.OnGetContactsFailedEvent(message);
 		}
@@ -178,7 +178,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain an array of UserProfiles as JSON.</param>
 		public void onGetContactsFinishedEvent(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
 
 			JSONObject contactsObj = new JSONObject(message);
 			List<UserProfile> contacts = new List<UserProfile>();
@@ -193,7 +193,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Not used here.</param>
 		public void onGetContactsStartedEvent(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
 			ProfileEvents.OnGetContactsStartedEvent();
 		}
 
@@ -202,7 +202,7 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain a JSON representation of a <c>Reward</c> and a flag saying if it's a Badge or not.</param>
 		public void onRewardGivenEvent(string message) {
-			Utils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
 
 			JSONObject resObj = new JSONObject(message);
 			JSONObject rewardObj = resObj["reward"];

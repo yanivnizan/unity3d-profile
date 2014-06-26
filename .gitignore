@@ -27,7 +27,7 @@ build/
 *.xcworkspace
 !default.xcworkspace
 xcuserdata
-profile
+# profile
 *.moved-aside
 DerivedData
 # Pods - for those of you who use CocoaPods

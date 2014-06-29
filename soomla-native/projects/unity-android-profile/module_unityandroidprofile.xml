@@ -18,7 +18,7 @@
     <path refid="${module.jdk.classpath.unityandroidprofile}"/>
     <pathelement location="${basedir}/libs/unity-classes.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
-    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/SoomlaAndroidCore.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
   </path>
 
@@ -26,7 +26,7 @@
     <pathelement location="${unityandroidprofile.output.dir}"/>
     <pathelement location="${basedir}/libs/unity-classes.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
-    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/SoomlaAndroidCore.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
   </path>
 
@@ -35,7 +35,7 @@
     <pathelement location="${unityandroidprofile.output.dir}"/>
     <pathelement location="${basedir}/libs/unity-classes.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
-    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/SoomlaAndroidCore.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
   </path>
 
@@ -43,7 +43,7 @@
     <pathelement location="${unityandroidprofile.output.dir}"/>
     <pathelement location="${basedir}/libs/unity-classes.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar"/>
-    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar"/>
+    <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/SoomlaAndroidCore.jar"/>
     <pathelement location="${basedir}/../../../Soomla/Assets/Plugins/Android/square-otto-1.3.2.jar"/>
   </path>
 

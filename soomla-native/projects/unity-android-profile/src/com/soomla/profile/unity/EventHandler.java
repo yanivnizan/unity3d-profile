@@ -1,9 +1,10 @@
 package com.soomla.profile.unity;
 
+import com.soomla.BusProvider;
+import com.soomla.events.RewardGivenEvent;
 import com.soomla.profile.domain.UserProfile;
-import com.soomla.profile.events.LoginCancelledEvent;
-import com.soomla.profile.events.RewardGivenEvent;
 import com.soomla.profile.events.UserProfileUpdatedEvent;
+import com.soomla.profile.events.auth.LoginCancelledEvent;
 import com.soomla.profile.events.auth.LoginFailedEvent;
 import com.soomla.profile.events.auth.LoginFinishedEvent;
 import com.soomla.profile.events.auth.LoginStartedEvent;
@@ -16,7 +17,7 @@ import com.soomla.profile.events.social.GetContactsStartedEvent;
 import com.soomla.profile.events.social.SocialActionFailedEvent;
 import com.soomla.profile.events.social.SocialActionFinishedEvent;
 import com.soomla.profile.events.social.SocialActionStartedEvent;
-import com.soomla.store.BusProvider;
+import com.soomla.rewards.BadgeReward;
 import com.squareup.otto.Subscribe;
 import com.unity3d.player.UnityPlayer;
 
@@ -127,8 +128,8 @@ public class EventHandler {
     public void onRewardGivenEvent(RewardGivenEvent rewardGivenEvent) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("reward", rewardGivenEvent.getReward().toJSONObject());
-            jsonObject.put("isBadge", rewardGivenEvent.IsBadge);
+            jsonObject.put("reward", rewardGivenEvent.Reward.toJSONObject());
+            jsonObject.put("isBadge", rewardGivenEvent.Reward instanceof BadgeReward);
         } catch (JSONException e) {
             e.printStackTrace();
         }

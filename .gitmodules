@@ -1,3 +1,9 @@
 [submodule "submodules/unity3d-store"]
 	path = submodules/unity3d-store
 	url = git@github.com:soomla/unity3d-store.git
+[submodule "submodules/android-profile"]
+	path = submodules/android-profile
+	url = https://github.com/soomla/android-profile
+[submodule "submodules/ios-profile"]
+	path = submodules/ios-profile
+	url = https://github.com/soomla/ios-profile

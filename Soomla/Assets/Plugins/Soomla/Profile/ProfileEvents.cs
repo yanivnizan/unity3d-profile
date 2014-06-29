@@ -43,11 +43,11 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Will be called when login is cancelled.
 		/// </summary>
-		/// <param name="message">Not used here.</param>
+		/// <param name="message">Will contain the provider as string</param>
 		public void onLoginCancelled(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginCancelledEvent");
 
-			ProfileEvents.OnLoginCancelled();
+			ProfileEvents.OnLoginCancelled(Provider.fromString(message));
 		}
 
 		/// <summary>
@@ -214,7 +214,7 @@ namespace Soomla.Profile {
 
 		public delegate void Action();
 
-		public static Action OnLoginCancelled = delegate {};
+		public static Action<Provider> OnLoginCancelled = delegate {};
 
 		public static Action<UserProfile> OnUserProfileUpdated = delegate {};
 

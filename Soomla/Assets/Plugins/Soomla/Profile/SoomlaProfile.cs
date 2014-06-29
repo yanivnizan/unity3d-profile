@@ -128,6 +128,10 @@ namespace Soomla.Profile
 
 		protected virtual void _initialize() { }
 
+		protected virtual void _login(Provider provider, Reward reward) { }
+		
+		protected virtual void _logout(Provider provider) { }
+
 		protected virtual void _updateStatus(Provider provider, string status, Reward reward) { }
 
 		protected virtual void _updateStory(Provider provider, string message, string name, 
@@ -144,9 +148,9 @@ namespace Soomla.Profile
 
 		protected virtual UserProfile _getStoredUserProfile(Provider provider) { return null; }
 
-		protected virtual void _logout(Provider provider) { }
-
-		protected virtual void _login(Provider provider, Reward reward) { }
+		/// <summary> Class Members </summary>
+		
+		protected const string TAG = "SOOMLA SoomlaProfile";
 	}
 }
 

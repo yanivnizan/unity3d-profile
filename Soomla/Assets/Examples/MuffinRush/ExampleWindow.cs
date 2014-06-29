@@ -32,13 +32,16 @@ namespace Soomla.Example {
 		
 		private GUIState guiState = GUIState.WELCOME;
 		private Vector2 goodsScrollPosition = Vector2.zero;
+		private Vector2 productScrollPosition = Vector2.zero;
 		private bool isDragging = false;
 		private Vector2 startTouch = Vector2.zero;
+		private static ExampleEventHandler handler;
 		
 		public string fontSuffix = "";
 	
 		private enum GUIState{
 			WELCOME,
+			PRODUCTS,
 			GOODS
 		}
 		
@@ -66,12 +69,15 @@ namespace Soomla.Example {
 		private Texture2D tLogoNew;
 		private Font fgoodDog;
 		private Font fgoodDogSmall;
+		private Font fTitle;
 		private Texture2D tWhitePixel;
 		private Texture2D tMuffins;
 		private Font fName;
 		private Font fDesc;
-		private Font fTitle;
+		private Font fBuy;
 		private Texture2D tBack;
+		private Texture2D tGetMore;
+		private Font tTitle;
 		private Texture2D tFacebook;
 		private Texture2D tTwitter;
 		private Dictionary<string, Texture2D> itemsTextures;
@@ -82,6 +88,8 @@ namespace Soomla.Example {
 		/// Use this for initialization.
 		/// </summary>
 		void Start () {
+			handler = new ExampleEventHandler();
+
 			tImgDirect = (Texture2D)Resources.Load("SoomlaStore/images/img_direct");
 			fgoodDog = (Font)Resources.Load("SoomlaStore/GoodDog" + fontSuffix);
 			fgoodDogSmall = (Font)Resources.Load("SoomlaStore/GoodDog_small" + fontSuffix);
@@ -91,14 +99,17 @@ namespace Soomla.Example {
 			tMuffins = (Texture2D)Resources.Load("SoomlaStore/images/Muffins");
 			fName = (Font)Resources.Load("SoomlaStore/Name" + fontSuffix);
 			fDesc = (Font)Resources.Load("SoomlaStore/Description" + fontSuffix);
+			fBuy = (Font)Resources.Load("SoomlaStore/Buy" + fontSuffix);
 			tBack = (Texture2D)Resources.Load("SoomlaStore/images/back");
+			tGetMore = (Texture2D)Resources.Load("SoomlaStore/images/GetMore");
+			tTitle = (Font)Resources.Load("SoomlaStore/Title" + fontSuffix);
 			tFacebook = (Texture2D)Resources.Load("SoomlaStore/images/facebook");
 			tTwitter = (Texture2D)Resources.Load("SoomlaStore/images/twitter");
 
 			ProfileEvents.OnLoginFinished += OnLoginFinished;
 			ProfileEvents.OnSocialActionFinished += OnSocialActionFinished;
 			ProfileEvents.OnSocialActionFailed += OnSocialActionFailed;
-			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
+//			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
 
 			SoomlaStore.Initialize(new MuffinRushAssets());
 			SoomlaProfile.Initialize();
@@ -110,13 +121,24 @@ namespace Soomla.Example {
 			#endif
 		}
 
+		public static ExampleWindow GetInstance() {
+			return instance;
+		}
+
 		private VirtualGood vgToGive = null;
 		private void OnLoginFinished(UserProfile userProfile) {
 			if (userProfile.Provider == Provider.FACEBOOK) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
 				reward.Repeatable = true;
 //				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
-				SoomlaProfile.UpdateStory(Provider.FACEBOOK, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
+				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
+				                          "I think i love SOOMLA",
+				                          "Refaelos",
+				                          "this is a caption",
+				                          "Trying to test a story", 
+				                          "http://soom.la",
+				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
+				                          reward);
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
 				reward.Repeatable = true;
@@ -138,23 +160,30 @@ namespace Soomla.Example {
 		/// <summary>
 		/// Handles a soomla store initialized event.
 		/// </summary>
-		public void OnSoomlaStoreInitialized() {
-			
-			// some usage examples for add/remove currency
-			// some examples
-			if (StoreInfo.GetVirtualCurrencies().Count>0) {
-				try {
-					StoreInventory.GiveItem(StoreInfo.GetVirtualCurrencies()[0].ItemId,4000);
-					SoomlaUtils.LogDebug("SOOMLA ExampleEventHandler", "Currency balance:" + StoreInventory.GetItemBalance(StoreInfo.GetVirtualCurrencies()[0].ItemId));
-				} catch (VirtualItemNotFoundException ex){
-					SoomlaUtils.LogError("SOOMLA ExampleEventHandler", ex.Message);
-				}
-			}
-			
+//		public void OnSoomlaStoreInitialized() {
+//			
+//			// some usage examples for add/remove currency
+//			// some examples
+//			if (StoreInfo.GetVirtualCurrencies().Count>0) {
+//				try {
+//					StoreInventory.GiveItem(StoreInfo.GetVirtualCurrencies()[0].ItemId,4000);
+//					SoomlaUtils.LogDebug("SOOMLA ExampleEventHandler", "Currency balance:" + StoreInventory.GetItemBalance(StoreInfo.GetVirtualCurrencies()[0].ItemId));
+//				} catch (VirtualItemNotFoundException ex){
+//					SoomlaUtils.LogError("SOOMLA ExampleEventHandler", ex.Message);
+//				}
+//			}
+//			
+//			setupItemsTextures();
+//		}
+
+		public void setupItemsTextures() {
 			itemsTextures = new Dictionary<string, Texture2D>();
 			
-			foreach(VirtualGood vg in StoreInfo.GetVirtualGoods()){
+			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
 				itemsTextures[vg.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vg.Name);
+			}
+			foreach(VirtualCurrencyPack vcp in ExampleLocalStoreInfo.VirtualCurrencyPacks){
+				itemsTextures[vcp.ItemId] = (Texture2D)Resources.Load("SoomlaStore/images/" + vcp.Name);
 			}
 		}
 
@@ -193,8 +222,19 @@ namespace Soomla.Example {
 						if(guiState == GUIState.GOODS){
 							goodsScrollPosition.y -= startTouch.y - Input.mousePosition.y;
 							startTouch = Input.mousePosition;
+						}else if(guiState == GUIState.PRODUCTS){
+							productScrollPosition.y -= startTouch.y - Input.mousePosition.y;
+							startTouch = Input.mousePosition;
 						}
 					}
+				}
+			}
+
+			if (Application.platform == RuntimePlatform.Android) {
+				if (Input.GetKeyUp(KeyCode.Escape)) {
+					//quit application on back button
+					Application.Quit();
+					return;
 				}
 			}
 		}
@@ -218,6 +258,8 @@ namespace Soomla.Example {
 				welcomeScreen();
 			}else if(guiState == GUIState.GOODS){
 				goodsScreen();
+			}else if(guiState == GUIState.PRODUCTS){
+				currencyScreen();
 			}	
 		}
 	
@@ -234,7 +276,7 @@ namespace Soomla.Example {
 			GUI.skin.label.font = fgoodDog;
 			GUI.skin.label.alignment = TextAnchor.MiddleCenter;
 			//writing the text.
-			GUI.Label(new Rect(Screen.width/8,Screen.height/8f,Screen.width*6f/8f,Screen.height*0.3f),"Soomla Store\nExample");
+			GUI.Label(new Rect(Screen.width/8,Screen.height/8f,Screen.width*6f/8f,Screen.height*0.3f),"Soomla Profile\nExample");
 			//select the small font
 			GUI.skin.label.font = fgoodDogSmall;
 			GUI.Label(new Rect(Screen.width/8,Screen.height*7f/8f,Screen.width*6f/8f,Screen.height/8f),"Press the SOOMLA-bot to open store");
@@ -245,7 +287,7 @@ namespace Soomla.Example {
 			if(GUI.Button(new Rect(Screen.width*2/6,Screen.height*5f/8f,Screen.width*2/6,Screen.width*2/6),tLogoNew)){
 				guiState = GUIState.GOODS;
 #if UNITY_ANDROID && !UNITY_EDITOR
-				StoreController.StartIabServiceInBg();
+				SoomlaStore.StartIabServiceInBg();
 #endif
 			}
 			//set alignment to backup
@@ -257,7 +299,6 @@ namespace Soomla.Example {
 		/// </summary>
 		void goodsScreen()
 		{
-
 			//white background
 			GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), tWhitePixel);
 			Color backupColor = GUI.color;
@@ -269,33 +310,22 @@ namespace Soomla.Example {
 			GUI.Label(new Rect(10,10,Screen.width-10,Screen.height-10),"SOOMLA Example Store");
 			GUI.color = Color.black;
 			GUI.skin.label.alignment = TextAnchor.UpperRight;
-			string itemId = StoreInfo.GetVirtualCurrencies()[0].ItemId;
-			GUI.Label(new Rect(10,10,Screen.width-40,Screen.height),""+ StoreInventory.GetItemBalance(itemId));
+			GUI.Label(new Rect(10,10,Screen.width-40,Screen.height),""+ ExampleLocalStoreInfo.CurrencyBalance);
 			GUI.skin.label.alignment = TextAnchor.MiddleCenter;
 			GUI.skin.label.font = fTitle;
 			GUI.Label(new Rect(0,Screen.height/8f,Screen.width,Screen.height/8f),"Virtual Goods");
-
-
+			
 			GUI.color = backupColor;
 			GUI.DrawTexture(new Rect(Screen.width-30,10,30,30), tMuffins);
 			float productSize = Screen.width*0.30f;
-			List<VirtualGood> goods = StoreInfo.GetVirtualGoods();
-			float totalHeight = goods.Count*productSize;
+			float totalHeight = ExampleLocalStoreInfo.VirtualGoods.Count*productSize;
 			//Here we start a scrollView, the first rectangle is the position of the scrollView on the screen,
 			//the second rectangle is the size of the panel inside the scrollView.
 			//All rectangles after this point are relative to the position of the scrollView.
 			goodsScrollPosition = GUI.BeginScrollView(new Rect(0,Screen.height*2f/8f,Screen.width,Screen.height*5f/8f),goodsScrollPosition,new Rect(0,0,Screen.width,totalHeight));
 			float y = 0;
-			foreach(VirtualGood vg in StoreInfo.GetVirtualGoods()){
+			foreach(VirtualGood vg in ExampleLocalStoreInfo.VirtualGoods){
 				GUI.color = backupColor;
-//				if(GUI.Button(new Rect(0,y,Screen.width,productSize),"") && !isDragging){
-//					Debug.Log("SOOMLA/UNITY wants to buy: " + vg.Name);
-//					try {
-//						StoreInventory.BuyItem(vg.ItemId);
-//					} catch (Exception e) {
-//						Debug.Log ("SOOMLA/UNITY " + e.Message);
-//					}
-//				}
 				GUI.DrawTexture(new Rect(0,y,Screen.width,productSize),tWhitePixel);
 				//We draw a button so we can detect a touch and then draw an image on top of it.
 				//TODO
@@ -311,28 +341,39 @@ namespace Soomla.Example {
 				GUI.Label(new Rect(productSize + 10f,y+productSize/3f,Screen.width-productSize-15f,productSize/3f),vg.Description);
 
 				GUI.color = Color.white;
-				if(GUI.Button(new Rect(Screen.width/2f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
+				if(GUI.Button(new Rect(Screen.width/4f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY facebook clicked");
-					Handheld.StartActivityIndicator();	
+					Handheld.StartActivityIndicator();      
 					vgToGive = vg;
 					SoomlaProfile.Login(Provider.FACEBOOK, null);
-				}
-				if(GUI.Button(new Rect(70f+Screen.width/2f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
+	            }
+	            if(GUI.Button(new Rect(70f+Screen.width/4f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY twitter clicked");
-					Handheld.StartActivityIndicator();	
+					Handheld.StartActivityIndicator();      
 					vgToGive = vg;
 					SoomlaProfile.Login(Provider.TWITTER, null);
 				}
-
 				GUI.color = Color.black;
-//				GUI.Label(new Rect(Screen.width/2f,y+productSize*2/3f,Screen.width,productSize/3f),"price:" + ((PurchaseWithVirtualItem)vg.PurchaseType).Amount);
 
-				GUI.Label(new Rect(Screen.width*3/4f,y+productSize*2/3f,Screen.width,productSize/3f), "Balance:" + StoreInventory.GetItemBalance(vg.ItemId));
+				GUI.Label(new Rect(Screen.width/2f,y+productSize*2/3f,Screen.width,productSize/3f),"price:" + ((PurchaseWithVirtualItem)vg.PurchaseType).Amount);
+				GUI.Label(new Rect(Screen.width*3/4f,y+productSize*2/3f,Screen.width,productSize/3f), "Balance:" + ExampleLocalStoreInfo.GoodsBalances[vg.ItemId]);
+
+				GUIStyle style = new GUIStyle("button");
+				if(GUI.Button(new Rect(Screen.width*3/4f,y,Screen.width,productSize/2),"Click to buy", style) && !isDragging){
+					Debug.Log("SOOMLA/UNITY wants to buy: " + vg.Name);
+					try {
+						StoreInventory.BuyItem(vg.ItemId);
+					} catch (Exception e) {
+						Debug.Log ("SOOMLA/UNITY " + e.Message);
+					}
+				}
+
+				GUI.color = Color.white;
 //				GUI.skin.label.alignment = TextAnchor.UpperRight;
 //				GUI.skin.label.font = fBuy;
-//				GUI.Label(new Rect(0,y,Screen.width-10,productSize),"Click to buy");
-				GUI.color = Color.grey;
-				GUI.DrawTexture(new Rect(0,y+productSize-1,Screen.width,1),tWhitePixel);
+//				GUI.Label(new Rect(Screen.width*3/4f,y,Screen.width-10,productSize),"Click to buy");			
+//				GUI.color = Color.grey;
+//				GUI.DrawTexture(new Rect(0,y+productSize-1,Screen.width,1),tWhitePixel);
 				y+= productSize;
 			}
 			GUI.EndScrollView();
@@ -348,10 +389,90 @@ namespace Soomla.Example {
 			if(GUI.Button(new Rect(Screen.width*2f/7f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight), "back")){
 				guiState = GUIState.WELCOME;
 #if UNITY_ANDROID && !UNITY_EDITOR
-				StoreController.StopIabServiceInBg();
+				SoomlaStore.StopIabServiceInBg();
 #endif
 			}
 			GUI.DrawTexture(new Rect(Screen.width*2f/7f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight),tBack);
+			width = buttonHeight*227/94;
+			if(GUI.Button(new Rect(Screen.width*5f/7f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight), "back")){
+				guiState = GUIState.PRODUCTS;
+			}
+			GUI.DrawTexture(new Rect(Screen.width*5f/7f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight),tGetMore);
+		}
+	
+		/// <summary>
+		/// Displays the currencies screen of the game's store. 
+		/// </summary>
+		void currencyScreen()
+		{
+			//white background
+			GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),tWhitePixel);
+			Color backupColor = GUI.color;
+			TextAnchor backupAlignment = GUI.skin.label.alignment;
+			Font backupFont = GUI.skin.label.font;
+			
+			GUI.color = Color.red;
+			GUI.skin.label.alignment = TextAnchor.UpperLeft;
+			GUI.Label(new Rect(10,10,Screen.width-10,Screen.height-10),"SOOMLA Example Store");
+			GUI.color = Color.black;
+			GUI.skin.label.alignment = TextAnchor.UpperRight;
+			GUI.Label(new Rect(10,10,Screen.width-40,Screen.height),""+ExampleLocalStoreInfo.CurrencyBalance);
+			GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+			GUI.skin.label.font = tTitle;
+			GUI.Label(new Rect(0,Screen.height/8f,Screen.width,Screen.height/8f),"Virtual Currency Packs");
+			
+			GUI.color = backupColor;
+			GUI.DrawTexture(new Rect(Screen.width-30,10,30,30),tMuffins);
+			float productSize = Screen.width*0.30f;
+			float totalHeight = ExampleLocalStoreInfo.VirtualGoods.Count*productSize;
+			//Here we start a scrollView, the first rectangle is the position of the scrollView on the screen,
+			//the second rectangle is the size of the panel inside the scrollView.
+			//All rectangles after this point are relative to the position of the scrollView.
+			productScrollPosition = GUI.BeginScrollView(new Rect(0,Screen.height*2f/8f,Screen.width,Screen.height*5f/8f),productScrollPosition,new Rect(0,0,Screen.width,totalHeight));
+			float y = 0;
+			foreach(VirtualCurrencyPack cp in ExampleLocalStoreInfo.VirtualCurrencyPacks){
+				GUI.color = backupColor;
+				//We draw a button so we can detect a touch and then draw an image on top of it.
+				if(GUI.Button(new Rect(0,y,Screen.width,productSize),"") && !isDragging){
+					Debug.Log("SOOMLA/UNITY Wants to buy: " + cp.Name);
+					try {
+						StoreInventory.BuyItem(cp.ItemId);
+					} catch (Exception e) {
+						Debug.Log ("SOOMLA/UNITY " + e.Message);
+					}
+				}
+				GUI.DrawTexture(new Rect(0,y,Screen.width,productSize),tWhitePixel);
+				//Resources.Load(path) The path is the relative path starting from the Resources folder.
+				//Make sure the images used for UI, have the textureType GUI. You can change this in the Unity editor.
+				GUI.DrawTexture(new Rect(0+productSize/8f, y+productSize/8f,productSize*6f/8f,productSize*6f/8f),itemsTextures[cp.ItemId]);
+				GUI.color = Color.black;
+				GUI.skin.label.font = fName;
+				GUI.skin.label.alignment = TextAnchor.UpperLeft;
+				GUI.Label(new Rect(productSize,y,Screen.width,productSize/3f),cp.Name);
+				GUI.skin.label.font = fDesc;
+				GUI.Label(new Rect(productSize + 10f,y+productSize/3f,Screen.width-productSize-15f,productSize/3f),cp.Description);
+				GUI.Label(new Rect(Screen.width*3/4f,y+productSize*2/3f,Screen.width,productSize/3f),"price:" + ((PurchaseWithMarket)cp.PurchaseType).MarketItem.Price.ToString("0.00"));
+				GUI.skin.label.alignment = TextAnchor.UpperRight;
+				GUI.skin.label.font = fBuy;
+				GUI.Label(new Rect(0,y,Screen.width-10,productSize),"Click to buy");
+				GUI.color = Color.grey;
+				GUI.DrawTexture(new Rect(0,y+productSize-1,Screen.width,1),tWhitePixel);
+				y+= productSize;
+			}
+			GUI.EndScrollView();
+			//We have just ended the scroll view this means that all the positions are relative top-left corner again.
+			GUI.skin.label.alignment = backupAlignment;
+			GUI.color = backupColor;
+			GUI.skin.label.font = backupFont;
+			
+			float height = Screen.height/8f;
+			float borderSize = height/8f;
+			float buttonHeight = height-2*borderSize;
+			float width = buttonHeight*180/95;
+			if(GUI.Button(new Rect(Screen.width/2f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight), "back")){
+				guiState = GUIState.GOODS;
+			}
+			GUI.DrawTexture(new Rect(Screen.width/2f-width/2f,Screen.height*7f/8f+borderSize,width,buttonHeight),tBack);
 		}
 	
 	}

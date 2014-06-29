@@ -49,7 +49,7 @@ fb_app_id = '6037895039' # todo: read from Unity settings panel
 info_plist_path = os.path.join(build_path, 'Info.plist')
 
 elements_to_add = '''
-    <key>FacebookAppId</key>
+    <key>FacebookAppID</key>
     <string>%s</string>
     <key>CFBundleURLTypes</key>
     <array>

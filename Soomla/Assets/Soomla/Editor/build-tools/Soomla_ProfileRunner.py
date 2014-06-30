@@ -45,7 +45,7 @@ pbx_object.add_other_ldflags('-ObjC')
 pbx_object.save()
 
 # install Facebook plist settings
-fb_app_id = '6037895039' # todo: read from Unity settings panel
+fb_app_id = '409611972431183' # todo: read from Unity settings panel
 info_plist_path = os.path.join(build_path, 'Info.plist')
 
 elements_to_add = '''

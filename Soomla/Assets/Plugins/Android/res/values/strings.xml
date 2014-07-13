@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SOOMLA Store Example</string>
-    <string name="fb_app_id">87592920751</string>
+    <string name="fb_app_id">409611972431183</string>
     <string name="btn_contentDescription">Click to open store</string>
     <string name="info_text">Click the soomla logo to open store</string>
     <string name="title">SOOMLA Store Example</string>
@@ -12,7 +12,6 @@
     <string name="draw_selector_on_top">Draw on top</string>
     <string name="use_selector_as_background">Use as bg</string>
     <string name="item_desc">choclate cake</string>
-    <string name="app_id">409611972431183</string>
 
     <color name="white">#FFFFFF</color>
     <color name="blue">#0000FF</color>
@@ -20,8 +19,9 @@
     <color name="lightGray">#999</color>
 
     <string-array name="social_providers">
-        <item>socialauth.SoomlaSAFacebook</item>
-        <item>socialauth.SoomlaSATwitter</item>
+        <item>facebook.SoomlaFacebook</item>
+        <!--<item>socialauth.SoomlaSAFacebook</item>
+        <item>socialauth.SoomlaSATwitter</item>-->
     </string-array>
 
 </resources>

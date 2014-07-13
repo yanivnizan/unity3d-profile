@@ -44,14 +44,8 @@ namespace Soomla.Profile
 		bool showAndroidSettings = (EditorUserBuildSettings.activeBuildTarget == BuildTarget.Android);
 		bool showIOSSettings = (EditorUserBuildSettings.activeBuildTarget == BuildTarget.iPhone);
 		
-		GUIContent noneBPLabel = new GUIContent("You have your own Billing Service");
-		GUIContent playLabel = new GUIContent("Google Play");
-		GUIContent amazonLabel = new GUIContent("Amazon");
-		GUIContent publicKeyLabel = new GUIContent("API Key [?]:", "The API key from Google Play dev console (just in case you're using Google Play as billing provider).");
-		GUIContent testPurchasesLabel = new GUIContent("Test Purchases [?]:", "Check if you want to allow purchases of Google's test product ids.");
-		GUIContent packageNameLabel = new GUIContent("Package Name [?]", "Your package as defined in Unity.");
-		
-		GUIContent iosSsvLabel = new GUIContent("Receipt Validation [?]:", "Check if you want your purchases validated with SOOMLA Server Side Protection Service.");
+		GUIContent fbAppId = new GUIContent("FB app Id:");
+		GUIContent fbAppNS = new GUIContent("FB app namespace:");
 		
 		public void OnEnable() {
 			// Generating AndroidManifest.xml
@@ -77,7 +71,15 @@ namespace Soomla.Profile
 			showIOSSettings = EditorGUILayout.Foldout(showIOSSettings, "iOS Build Settings");
 			if (showIOSSettings)
 			{
-				IosSSV = EditorGUILayout.Toggle(iosSsvLabel, IosSSV);
+				EditorGUILayout.BeginHorizontal();
+				SoomlaEditorScript.SelectableLabelField(fbAppId, FB_APP_ID_DEFAULT);
+				EditorGUILayout.EndHorizontal();
+				
+				EditorGUILayout.Space();
+				
+				EditorGUILayout.BeginHorizontal();
+				SoomlaEditorScript.SelectableLabelField(fbAppNS, PlayerSettings.productName);
+				EditorGUILayout.EndHorizontal();
 			}
 			EditorGUILayout.Space();
 		}
@@ -88,109 +90,50 @@ namespace Soomla.Profile
 			if (showAndroidSettings)
 			{
 				EditorGUILayout.BeginHorizontal();
-				SoomlaEditorScript.SelectableLabelField(packageNameLabel, PlayerSettings.bundleIdentifier);
+				SoomlaEditorScript.SelectableLabelField(fbAppId, FB_APP_ID_DEFAULT);
 				EditorGUILayout.EndHorizontal();
-				
+
 				EditorGUILayout.Space();
-				EditorGUILayout.HelpBox("Billing Service Selection", MessageType.None);
-				
-				if (!GPlayBP && !AmazonBP && !NoneBP) {
-					GPlayBP = true;
-				}
-				
-				NoneBP = EditorGUILayout.ToggleLeft(noneBPLabel, NoneBP);
-				
-				bool update;
-				bpUpdate.TryGetValue("none", out update);
-				if (NoneBP && !update) {
-					setCurrentBPUpdate("none");
-					
-					AmazonBP = false;
-					GPlayBP = false;
-					SoomlaManifestTools.GenerateManifest();
-					handlePlayBPJars(true);
-					handleAmazonBPJars(true);
-				}
-				
-				
-				GPlayBP = EditorGUILayout.ToggleLeft(playLabel, GPlayBP);
-				
-				if (GPlayBP) {
-					EditorGUILayout.BeginHorizontal();
-					EditorGUILayout.Space();
-					EditorGUILayout.LabelField(publicKeyLabel, SoomlaEditorScript.FieldWidth, SoomlaEditorScript.FieldHeight);
-					AndroidPublicKey = EditorGUILayout.TextField(AndroidPublicKey, SoomlaEditorScript.FieldHeight);
-					EditorGUILayout.EndHorizontal();
-					
-					EditorGUILayout.Space();
-					
-					EditorGUILayout.BeginHorizontal();
-					EditorGUILayout.LabelField(SoomlaEditorScript.EmptyContent, SoomlaEditorScript.SpaceWidth, SoomlaEditorScript.FieldHeight);
-					AndroidTestPurchases = EditorGUILayout.Toggle(testPurchasesLabel, AndroidTestPurchases);
-					EditorGUILayout.EndHorizontal();
-				}
-				
-				bpUpdate.TryGetValue("play", out update);
-				if (GPlayBP && !update) {
-					setCurrentBPUpdate("play");
-					
-					AmazonBP = false;
-					NoneBP = false;
-					SoomlaManifestTools.GenerateManifest();
-					handlePlayBPJars(false);
-					handleAmazonBPJars(true);
-				}
-				
-				
-				AmazonBP = EditorGUILayout.ToggleLeft(amazonLabel, AmazonBP);
-				bpUpdate.TryGetValue("amazon", out update);
-				if (AmazonBP && !update) {
-					setCurrentBPUpdate("amazon");
-					
-					GPlayBP = false;
-					NoneBP = false;
-					SoomlaManifestTools.GenerateManifest();
-					handlePlayBPJars(true);
-					handleAmazonBPJars(false);
-				}
+
+				EditorGUILayout.BeginHorizontal();
+				SoomlaEditorScript.SelectableLabelField(fbAppNS, PlayerSettings.productName);
+				EditorGUILayout.EndHorizontal();
+
+//				EditorGUILayout.Space();
+//				EditorGUILayout.HelpBox("Social Provider Selection", MessageType.None);
 			}
 			EditorGUILayout.Space();
 		}
 		
-		
-		
-		
-		
-		
-		
-		/** Billing Providers util functions **/
+
+		/** Social Providers util functions **/
 		
 		private void setCurrentBPUpdate(string bpKey) {
-			bpUpdate[bpKey] = true;
-			var buffer = new List<string>(bpUpdate.Keys);
+			spUpdate[bpKey] = true;
+			var buffer = new List<string>(spUpdate.Keys);
 			foreach(string key in buffer) {
 				if (key != bpKey) {
-					bpUpdate[key] = false;
+					spUpdate[key] = false;
 				}
 			}
 		}
 		
-		private Dictionary<string, bool> bpUpdate = new Dictionary<string, bool>();
-		private static string bpRootPath = Application.dataPath + "/Soomla/compilations/android-billing-services/";
+		private Dictionary<string, bool> spUpdate = new Dictionary<string, bool>();
+		private static string spRootPath = Application.dataPath + "/Soomla/compilations/android-social-services/";
 		
-		public static void handlePlayBPJars(bool remove) {
+		public static void handleFBJars(bool remove) {
 			try {
 				if (remove) {
 					FileUtil.DeleteFileOrDirectory(Application.dataPath + "/Plugins/Android/AndroidStoreGooglePlay.jar");
 					FileUtil.DeleteFileOrDirectory(Application.dataPath + "/Plugins/Android/AndroidStoreGooglePlay.jar.meta");
 				} else {
-					FileUtil.CopyFileOrDirectory(bpRootPath + "google-play/AndroidStoreGooglePlay.jar",
+					FileUtil.CopyFileOrDirectory(spRootPath + "google-play/AndroidStoreGooglePlay.jar",
 					                             Application.dataPath + "/Plugins/Android/AndroidStoreGooglePlay.jar");
 				}
 			}catch {}
 		}
 		
-		public static void handleAmazonBPJars(bool remove) {
+		public static void handleSocialAuthJars(bool remove) {
 			try {
 				if (remove) {
 					FileUtil.DeleteFileOrDirectory(Application.dataPath + "/Plugins/Android/AndroidStoreAmazon.jar");
@@ -198,9 +141,9 @@ namespace Soomla.Profile
 					FileUtil.DeleteFileOrDirectory(Application.dataPath + "/Plugins/Android/in-app-purchasing-1.0.3.jar");
 					FileUtil.DeleteFileOrDirectory(Application.dataPath + "/Plugins/Android/in-app-purchasing-1.0.3.jar.meta");
 				} else {
-					FileUtil.CopyFileOrDirectory(bpRootPath + "amazon/AndroidStoreAmazon.jar",
+					FileUtil.CopyFileOrDirectory(spRootPath + "amazon/AndroidStoreAmazon.jar",
 					                             Application.dataPath + "/Plugins/Android/AndroidStoreAmazon.jar");
-					FileUtil.CopyFileOrDirectory(bpRootPath + "amazon/in-app-purchasing-1.0.3.jar",
+					FileUtil.CopyFileOrDirectory(spRootPath + "amazon/in-app-purchasing-1.0.3.jar",
 					                             Application.dataPath + "/Plugins/Android/in-app-purchasing-1.0.3.jar");
 				}
 			}catch {}
@@ -211,125 +154,49 @@ namespace Soomla.Profile
 		#endif
 		
 		
-		
-		
-		
-		
+
 		
 		/** Store Specific Variables **/
 		
 		
-		public static string AND_PUB_KEY_DEFAULT = "YOUR GOOGLE PLAY PUBLIC KEY";
+		public static string FB_APP_ID_DEFAULT = "YOUR FB APP ID";
 		
-		public static string AndroidPublicKey
+		public static string FBAppId
 		{
 			get {
 				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AndroidPublicKey", out value) ? value : AND_PUB_KEY_DEFAULT;
+				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("FBAppId", out value) ? value : FB_APP_ID_DEFAULT;
 			}
 			set 
 			{
 				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AndroidPublicKey", out v);
+				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("FBAppId", out v);
 				if (v != value)
 				{
-					SoomlaEditorScript.Instance.setSettingsValue("AndroidPublicKey",value);
+					SoomlaEditorScript.Instance.setSettingsValue("FBAppId",value);
 					SoomlaEditorScript.DirtyEditor ();
 				}
 			}
 		}
+
+		public static string FB_APP_NS_DEFAULT = "YOUR FB APP ID";
 		
-		public static bool AndroidTestPurchases
+		public static string FBAppNamespace
 		{
-			get { 
+			get {
 				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AndroidTestPurchases", out value) ? Convert.ToBoolean(value) : false;
+				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("FBAppNS", out value) ? value : FB_APP_NS_DEFAULT;
 			}
 			set 
 			{
 				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AndroidTestPurchases", out v);
-				if (Convert.ToBoolean(v) != value)
+				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("FBAppNS", out v);
+				if (v != value)
 				{
-					SoomlaEditorScript.Instance.setSettingsValue("AndroidTestPurchases",value.ToString());
+					SoomlaEditorScript.Instance.setSettingsValue("FBAppNS",value);
 					SoomlaEditorScript.DirtyEditor ();
 				}
 			}
 		}
-		
-		public static bool IosSSV
-		{
-			get { 
-				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("IosSSV", out value) ? Convert.ToBoolean(value) : false;
-			}
-			set 
-			{
-				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("IosSSV", out v);
-				if (Convert.ToBoolean(v) != value)
-				{
-					SoomlaEditorScript.Instance.setSettingsValue("IosSSV",value.ToString());
-					SoomlaEditorScript.DirtyEditor ();
-				}
-			}
-		}
-		
-		public static bool NoneBP
-		{
-			get { 
-				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("NoneBP", out value) ? Convert.ToBoolean(value) : false;
-			}
-			set 
-			{
-				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("NoneBP", out v);
-				if (Convert.ToBoolean(v) != value)
-				{
-					SoomlaEditorScript.Instance.setSettingsValue("NoneBP",value.ToString());
-					SoomlaEditorScript.DirtyEditor ();
-				}
-			}
-		}
-		
-		public static bool GPlayBP
-		{
-			get { 
-				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("GPlayBP", out value) ? Convert.ToBoolean(value) : false;
-			}
-			set 
-			{
-				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("GPlayBP", out v);
-				if (Convert.ToBoolean(v) != value)
-				{
-					SoomlaEditorScript.Instance.setSettingsValue("GPlayBP",value.ToString());
-					SoomlaEditorScript.DirtyEditor ();
-				}
-			}
-		}
-		
-		public static bool AmazonBP
-		{
-			get { 
-				string value;
-				return SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AmazonBP", out value) ? Convert.ToBoolean(value) : false;
-			}
-			set 
-			{
-				string v;
-				SoomlaEditorScript.Instance.SoomlaSettings.TryGetValue("AmazonBP", out v);
-				if (Convert.ToBoolean(v) != value)
-				{
-					SoomlaEditorScript.Instance.setSettingsValue("AmazonBP",value.ToString());
-					SoomlaEditorScript.DirtyEditor ();
-				}
-			}
-		}
-		
-		
-		
 	}
 }

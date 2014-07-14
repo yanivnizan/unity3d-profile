@@ -1,5 +1,69 @@
 
-echo "creating unitypackage for Soomla"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity -batchmode -logFile create_unity.log -projectPath ${SOOMLA_HOME}/unity3d-profile/Soomla/ -exportPackage Assets/Plugins Assets/Soomla/Editor Assets/Soomla/compilations Assets/Soomla/Prefabs Assets/Soomla/Resources/soom_logo.png ../soomla-unity3d-profile_release-v$1.unitypackage -quit
+echo "creating unitypackage for SOOMLA Core"
+
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -logFile create_unity.log \
+  -projectPath $PWD/Soomla/ \
+  -exportPackage \
+    Assets/Plugins/Android/SoomlaAndroidCore.jar \
+    Assets/Plugins/Android/square-otto-1.3.2.jar \
+    Assets/Plugins/Android/UnitySoomlaAndroidCore.jar \
+    Assets/Plugins/iOS/libSoomlaIOSCore.a \
+    Assets/Plugins/iOS/libUnitySoomlaiOSCore.a \
+    Assets/Plugins/Soomla/Core \
+    Assets/Soomla/Editor/SoomlaPostBuild.cs \
+    Assets/Soomla/Editor/SoomlaSettingsEditor.cs \
+    Assets/Soomla/Editor/build-tools/mod_pbxproj.pyc \
+    Assets/Soomla/Prefabs/CoreEvents.prefab \
+    Assets/Soomla/Resources/SoomlaEditorScript.asset \
+    Assets/Soomla/Resources/soom_logo.png \
+  $PWD/soomla-unity3d-core.unitypackage \
+  -quit
+
+echo "creating unitypackage for SOOMLA Store"
+
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -logFile create_unity.log \
+  -projectPath $PWD/Soomla/ \
+  -exportPackage \
+    Assets/Plugins/Android/AndroidStore.jar \
+    Assets/Plugins/Android/AndroidStoreGooglePlay.jar \
+    Assets/Plugins/Android/UnityAndroidStore.jar \
+    Assets/Plugins/iOS/libSoomlaiOSStore.a \
+    Assets/Plugins/iOS/libUnityiOSStore.a \
+    Assets/Plugins/Soomla/Store \
+    Assets/Soomla/compilations \
+    Assets/Soomla/Editor/build-tools/Soomla_StoreRunner.py \
+    Assets/Soomla/Prefabs/StoreEvents.prefab \
+    Assets/Soomla/Resources \
+  $PWD/soomla-unity3d-store.unitypackage \
+  -quit
 
 
+echo "creating unitypackage for SOOMLA Profile"
+
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -logFile create_unity.log \
+  -projectPath $PWD/Soomla/ \
+  -exportPackage \
+    Assets/Plugins/Android/AndroidProfile.jar \
+    Assets/Plugins/Android/UnityAndroidProfile.jar \
+    Assets/Plugins/Android/AndroidProfileFacebook.jar \
+    Assets/Plugins/Android/simple.facebook-2.1.jar \
+    Assets/Plugins/Android/android-support-v4.jar \
+    Assets/Plugins/Android/bolts.jar \
+    Assets/Plugins/Android/facebook \
+    Assets/Plugins/Android/res \
+    Assets/Plugins/Android/assets \
+    Assets/Plugins/iOS/libSoomlaiOSProfile.a \
+    Assets/Plugins/iOS/libUnityiOSProfile.a \
+    Assets/Plugins/iOS/libSoomlaiOSProfileFacebook.a \
+    Assets/Plugins/iOS/FacebookSDK.framework \
+    Assets/Plugins/Soomla/Profile \
+    Assets/Soomla/Editor/build-tools/Soomla_ProfileRunner.py \
+    Assets/Soomla/Prefabs/ProfileEvents.prefab \
+  $PWD/soomla-unity3d-profile.unitypackage \
+  -quit

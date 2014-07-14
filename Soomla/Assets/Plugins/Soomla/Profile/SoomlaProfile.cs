@@ -99,6 +99,16 @@ namespace Soomla.Profile
 		}
 
 		/// <summary>
+		///  Will fetch posts from user feed 
+		///
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="reward">Reward.</param>
+		public static void GetFeed(Provider provider, Reward reward) {
+			instance._getFeed(provider, reward);
+		}
+
+		/// <summary>
 		/// This will fetch the UserProfile that is saved for the given provider.
 		/// UserProfiles are automatically saved in the local storage for a provider after a successful login.
 		/// </summary>
@@ -145,6 +155,8 @@ namespace Soomla.Profile
 //		                                    Reward reward) { }
 
 		protected virtual void _getContacts(Provider provider, Reward reward) { }
+
+		protected virtual void _getFeed(Provider provider, Reward reward) { }
 
 		protected virtual UserProfile _getStoredUserProfile(Provider provider) { return null; }
 

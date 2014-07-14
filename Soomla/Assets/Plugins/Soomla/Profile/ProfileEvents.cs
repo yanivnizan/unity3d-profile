@@ -170,7 +170,7 @@ namespace Soomla.Profile {
 		public void onGetContactsFailedEvent(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
 
-			ProfileEvents.OnGetContactsFailedEvent(message);
+			ProfileEvents.OnGetContactsFailed(message);
 		}
 
 		/// <summary>
@@ -185,7 +185,7 @@ namespace Soomla.Profile {
 			foreach (JSONObject upObj in contactsObj.list) {
 				contacts.Add(new UserProfile(upObj));
 			}
-			ProfileEvents.OnGetContactsFinishedEvent(contacts);
+			ProfileEvents.OnGetContactsFinished(contacts);
 		}
 
 		/// <summary>
@@ -194,7 +194,41 @@ namespace Soomla.Profile {
 		/// <param name="message">Not used here.</param>
 		public void onGetContactsStartedEvent(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
-			ProfileEvents.OnGetContactsStartedEvent();
+			ProfileEvents.OnGetContactsStarted();
+		}
+
+		/// <summary>
+		/// Will be called when feed was failed to be fetched.
+		/// </summary>
+		/// <param name="message">Will contain the failure message.</param>
+		public void onGetFeedFailedEvent(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFailedEvent:" + message);
+			
+			ProfileEvents.OnGetFeedFailed(message);
+		}
+		
+		/// <summary>
+		/// Will be called when feed was fetched from the social provider.
+		/// </summary>
+		/// <param name="message">Will contain an array of posts as string (later JSON).</param>
+		public void onGetFeedFinishedEvent(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFinishedEvent:" + message);
+			
+			JSONObject postsObj = new JSONObject(message);
+			List<string> posts = new List<string>();
+			foreach (JSONObject postObj in postsObj.list) {
+				posts.Add(postObj.str);
+			}
+			ProfileEvents.OnGetFeedFinished(posts);
+		}
+		
+		/// <summary>
+		/// Will be called when feed fetching process has started.
+		/// </summary>
+		/// <param name="message">Not used here.</param>
+		public void onGetFeedStartedEvent(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedStartedEvent");
+			ProfileEvents.OnGetFeedStarted();
 		}
 
 		/// <summary>
@@ -236,11 +270,17 @@ namespace Soomla.Profile {
 
 		public static Action<SocialActionType> OnSocialActionStarted = delegate {};
 
-		public static Action<string> OnGetContactsFailedEvent = delegate {};
+		public static Action<string> OnGetContactsFailed = delegate {};
 		
-		public static Action<List<UserProfile>> OnGetContactsFinishedEvent = delegate {};
+		public static Action<List<UserProfile>> OnGetContactsFinished = delegate {};
 		
-		public static Action OnGetContactsStartedEvent = delegate {};
+		public static Action OnGetContactsStarted = delegate {};
+
+		public static Action<string> OnGetFeedFailed = delegate {};
+		
+		public static Action<List<string>> OnGetFeedFinished = delegate {};
+		
+		public static Action OnGetFeedStarted = delegate {};
 
 		public static Action<Reward, bool> OnRewardGivenEvent = delegate {};
 	}

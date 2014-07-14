@@ -109,6 +109,10 @@ namespace Soomla.Example {
 			ProfileEvents.OnLoginFinished += OnLoginFinished;
 			ProfileEvents.OnSocialActionFinished += OnSocialActionFinished;
 			ProfileEvents.OnSocialActionFailed += OnSocialActionFailed;
+			ProfileEvents.OnGetContactsFinished += onGetContactsFinished;
+			ProfileEvents.OnGetContactsFailed += onGetContactsFailed;
+			ProfileEvents.OnGetFeedFinished += onGetFeedFinished;
+			ProfileEvents.OnGetFeedFailed += onGetFeedFailed;
 //			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
 
 			SoomlaStore.Initialize(new MuffinRushAssets());
@@ -131,14 +135,18 @@ namespace Soomla.Example {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
 				reward.Repeatable = true;
 //				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
-				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
-				                          "I think i love SOOMLA",
-				                          "Refaelos",
-				                          "this is a caption",
-				                          "Trying to test a story", 
-				                          "http://soom.la",
-				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
-				                          reward);
+//				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
+//				                          "I think i love SOOMLA",
+//				                          "Refaelos",
+//				                          "this is a caption",
+//				                          "Trying to test a story", 
+//				                          "http://soom.la",
+//				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
+//				                          reward);
+
+				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
+				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
+
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
 				reward.Repeatable = true;
@@ -155,6 +163,23 @@ namespace Soomla.Example {
 
 		private void OnSocialActionFailed(SocialActionType socialActionType, string message) {
 			Handheld.StopActivityIndicator();
+		}
+
+		private void onGetContactsFinished(List<UserProfile> contacts) {
+			Handheld.StopActivityIndicator();
+			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetContactsFinished]", "friends:" + contacts);
+		}
+		private void onGetContactsFailed(string reason) {
+			Handheld.StopActivityIndicator();
+			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetContactsFailed]", "reason:" + reason);
+		}
+		private void onGetFeedFinished(List<string> posts) {
+			Handheld.StopActivityIndicator();
+			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetFeedFinished]", "posts:" + posts);
+		}
+		private void onGetFeedFailed(string reason) {
+			Handheld.StopActivityIndicator();
+			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetFeedFailed]", "reason:" + reason);
 		}
 
 		/// <summary>

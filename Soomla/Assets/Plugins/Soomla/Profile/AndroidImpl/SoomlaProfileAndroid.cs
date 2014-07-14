@@ -82,6 +82,18 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
+		protected override void _getFeed(Provider provider, Reward reward) {
+			AndroidJNI.PushLocalFrame(100);
+			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "getFeed", provider.ToString(), rewardJSON);
+			}
+			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+		}
+
 		protected override UserProfile _getStoredUserProfile(Provider provider) {
 			JSONObject upObj = null;
 			AndroidJNI.PushLocalFrame(100);

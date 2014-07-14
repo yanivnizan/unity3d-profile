@@ -158,5 +158,4 @@ public class EventHandler {
         }
         UnityPlayer.UnitySendMessage("ProfileEvents", "onRewardGivenEvent", jsonObject.toString());
     }
-
 }

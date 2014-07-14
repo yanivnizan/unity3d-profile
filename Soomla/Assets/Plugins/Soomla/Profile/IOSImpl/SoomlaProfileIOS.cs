@@ -42,6 +42,8 @@ namespace Soomla.Profile {
 		[DllImport ("__Internal")]
 		private static extern void soomlaProfile_GetContacts(string provider, string rewardJSON);
 		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_GetFeed(string provider, string rewardJSON);
+		[DllImport ("__Internal")]
 		private static extern int soomlaProfile_GetStoredUserProfile(string provider, out IntPtr json);
 
 		protected override void _initialize () {
@@ -78,6 +80,10 @@ namespace Soomla.Profile {
 		
 		protected override void _getContacts(Provider provider, Reward reward) {
 			soomlaProfile_GetContacts(provider.ToString(), GetRewardJsonStr(reward));
+		}
+
+		protected override void _getFeed(Provider provider, Reward reward) {
+			soomlaProfile_GetFeed(provider.ToString(), GetRewardJsonStr(reward));
 		}
 		
 		protected override UserProfile _getStoredUserProfile(Provider provider) { 

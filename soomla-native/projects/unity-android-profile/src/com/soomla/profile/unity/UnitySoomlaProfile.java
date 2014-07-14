@@ -40,12 +40,12 @@ public class UnitySoomlaProfile {
         SoomlaProfile.getInstance().uploadImage(provider, message, filePath, reward);
     }
 
-//    public static void getFeed(String providerStr, String rewardJSON) throws ProviderNotFoundException{
-//        IProvider.Provider provider = IProvider.Provider.getEnum(providerStr);
-//        Reward reward = Reward.fromJSONString(rewardJSON);
-//
-//        SoomlaProfile.getInstance().getFeed(provider, reward);
-//    }
+    public static void getFeed(String providerStr, String rewardJSON) throws ProviderNotFoundException{
+        IProvider.Provider provider = IProvider.Provider.getEnum(providerStr);
+        Reward reward = Reward.fromJSONString(rewardJSON);
+
+        SoomlaProfile.getInstance().getFeed(provider, reward);
+    }
 
     public static UserProfile getStoredUserProfile(String providerStr) throws ProviderNotFoundException, UserProfileNotFoundException {
         IProvider.Provider provider = IProvider.Provider.getEnum(providerStr);

@@ -14,6 +14,9 @@ import com.soomla.profile.events.auth.LogoutStartedEvent;
 import com.soomla.profile.events.social.GetContactsFailedEvent;
 import com.soomla.profile.events.social.GetContactsFinishedEvent;
 import com.soomla.profile.events.social.GetContactsStartedEvent;
+import com.soomla.profile.events.social.GetFeedFailedEvent;
+import com.soomla.profile.events.social.GetFeedFinishedEvent;
+import com.soomla.profile.events.social.GetFeedStartedEvent;
 import com.soomla.profile.events.social.SocialActionFailedEvent;
 import com.soomla.profile.events.social.SocialActionFinishedEvent;
 import com.soomla.profile.events.social.SocialActionStartedEvent;
@@ -122,6 +125,26 @@ public class EventHandler {
     @Subscribe
     public void onGetContactsStartedEvent(GetContactsStartedEvent getContactsStartedEvent) {
         UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsStartedEvent", "");
+    }
+
+    @Subscribe
+    public void onGetFeedFailedEvent(GetFeedFailedEvent getFeedFailedEvent) {
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFailedEvent", getFeedFailedEvent.ErrorDescription);
+    }
+
+    @Subscribe
+    public void onGetFeedFinishedEvent(GetFeedFinishedEvent getFeedFinishedEvent) {
+        JSONArray jsonArray = new JSONArray();
+        List<String> posts = getFeedFinishedEvent.Posts;
+        for(String post : posts) {
+            jsonArray.put(post);
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFinishedEvent", jsonArray.toString());
+    }
+
+    @Subscribe
+    public void onGetFeedStartedEvent(GetFeedStartedEvent getFeedStartedEvent) {
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedStartedEvent", "");
     }
 
     @Subscribe

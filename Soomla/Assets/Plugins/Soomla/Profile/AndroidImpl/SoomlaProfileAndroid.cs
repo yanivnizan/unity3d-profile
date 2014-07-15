@@ -70,6 +70,18 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
+		protected override void _uploadImage (Provider provider, string message, string filePath, Reward reward) {
+			AndroidJNI.PushLocalFrame(100);
+			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
+				string rewardJSON = "";
+				if (reward != null) {
+					rewardJSON = reward.toJSONObject().print();
+				}
+				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "uploadImage", provider.ToString(), message, filePath, rewardJSON);
+			}
+			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+		}
+
 		protected override void _getContacts(Provider provider, Reward reward) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {

@@ -16,6 +16,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 using Soomla;
 using Soomla.Profile;
@@ -82,6 +83,8 @@ namespace Soomla.Example {
 		private Texture2D tTwitter;
 		private Dictionary<string, Texture2D> itemsTextures;
 
+		private bool bScreenshot = false;
+
 
 		/// <summary>
 		/// Starts this instance.
@@ -146,6 +149,9 @@ namespace Soomla.Example {
 
 				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
 				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
+
+				// code for this needs to be done in LateUpdate/TakeScreenshot (see there)
+//				bScreenshot = true;
 
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
@@ -264,6 +270,13 @@ namespace Soomla.Example {
 			}
 		}
 
+		void LateUpdate() {
+			if(bScreenshot) {
+				bScreenshot = false;
+				StartCoroutine(TakeScreenshot());
+			}
+		}
+
 		/// <summary>
 		/// Calls the relevant function to display the correct screen of the game.
 		/// </summary>
@@ -288,6 +301,40 @@ namespace Soomla.Example {
 			}	
 		}
 	
+		private static string ScreenShotName(int width, int height) {
+			return string.Format("{0}/screen_{1}x{2}_{3}.png", 
+			                     Application.persistentDataPath, 
+			                     width, height, 
+			                     System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+		}
+
+		private IEnumerator TakeScreenshot() {
+			yield return new WaitForEndOfFrame ();
+
+			// screenshot
+			Texture2D image = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+			image.ReadPixels(new Rect(0,0,Screen.width, Screen.height), 0,0,false);
+			image.Apply();
+			
+			// using byte[]
+//			byte[] imageBytes = image.EncodeToJPG();
+			byte[] imageBytes = image.EncodeToPNG();
+			Debug.Log ("imageBytes.Length:" + imageBytes.Length);
+			Destroy (image);
+//				SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotBytes", imageBytes, "screen.png", 100, null);
+			
+			// using file
+			// TODO: if using this code to upload via file, include the following permission in AndroidManifest.xml
+			// TODO: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			//string screenshotPath = Application.dataPath + "/../SavedScreen.jpg";
+			string screenshotPath = ScreenShotName (Screen.width, Screen.height);
+			File.WriteAllBytes(screenshotPath, imageBytes);
+			Debug.Log(string.Format("Took screenshot to: {0}", screenshotPath));
+			SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotFile", screenshotPath, null);
+
+			yield return null;
+		}
+
 		/// <summary>
 		/// Displays the welcome screen of the game. 
 		/// </summary>

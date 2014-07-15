@@ -82,10 +82,9 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
-//		public static void UploadImage(Provider provider, string message, string filePath,
-//		                               Reward reward) {
-//			instance._uploadImage(provider, message, filePath, reward);
-//		}
+		public static void UploadImage(Provider provider, string message, string filePath, Reward reward) {
+			instance._uploadImage(provider, message, filePath, reward);
+		}
 
 		/// <summary>
 		/// Will fetch UserProfiles of contacts of the current user.
@@ -151,8 +150,8 @@ namespace Soomla.Profile
 //		protected virtual void _uploadImage(Provider provider, string message, string filename,
 //		                                    byte[] imageBytes, int quality, Reward reward) { }
 //
-//		protected virtual void _uploadImage(Provider provider, string message, string filePath,
-//		                                    Reward reward) { }
+		protected virtual void _uploadImage(Provider provider, string message, string filePath,
+		                                    Reward reward) { }
 
 		protected virtual void _getContacts(Provider provider, Reward reward) { }
 

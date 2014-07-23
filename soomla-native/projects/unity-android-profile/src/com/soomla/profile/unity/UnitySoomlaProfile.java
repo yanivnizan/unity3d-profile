@@ -91,7 +91,8 @@ public class UnitySoomlaProfile {
         SoomlaProfile.getInstance().login(UnityPlayer.currentActivity, provider, reward);
     }
 
-    public static void pushEventLoginStarted(Provider provider) {
+    public static void pushEventLoginStarted(String providerStr) {
+        Provider provider = Provider.getEnum(providerStr);
         BusProvider.getInstance().post(new LoginStartedEvent(provider));
     }
 
@@ -101,26 +102,29 @@ public class UnitySoomlaProfile {
         BusProvider.getInstance().post(new LoginFinishedEvent(userProfile));
     }
 
-    public static void pushEventLoginFailed(String message) {
-        BusProvider.getInstance().post(new LoginFailedEvent(message));
+    public static void pushEventLoginFailed(String providerStr, String message) {
+        Provider provider = Provider.getEnum(providerStr);
+        BusProvider.getInstance().post(new LoginFailedEvent(provider, message));
     }
 
-    public static void pushEventLoginCancelled() {
-        BusProvider.getInstance().post(new LoginCancelledEvent());
+    public static void pushEventLoginCancelled(String providerStr) {
+        Provider provider = Provider.getEnum(providerStr);
+        BusProvider.getInstance().post(new LoginCancelledEvent(provider));
     }
 
-    public static void pushEventLogoutStarted(Provider provider) {
+    public static void pushEventLogoutStarted(String providerStr) {
+        Provider provider = Provider.getEnum(providerStr);
         BusProvider.getInstance().post(new LogoutStartedEvent(provider));
     }
 
-    public static void pushEventLogoutFinished(String userProfileJSON) throws Exception {
-        JSONObject jsonObject = new JSONObject(userProfileJSON);
-        UserProfile userProfile = new UserProfile(jsonObject);
-        BusProvider.getInstance().post(new LogoutFinishedEvent(userProfile));
+    public static void pushEventLogoutFinished(String providerStr) throws Exception {
+        Provider provider = Provider.getEnum(providerStr);
+        BusProvider.getInstance().post(new LogoutFinishedEvent(provider));
     }
 
-    public static void pushEventLogoutFailed(String message) {
-        BusProvider.getInstance().post(new LogoutFailedEvent(message));
+    public static void pushEventLogoutFailed(String providerStr, String message) {
+        Provider provider = Provider.getEnum(providerStr);
+        BusProvider.getInstance().post(new LogoutFailedEvent(provider, message));
     }
 
     public static void pushEventSocialActionStarted(Provider provider, SocialActionType socialActionType) {

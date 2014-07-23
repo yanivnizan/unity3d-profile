@@ -76,8 +76,7 @@ public class EventHandler {
 
     @Subscribe
     public void onLogoutFinished(LogoutFinishedEvent logoutFinishedEvent) {
-        UserProfile userProfile = logoutFinishedEvent.UserProfile;
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onLogoutFinished", userProfile.toJSONObject().toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onLogoutFinished", logoutFinishedEvent.Provider.toString());
     }
 
     @Subscribe

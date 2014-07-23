@@ -30,26 +30,32 @@ extern "C"{
         UserProfile* userProfile = [[UserProfile alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:userProfileJson]];
         [UserProfileEventHandling postLoginFinished:userProfile];
     }
-    void pushEventLoginFailed(const char* sMessage) {
+    void pushEventLoginFailed(const char* sProvider, const char* sMessage) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
         NSString *message = [NSString stringWithUTF8String:sMessage];
-        [UserProfileEventHandling postLoginFailed:message];
+        [UserProfileEventHandling postLoginFailed:provider withMessage:message];
     }
-    void pushEventLoginCancelled() {
-        [UserProfileEventHandling postLoginCancelled];
+    void pushEventLoginCancelled(const char* sProvider) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        [UserProfileEventHandling postLoginCancelled:provider];
     }
     void pushEventLogoutStarted(const char* sProvider) {
         NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
         Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
         [UserProfileEventHandling postLoginStarted:provider];
     }
-    void pushEventLogoutFinished(const char* sUserProfileJson) {
-        NSString *userProfileJson = [NSString stringWithUTF8String:sUserProfileJson];
-        UserProfile* userProfile = [[UserProfile alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:userProfileJson]];
-        [UserProfileEventHandling postLogoutFinished:userProfile];
+    void pushEventLogoutFinished(const char* sProvider) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        [UserProfileEventHandling postLogoutFinished:provider];
     }
-    void pushEventLogoutFailed(const char* sMessage) {
+    void pushEventLogoutFailed(const char* sProvider, const char* sMessage) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
         NSString *message = [NSString stringWithUTF8String:sMessage];
-        [UserProfileEventHandling postLogoutFailed:message];
+        [UserProfileEventHandling postLogoutFailed:provider withMessage:message];
     }
     void pushEventSocialActionStarted(const char* sProvider, const char* sActionType) {
         NSString* providerIdS = [NSString stringWithUTF8String:sProvider];

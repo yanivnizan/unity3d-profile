@@ -1,5 +1,7 @@
 #import "SoomlaProfile.h"
 #import "UserProfile.h"
+#import "SocialActionUtils.h"
+#import "UserProfileEventHandling.h"
 #import "UserProfileNotFoundException.h"
 #import "ProviderNotFoundException.h"
 #import "UnityCommons.h"
@@ -18,6 +20,71 @@ char* AutonomousStringCopy (const char* string)
 
 extern "C"{
 	
+    void pushEventLoginStarted (const char* sProvider) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        [UserProfileEventHandling postLoginStarted:provider];
+    }
+    void pushEventLoginFinished(const char* sUserProfileJson) {
+        NSString *userProfileJson = [NSString stringWithUTF8String:sUserProfileJson];
+        UserProfile* userProfile = [[UserProfile alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:userProfileJson]];
+        [UserProfileEventHandling postLoginFinished:userProfile];
+    }
+    void pushEventLoginFailed(const char* sMessage) {
+        NSString *message = [NSString stringWithUTF8String:sMessage];
+        [UserProfileEventHandling postLoginFailed:message];
+    }
+    void pushEventLoginCancelled() {
+        [UserProfileEventHandling postLoginCancelled];
+    }
+    void pushEventLogoutStarted(const char* sProvider) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        [UserProfileEventHandling postLoginStarted:provider];
+    }
+    void pushEventLogoutFinished(const char* sUserProfileJson) {
+        NSString *userProfileJson = [NSString stringWithUTF8String:sUserProfileJson];
+        UserProfile* userProfile = [[UserProfile alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:userProfileJson]];
+        [UserProfileEventHandling postLogoutFinished:userProfile];
+    }
+    void pushEventLogoutFailed(const char* sMessage) {
+        NSString *message = [NSString stringWithUTF8String:sMessage];
+        [UserProfileEventHandling postLogoutFailed:message];
+    }
+    void pushEventSocialActionStarted(const char* sProvider, const char* sActionType) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        NSString* actionType = [NSString stringWithUTF8String:sActionType];
+        SocialActionType socialActionType = [SocialActionUtils actionStringToEnum:actionType];
+        [UserProfileEventHandling postSocialActionStarted:provider withType:socialActionType];
+    }
+    void pushEventSocialActionFinished(const char* sProvider, const char* sActionType) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        NSString* actionType = [NSString stringWithUTF8String:sActionType];
+        SocialActionType socialActionType = [SocialActionUtils actionStringToEnum:actionType];
+        [UserProfileEventHandling postSocialActionFinished:provider withType:socialActionType];
+    }
+    void pushEventSocialActionFailed(const char* sProvider, const char* sActionType,  const char* sMessage) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        NSString* actionType = [NSString stringWithUTF8String:sActionType];
+        NSString *message = [NSString stringWithUTF8String:sMessage];
+        SocialActionType socialActionType = [SocialActionUtils actionStringToEnum:actionType];
+        [UserProfileEventHandling postSocialActionFailed:provider withType:socialActionType withMessage:message];
+    }
+    
+//    void pushEventGetContactsStarted(enum SocialActionType socialActionType) {
+//        
+//    }
+//    void pushEventGetContactsFinished(enum SocialActionType socialActionType, const char** contacts) {
+//        
+//    }
+//    void pushEventGetContactsFailed(enum SocialActionType socialActionType, const char* message) {
+//        
+//    }
+    
+    
 	int soomlaProfile_GetStoredUserProfile(const char* sProvider, char** json) {
         NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
 		@try {

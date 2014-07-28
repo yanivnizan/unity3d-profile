@@ -17,6 +17,7 @@ import com.soomla.profile.events.social.GetContactsStartedEvent;
 import com.soomla.profile.events.social.GetFeedFailedEvent;
 import com.soomla.profile.events.social.GetFeedFinishedEvent;
 import com.soomla.profile.events.social.GetFeedStartedEvent;
+import com.soomla.profile.events.social.SocialActionCancelledEvent;
 import com.soomla.profile.events.social.SocialActionFailedEvent;
 import com.soomla.profile.events.social.SocialActionFinishedEvent;
 import com.soomla.profile.events.social.SocialActionStartedEvent;
@@ -44,7 +45,7 @@ public class EventHandler {
 
     @Subscribe
     public void onLoginCancelled(LoginCancelledEvent loginCancelledEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onLoginCancelled", "");
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onLoginCancelled", loginCancelledEvent.Provider.toString());
     }
 
     @Subscribe
@@ -55,7 +56,15 @@ public class EventHandler {
 
     @Subscribe
     public void onLoginFailed(LoginFailedEvent loginFailedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onLoginFailed", loginFailedEvent.ErrorDescription);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", loginFailedEvent.Provider.toString());
+            jsonObject.put("errMsg", loginFailedEvent.ErrorDescription);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onLoginFailed", jsonObject.toString());
     }
 
     @Subscribe
@@ -71,7 +80,15 @@ public class EventHandler {
 
     @Subscribe
     public void onLogoutFailed(LogoutFailedEvent logoutFailedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onLogoutFailed", logoutFailedEvent.ErrorDescription);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", logoutFailedEvent.Provider.toString());
+            jsonObject.put("errMsg", logoutFailedEvent.ErrorDescription);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onLogoutFailed", jsonObject.toString());
     }
 
     @Subscribe
@@ -88,6 +105,7 @@ public class EventHandler {
     public void onSocialActionFailed(SocialActionFailedEvent socialActionFailedEvent) {
         JSONObject jsonObject = new JSONObject();
         try {
+            jsonObject.put("provider", socialActionFailedEvent.Provider.toString());
             jsonObject.put("socialActionType", socialActionFailedEvent.SocialActionType.toString());
             jsonObject.put("errMsg", socialActionFailedEvent.ErrorDescription);
         } catch (JSONException e) {
@@ -98,17 +116,50 @@ public class EventHandler {
 
     @Subscribe
     public void onSocialActionFinished(SocialActionFinishedEvent socialActionFinishedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onSocialActionFinished", socialActionFinishedEvent.SocialActionType.toString());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", socialActionFinishedEvent.Provider.toString());
+            jsonObject.put("socialActionType", socialActionFinishedEvent.SocialActionType.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onSocialActionFinished", jsonObject.toString());
     }
 
     @Subscribe
     public void onSocialActionStarted(SocialActionStartedEvent socialActionStartedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onSocialActionStarted", socialActionStartedEvent.SocialActionType.toString());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", socialActionStartedEvent.Provider.toString());
+            jsonObject.put("socialActionType", socialActionStartedEvent.SocialActionType.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onSocialActionStarted", jsonObject.toString());
+    }
+
+    @Subscribe
+    public void onSocialActionCancelled(SocialActionCancelledEvent socialActionCancelledEvent) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", socialActionCancelledEvent.Provider.toString());
+            jsonObject.put("socialActionType", socialActionCancelledEvent.SocialActionType.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onSocialActionCancelled", jsonObject.toString());
     }
 
     @Subscribe
     public void onGetContactsFailedEvent(GetContactsFailedEvent getContactsFailedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFailedEvent", getContactsFailedEvent.ErrorDescription);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", getContactsFailedEvent.Provider.toString());
+            jsonObject.put("errMsg", getContactsFailedEvent.ErrorDescription);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFailedEvent", jsonObject.toString());
     }
 
     @Subscribe
@@ -118,17 +169,33 @@ public class EventHandler {
         for(UserProfile up : contacts) {
             jsonArray.put(up.toJSONObject());
         }
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFinishedEvent", jsonArray.toString());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", getContactsFinishedEvent.Provider.toString());
+            jsonObject.put("contacts", contacts);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFinishedEvent", jsonObject.toString());
     }
 
     @Subscribe
     public void onGetContactsStartedEvent(GetContactsStartedEvent getContactsStartedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsStartedEvent", "");
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsStartedEvent", getContactsStartedEvent.Provider.toString());
     }
 
     @Subscribe
     public void onGetFeedFailedEvent(GetFeedFailedEvent getFeedFailedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFailedEvent", getFeedFailedEvent.ErrorDescription);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", getFeedFailedEvent.Provider.toString());
+            jsonObject.put("errMsg", getFeedFailedEvent.ErrorDescription);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFailedEvent", jsonObject.toString());
     }
 
     @Subscribe
@@ -138,12 +205,21 @@ public class EventHandler {
         for(String post : posts) {
             jsonArray.put(post);
         }
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFinishedEvent", jsonArray.toString());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("provider", getFeedFinishedEvent.Provider.toString());
+            jsonObject.put("posts", posts);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFinishedEvent", jsonObject.toString());
     }
 
     @Subscribe
     public void onGetFeedStartedEvent(GetFeedStartedEvent getFeedStartedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedStartedEvent", "");
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedStartedEvent", getFeedStartedEvent.Provider.toString());
     }
 
     @Subscribe

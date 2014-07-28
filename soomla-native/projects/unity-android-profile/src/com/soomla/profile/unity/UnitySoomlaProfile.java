@@ -11,12 +11,12 @@ import com.soomla.profile.events.auth.LoginStartedEvent;
 import com.soomla.profile.events.auth.LogoutFailedEvent;
 import com.soomla.profile.events.auth.LogoutFinishedEvent;
 import com.soomla.profile.events.auth.LogoutStartedEvent;
+import com.soomla.profile.events.social.SocialActionCancelledEvent;
 import com.soomla.profile.events.social.SocialActionFailedEvent;
 import com.soomla.profile.events.social.SocialActionFinishedEvent;
 import com.soomla.profile.events.social.SocialActionStartedEvent;
 import com.soomla.profile.exceptions.ProviderNotFoundException;
 import com.soomla.profile.exceptions.UserProfileNotFoundException;
-import com.soomla.profile.social.ISocialProvider;
 import com.soomla.rewards.Reward;
 import com.unity3d.player.UnityPlayer;
 
@@ -91,6 +91,9 @@ public class UnitySoomlaProfile {
         SoomlaProfile.getInstance().login(UnityPlayer.currentActivity, provider, reward);
     }
 
+
+    // events pushed from external provider (Unity FB SDK etc.)
+
     public static void pushEventLoginStarted(String providerStr) {
         Provider provider = Provider.getEnum(providerStr);
         BusProvider.getInstance().post(new LoginStartedEvent(provider));
@@ -127,15 +130,27 @@ public class UnitySoomlaProfile {
         BusProvider.getInstance().post(new LogoutFailedEvent(provider, message));
     }
 
-    public static void pushEventSocialActionStarted(Provider provider, SocialActionType socialActionType) {
+    public static void pushEventSocialActionStarted(String providerStr, String actionTypeStr) {
+        Provider provider = Provider.getEnum(providerStr);
+        SocialActionType socialActionType = SocialActionType.getEnum(actionTypeStr);
         BusProvider.getInstance().post(new SocialActionStartedEvent(provider, socialActionType));
     }
 
-    public static void pushEventSocialActionFinished(Provider provider, SocialActionType socialActionType) {
+    public static void pushEventSocialActionFinished(String providerStr, String actionTypeStr) {
+        Provider provider = Provider.getEnum(providerStr);
+        SocialActionType socialActionType = SocialActionType.getEnum(actionTypeStr);
         BusProvider.getInstance().post(new SocialActionFinishedEvent(provider, socialActionType));
     }
 
-    public static void pushEventSocialActionFailed(Provider provider, SocialActionType socialActionType, String message) {
+    public static void pushEventSocialActionCancelled(String providerStr, String actionTypeStr) {
+        Provider provider = Provider.getEnum(providerStr);
+        SocialActionType socialActionType = SocialActionType.getEnum(actionTypeStr);
+        BusProvider.getInstance().post(new SocialActionCancelledEvent(provider, socialActionType));
+    }
+
+    public static void pushEventSocialActionFailed(String providerStr, String actionTypeStr, String message) {
+        Provider provider = Provider.getEnum(providerStr);
+        SocialActionType socialActionType = SocialActionType.getEnum(actionTypeStr);
         BusProvider.getInstance().post(new SocialActionFailedEvent(provider, socialActionType, message));
     }
 

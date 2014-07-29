@@ -12,6 +12,9 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.using System;
 
+using UnityEngine;
+using System.Text.RegularExpressions;
+
 namespace Soomla.Profile
 {
 	/// <summary>
@@ -41,8 +44,8 @@ namespace Soomla.Profile
 		/// <summary>
 		/// Initializes the SOOMLA Profile Module.
 		/// </summary>
-		public static void Initialize() {
-			instance._initialize();
+		public static void Initialize(bool usingUnityProvider) {
+			instance._initialize(usingUnityProvider);
 		}
 
 		/// <summary>
@@ -82,9 +85,10 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
-		public static void UploadImage(Provider provider, string message, string filePath, Reward reward) {
-			instance._uploadImage(provider, message, filePath, reward);
-		}
+//		public static void UploadImage(Provider provider, string message, string filePath,
+//		                               Reward reward) {
+//			instance._uploadImage(provider, message, filePath, reward);
+//		}
 
 		/// <summary>
 		/// Will fetch UserProfiles of contacts of the current user.
@@ -98,16 +102,6 @@ namespace Soomla.Profile
 		}
 
 		/// <summary>
-		///  Will fetch posts from user feed 
-		///
-		/// </summary>
-		/// <param name="provider">Provider.</param>
-		/// <param name="reward">Reward.</param>
-		public static void GetFeed(Provider provider, Reward reward) {
-			instance._getFeed(provider, reward);
-		}
-
-		/// <summary>
 		/// This will fetch the UserProfile that is saved for the given provider.
 		/// UserProfiles are automatically saved in the local storage for a provider after a successful login.
 		/// </summary>
@@ -115,6 +109,16 @@ namespace Soomla.Profile
 		/// <param name="provider">The provider you need to fetch UserProfile for.</param>
 		public static UserProfile GetStoredUserProfile(Provider provider) {
 			return instance._getStoredUserProfile(provider);
+		}
+
+		/// <summary>
+		/// Stores the user profile.
+		/// The UserProfile should contain the provider internally
+		/// </summary>
+		/// <param name="userProfile">User profile.</param>
+		/// <param name="notify">If set to <c>true</c> notify.</param>
+		public static void StoreUserProfile (UserProfile userProfile, bool notify = false) {
+			instance._storeUserProfile (userProfile, notify);
 		}
 
 		/// <summary>
@@ -135,7 +139,43 @@ namespace Soomla.Profile
 		}
 
 
-		protected virtual void _initialize() { }
+		// push events
+		public static void PushEventLoginStarted(Provider provider) { 
+			instance._pushEventLoginStarted(provider);
+		}
+		public static void PushEventLoginFinished(string userProfileJson) {
+			instance._pushEventLoginFinished(userProfileJson);
+		}
+		public static void PushEventLoginFailed(Provider provider, string message) { 
+			instance._pushEventLoginFailed(provider, message); 
+		}
+		public static void PushEventLoginCancelled(Provider provider) { 
+			instance._pushEventLoginCancelled(provider);
+		}
+		public static void PushEventLogoutStarted(Provider provider) {
+			instance._pushEventLogoutStarted(provider); 
+		}
+		public static void PushEventLogoutFinished(Provider provider) {
+			instance._pushEventLogoutFinished(provider);
+		}
+		public static void PushEventLogoutFailed(Provider provider, string message) {
+			instance._pushEventLogoutFailed(provider, message); 
+		}
+		public static void PushEventSocialActionStarted(Provider provider, SocialActionType actionType) { 
+			instance._pushEventSocialActionStarted(provider, actionType);
+		}
+		public static void PushEventSocialActionFinished(Provider provider, SocialActionType actionType) { 
+			instance._pushEventSocialActionFinished(provider, actionType);
+		}
+		public static void PushEventSocialActionCancelled(Provider provider, SocialActionType actionType) { 
+			instance._pushEventSocialActionCancelled(provider, actionType);
+		}
+		public static void PushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) {
+			instance._pushEventSocialActionFailed (provider, actionType, message);
+		}
+			
+
+		protected virtual void _initialize(bool usingUnityProvider) { }
 
 		protected virtual void _login(Provider provider, Reward reward) { }
 		
@@ -150,17 +190,59 @@ namespace Soomla.Profile
 //		protected virtual void _uploadImage(Provider provider, string message, string filename,
 //		                                    byte[] imageBytes, int quality, Reward reward) { }
 //
-		protected virtual void _uploadImage(Provider provider, string message, string filePath,
-		                                    Reward reward) { }
+//		protected virtual void _uploadImage(Provider provider, string message, string filePath,
+//		                                    Reward reward) { }
 
 		protected virtual void _getContacts(Provider provider, Reward reward) { }
 
-		protected virtual void _getFeed(Provider provider, Reward reward) { }
 
-		protected virtual UserProfile _getStoredUserProfile(Provider provider) { return null; }
+		// event pushing back to native (when using FB Unity SDK)
+		protected virtual void _pushEventLoginStarted(Provider provider) { }
+		protected virtual void _pushEventLoginFinished(string userProfileJson) { }
+		protected virtual void _pushEventLoginFailed(Provider provider, string message) { }
+		protected virtual void _pushEventLoginCancelled(Provider provider) { }
+		protected virtual void _pushEventLogoutStarted(Provider provider) { }
+		protected virtual void _pushEventLogoutFinished(Provider provider) { }
+		protected virtual void _pushEventLogoutFailed(Provider provider, string message) { }
+		protected virtual void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType) { }
+		protected virtual void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType) { }
+		protected virtual void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType) { }
+		protected virtual void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { }
+
+
+		protected virtual UserProfile _getStoredUserProfile(Provider provider) { 
+#if UNITY_EDITOR
+			string key = keyUserProfile(provider);
+			string value = PlayerPrefs.GetString (key);
+			return new UserProfile (new JSONObject (value));
+#endif
+			return null;
+		}
+
+		protected virtual void _storeUserProfile(UserProfile userProfile, bool notify) { 
+#if UNITY_EDITOR
+			string key = keyUserProfile(userProfile.Provider);
+			string val = userProfile.toJSONObject().ToString();
+			SoomlaUtils.LogDebug(TAG, "key/val:" + key + "/" + val);
+			PlayerPrefs.SetString(key, val);
+			
+			if (notify) {
+				ProfileEvents.OnUserProfileUpdated(userProfile);
+			}
+#endif
+		}
+
+		/** keys **/
+#if UNITY_EDITOR
+		private const string DB_KEY_PREFIX = "soomla.profile.";
+
+		private static string keyUserProfile(Provider provider) {
+			return DB_KEY_PREFIX + "userprofile." + provider.ToString();
+		}
+#endif
 
 		/// <summary> Class Members </summary>
-		
+
 		protected const string TAG = "SOOMLA SoomlaProfile";
 	}
 }

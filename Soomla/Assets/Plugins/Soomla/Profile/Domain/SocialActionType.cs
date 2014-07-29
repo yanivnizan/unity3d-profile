@@ -11,15 +11,42 @@ using System;
 namespace Soomla.Profile
 {
 	/// <summary>
-	/// This enum is used to distinguish between social actions in social events.
+	/// A string enumeration of social providers.
 	/// </summary>
-	public enum SocialActionType
+	public sealed class SocialActionType
 	{
-		UPDATE_STATUS
-		, UPDATE_STORY
-		, UPLOAD_IMAGE
-		, GET_CONTACTS
-		, GET_FEEDS
+		private readonly string name;
+		
+		public static readonly SocialActionType UPDATE_STATUS = new SocialActionType ("UPDATE_STATUS");
+		public static readonly SocialActionType UPDATE_STORY = new SocialActionType ("UPDATE_STORY");
+		public static readonly SocialActionType UPLOAD_IMAGE = new SocialActionType ("UPLOAD_IMAGE");
+		public static readonly SocialActionType GET_CONTACTS = new SocialActionType ("GET_CONTACTS");
+		public static readonly SocialActionType GET_FEED = new SocialActionType ("GET_FEED");
+
+		private SocialActionType(string name){
+			this.name = name;
+		}
+		
+		public override string ToString(){
+			return name;
+		}
+		
+		public static SocialActionType fromString(string actionTypeStr) {
+			switch(actionTypeStr) {
+			case("UPDATE_STATUS"):
+				return UPDATE_STATUS;
+			case("UPDATE_STORY"):
+				return UPDATE_STORY;
+			case("UPLOAD_IMAGE"):
+				return UPLOAD_IMAGE;
+			case("GET_CONTACTS"):
+				return GET_CONTACTS;
+			case("GET_FEED"):
+				return GET_FEED;
+			default:
+				return null;
+			}
+		}
 	}
 }
 

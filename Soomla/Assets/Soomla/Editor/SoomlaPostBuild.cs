@@ -19,8 +19,8 @@ public class PostProcessScriptStarter : MonoBehaviour {
 		foreach (FileInfo fi in files) { 
 			Process proc = new Process();		
 			proc.StartInfo.FileName = "python2.6";
-//			UnityEngine.Debug.Log("Trying to run: " + fi.FullName);
-			proc.StartInfo.Arguments = string.Format("\"{0}\" \"{1}\"", fi.FullName, pathToBuiltProject);
+			UnityEngine.Debug.Log("Trying to run: " + fi.FullName);
+			proc.StartInfo.Arguments = string.Format("\"{0}\" \"{1}\" \"{2}\"", fi.FullName, pathToBuiltProject, "True");
 			proc.StartInfo.UseShellExecute = false;
 			proc.StartInfo.RedirectStandardOutput = true;
 			proc.StartInfo.RedirectStandardError = true;

@@ -77,7 +77,7 @@ namespace Soomla.Profile {
 					
 					throw new ProviderNotFoundException();
 				}
-				
+
 				jniExceptionClass.Dispose();
 				
 				Debug.Log("SOOMLA/UNITY Got an exception but can't identify it!");

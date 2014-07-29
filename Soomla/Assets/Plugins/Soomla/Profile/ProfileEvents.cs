@@ -54,6 +54,7 @@ namespace Soomla.Profile {
 		/// Will be called when a user profile is updated.
 		/// </summary>
 		/// <param name="message">will contain a JSON representation of the UserProfile.</param>
+		/// the provider is found in the UserProfile
 		public void onUserProfileUpdated(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onUserProfileUpdated");
 
@@ -69,13 +70,19 @@ namespace Soomla.Profile {
 		public void onLoginFailed(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFailed:" + message);
 
-			ProfileEvents.OnLoginFailed(message);
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			String errMsg = resObj["errMsg"].str;
+			Provider provider = Provider.fromString (providerStr);
+
+			ProfileEvents.OnLoginFailed(provider, errMsg);
 		}
 
 		/// <summary>
 		/// Will be called when login finished.
 		/// </summary>
 		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
+		/// the provider is found in the UserProfile
 		public void onLoginFinished(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLoginFinished:" + message);
 
@@ -97,11 +104,17 @@ namespace Soomla.Profile {
 		/// <summary>
 		/// Will be called when logout fails.
 		/// </summary>
-		/// <param name="message">Will contain the failure message.</param>
+		/// <param name="message">Will contain provider as string and
+		 /// the failure message.</param>
 		public void onLogoutFailed(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFailed:" + message);
-			
-			ProfileEvents.OnLogoutFailed(message);
+		
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			String errMsg = resObj["errMsg"].str;
+			Provider provider = Provider.fromString (providerStr);
+
+			ProfileEvents.OnLogoutFailed(provider, errMsg);
 		}
 
 		/// <summary>
@@ -110,10 +123,8 @@ namespace Soomla.Profile {
 		/// <param name="message">Will contain a JSON representation of the UserProfile.</param>
 		public void onLogoutFinished(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onLogoutFinished:" + message);
-			
-			JSONObject upJSON = new JSONObject(message);
-			UserProfile up = new UserProfile(upJSON);
-			ProfileEvents.OnLogoutFinished(up);
+
+			ProfileEvents.OnLogoutFinished(Provider.fromString (message));
 		}
 
 		/// <summary>
@@ -133,102 +144,110 @@ namespace Soomla.Profile {
 		public void onSocialActionFailed(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFailed:" + message);
 
-			JSONObject jsonObj = new JSONObject(message);
-			string satStr = jsonObj["socialActionType"].str;
-			string errMsg = jsonObj["errMsg"].str;
+			JSONObject resObj = new JSONObject(message);
+			string providerStr = resObj["provider"].str;
+			string satStr = resObj["socialActionType"].str;
+			string errMsg = resObj["errMsg"].str;
 
-			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), satStr.ToUpper());
-			ProfileEvents.OnSocialActionFailed(sat, errMsg);
+			Provider provider = Provider.fromString (providerStr);
+			SocialActionType sat = SocialActionType.fromString (satStr);
+			ProfileEvents.OnSocialActionFailed(provider, sat, errMsg);
+		}
+
+		/// <summary>
+		/// Will be called when a social action is cancelled.
+		/// </summary>
+		/// <param name="message">Will contain the provider as string and 
+		/// a string represenatation of the <c>SocialActionType</c>.</param>
+		public void onSocialActionCancelled(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionCancelled:" + message);
+
+			JSONObject resObj = new JSONObject(message);
+			string providerStr = resObj["provider"].str;
+			string satStr = resObj["socialActionType"].str;
+
+			Provider provider = Provider.fromString (providerStr);
+			SocialActionType sat = SocialActionType.fromString (satStr);
+			ProfileEvents.OnSocialActionCancelled (provider, sat);
 		}
 
 		/// <summary>
 		/// Will be called when a social action finishes.
 		/// </summary>
-		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
+		/// <param name="message">Will contain provider as string and 
+		/// a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionFinished(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionFinished:" + message);
 			
-			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
-			ProfileEvents.OnSocialActionFinished(sat);
+			JSONObject resObj = new JSONObject(message);
+			string providerStr = resObj["provider"].str;
+			string satStr = resObj["socialActionType"].str;
+			
+			Provider provider = Provider.fromString (providerStr);
+			SocialActionType sat = SocialActionType.fromString (satStr);
+
+			ProfileEvents.OnSocialActionFinished(provider, sat);
 		}
 
 		/// <summary>
 		/// Will be called when a social action started.
 		/// </summary>
-		/// <param name="message">Will contain a string represenatation of th<c>SocialActionType</c>.</param>
+		/// <param name="message">Will contain provider as string and
+		 /// a string represenatation of th<c>SocialActionType</c>.</param>
 		public void onSocialActionStarted(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onSocialActionStarted:" + message);
+
+			JSONObject resObj = new JSONObject(message);
+			string providerStr = resObj["provider"].str;
+			string satStr = resObj["socialActionType"].str;
 			
-			SocialActionType sat = (SocialActionType)Enum.Parse(typeof(SocialActionType), message.ToUpper());
-			ProfileEvents.OnSocialActionStarted(sat);
+			Provider provider = Provider.fromString (providerStr);
+			SocialActionType sat = SocialActionType.fromString (satStr);
+
+			ProfileEvents.OnSocialActionStarted(provider, sat);
 		}
 
 		/// <summary>
 		/// Will be called when contacts were failed to be fetched.
 		/// </summary>
-		/// <param name="message">Will contain the failure message.</param>
+		/// <param name="message">Will contain the provider as string and failure message.</param>
 		public void onGetContactsFailedEvent(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
 
-			ProfileEvents.OnGetContactsFailed(message);
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			String errMsg = resObj["errMsg"].str;
+			Provider provider = Provider.fromString (providerStr);
+
+			ProfileEvents.OnGetContactsFailedEvent(provider, errMsg);
 		}
 
 		/// <summary>
 		/// Will be called when contacts were fetched from the social provider.
 		/// </summary>
-		/// <param name="message">Will contain an array of UserProfiles as JSON.</param>
+		/// <param name="message">Will contain provider as string and 
+		/// an array of UserProfiles as JSON.</param>
 		public void onGetContactsFinishedEvent(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
 
-			JSONObject contactsObj = new JSONObject(message);
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			Provider provider = Provider.fromString (providerStr);
+			JSONObject contactsObj = resObj.GetField ("contacts");
 			List<UserProfile> contacts = new List<UserProfile>();
 			foreach (JSONObject upObj in contactsObj.list) {
 				contacts.Add(new UserProfile(upObj));
 			}
-			ProfileEvents.OnGetContactsFinished(contacts);
+			ProfileEvents.OnGetContactsFinishedEvent(provider, contacts);
 		}
 
 		/// <summary>
 		/// Will be called when contacts fetching process has started.
 		/// </summary>
-		/// <param name="message">Not used here.</param>
+		/// <param name="message">provider as string</param>
 		public void onGetContactsStartedEvent(string message) {
 			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
-			ProfileEvents.OnGetContactsStarted();
-		}
-
-		/// <summary>
-		/// Will be called when feed was failed to be fetched.
-		/// </summary>
-		/// <param name="message">Will contain the failure message.</param>
-		public void onGetFeedFailedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFailedEvent:" + message);
-			
-			ProfileEvents.OnGetFeedFailed(message);
-		}
-		
-		/// <summary>
-		/// Will be called when feed was fetched from the social provider.
-		/// </summary>
-		/// <param name="message">Will contain an array of posts as string (later JSON).</param>
-		public void onGetFeedFinishedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFinishedEvent:" + message);
-			
-			JSONObject postsObj = new JSONObject(message);
-			List<string> posts = new List<string>();
-			foreach (JSONObject postObj in postsObj.list) {
-				posts.Add(postObj.str);
-			}
-			ProfileEvents.OnGetFeedFinished(posts);
-		}
-		
-		/// <summary>
-		/// Will be called when feed fetching process has started.
-		/// </summary>
-		/// <param name="message">Not used here.</param>
-		public void onGetFeedStartedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedStartedEvent");
-			ProfileEvents.OnGetFeedStarted();
+			ProfileEvents.OnGetContactsStartedEvent(Provider.fromString(message));
 		}
 
 		/// <summary>
@@ -252,35 +271,31 @@ namespace Soomla.Profile {
 
 		public static Action<UserProfile> OnUserProfileUpdated = delegate {};
 
-		public static Action<string> OnLoginFailed = delegate {};
+		public static Action<Provider, string> OnLoginFailed = delegate {};
 
 		public static Action<UserProfile> OnLoginFinished = delegate {};
 
 		public static Action<Provider> OnLoginStarted = delegate {};
 
-		public static Action<string> OnLogoutFailed = delegate {};
+		public static Action<Provider, string> OnLogoutFailed = delegate {};
 		
-		public static Action<UserProfile> OnLogoutFinished = delegate {};
+		public static Action<Provider> OnLogoutFinished = delegate {};
 
 		public static Action<Provider> OnLogoutStarted = delegate {};
 
-		public static Action<SocialActionType, string> OnSocialActionFailed = delegate {};
+		public static Action<Provider, SocialActionType, string> OnSocialActionFailed = delegate {};
 
-		public static Action<SocialActionType> OnSocialActionFinished = delegate {};
+		public static Action<Provider, SocialActionType> OnSocialActionFinished = delegate {};
 
-		public static Action<SocialActionType> OnSocialActionStarted = delegate {};
+		public static Action<Provider, SocialActionType> OnSocialActionStarted = delegate {};
 
-		public static Action<string> OnGetContactsFailed = delegate {};
-		
-		public static Action<List<UserProfile>> OnGetContactsFinished = delegate {};
-		
-		public static Action OnGetContactsStarted = delegate {};
+		public static Action<Provider, SocialActionType> OnSocialActionCancelled = delegate {};
 
-		public static Action<string> OnGetFeedFailed = delegate {};
+		public static Action<Provider, string> OnGetContactsFailedEvent = delegate {};
 		
-		public static Action<List<string>> OnGetFeedFinished = delegate {};
+		public static Action<Provider, List<UserProfile>> OnGetContactsFinishedEvent = delegate {};
 		
-		public static Action OnGetFeedStarted = delegate {};
+		public static Action<Provider> OnGetContactsStartedEvent = delegate {};
 
 		public static Action<Reward, bool> OnRewardGivenEvent = delegate {};
 	}

@@ -211,15 +211,15 @@ namespace Soomla.Profile {
 		/// Will be called when contacts were failed to be fetched.
 		/// </summary>
 		/// <param name="message">Will contain the provider as string and failure message.</param>
-		public void onGetContactsFailedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailedEvent:" + message);
+		public void onGetContactsFailed(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFailed:" + message);
 
 			JSONObject resObj = new JSONObject(message);
 			String providerStr = resObj ["provider"].str;
 			String errMsg = resObj["errMsg"].str;
 			Provider provider = Provider.fromString (providerStr);
 
-			ProfileEvents.OnGetContactsFailedEvent(provider, errMsg);
+			ProfileEvents.OnGetContactsFailed(provider, errMsg);
 		}
 
 		/// <summary>
@@ -227,8 +227,8 @@ namespace Soomla.Profile {
 		/// </summary>
 		/// <param name="message">Will contain provider as string and 
 		/// an array of UserProfiles as JSON.</param>
-		public void onGetContactsFinishedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinishedEvent:" + message);
+		public void onGetContactsFinished(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsFinished:" + message);
 
 			JSONObject resObj = new JSONObject(message);
 			String providerStr = resObj ["provider"].str;
@@ -238,30 +238,73 @@ namespace Soomla.Profile {
 			foreach (JSONObject upObj in contactsObj.list) {
 				contacts.Add(new UserProfile(upObj));
 			}
-			ProfileEvents.OnGetContactsFinishedEvent(provider, contacts);
+			ProfileEvents.OnGetContactsFinished(provider, contacts);
 		}
 
 		/// <summary>
 		/// Will be called when contacts fetching process has started.
 		/// </summary>
 		/// <param name="message">provider as string</param>
-		public void onGetContactsStartedEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStartedEvent");
-			ProfileEvents.OnGetContactsStartedEvent(Provider.fromString(message));
+		public void onGetContactsStarted(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetContactsStarted");
+			ProfileEvents.OnGetContactsStarted(Provider.fromString(message));
+		}
+
+		/// <summary>
+		/// Will be called when feed was failed to be fetched.
+		/// </summary>
+		/// <param name="message">Will contain the provider as string and failure message.</param>
+		public void onGetFeedFailed(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFailed:" + message);
+
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			String errMsg = resObj["errMsg"].str;
+			Provider provider = Provider.fromString (providerStr);
+
+			ProfileEvents.OnGetFeedFailed(provider, errMsg);
+		}
+		
+		/// <summary>
+		/// Will be called when feed was fetched from the social provider.
+		/// </summary>
+		/// <param name="message">Will contain an array of posts as string (later JSON).</param>
+		public void onGetFeedFinished(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedFinished:" + message);
+
+			JSONObject resObj = new JSONObject(message);
+			String providerStr = resObj ["provider"].str;
+			Provider provider = Provider.fromString (providerStr);
+			JSONObject postsObj = resObj.GetField ("posts");
+			List<string> posts = new List<string>();
+			foreach (JSONObject postObj in postsObj.list) {
+				posts.Add(postObj.str);
+			}
+
+			ProfileEvents.OnGetFeedFinished(provider, posts);
+		}
+		
+		/// <summary>
+		/// Will be called when feed fetching process has started.
+		/// </summary>
+		/// <param name="message">provider as string</param>
+		public void onGetFeedStarted(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onGetFeedStarted");
+			ProfileEvents.OnGetFeedStarted(Provider.fromString(message));
 		}
 
 		/// <summary>
 		/// Will be called when a reward was given to the user.
 		/// </summary>
 		/// <param name="message">Will contain a JSON representation of a <c>Reward</c> and a flag saying if it's a Badge or not.</param>
-		public void onRewardGivenEvent(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGivenEvent:" + message);
+		public void onRewardGiven(string message) {
+			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGiven:" + message);
 
 			JSONObject resObj = new JSONObject(message);
 			JSONObject rewardObj = resObj["reward"];
 			Reward reward = Reward.fromJSONObject(rewardObj);
 			bool isBadge = resObj["isBadge"].b;
-			ProfileEvents.OnRewardGivenEvent(reward, isBadge);
+			ProfileEvents.OnRewardGiven(reward, isBadge);
 		}
 
 
@@ -291,12 +334,18 @@ namespace Soomla.Profile {
 
 		public static Action<Provider, SocialActionType> OnSocialActionCancelled = delegate {};
 
-		public static Action<Provider, string> OnGetContactsFailedEvent = delegate {};
+		public static Action<Provider, string> OnGetContactsFailed = delegate {};
 		
-		public static Action<Provider, List<UserProfile>> OnGetContactsFinishedEvent = delegate {};
+		public static Action<Provider, List<UserProfile>> OnGetContactsFinished = delegate {};
 		
-		public static Action<Provider> OnGetContactsStartedEvent = delegate {};
+		public static Action<Provider> OnGetContactsStarted = delegate {};
 
-		public static Action<Reward, bool> OnRewardGivenEvent = delegate {};
+		public static Action<Provider, string> OnGetFeedFailed = delegate {};
+		
+		public static Action<Provider, List<string>> OnGetFeedFinished = delegate {};
+		
+		public static Action<Provider> OnGetFeedStarted = delegate {};
+
+		public static Action<Reward, bool> OnRewardGiven = delegate {};
 	}
 }

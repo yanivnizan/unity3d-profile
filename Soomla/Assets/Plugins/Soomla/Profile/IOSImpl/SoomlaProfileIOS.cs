@@ -42,7 +42,12 @@ namespace Soomla.Profile {
 		                                                     string caption, string description, string link,
 		                                                     string pictureUrl, string rewardJSON);
 		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_UploadImage(string provider, string message, string filePath, 
+		                                                     string rewardJSON);
+		[DllImport ("__Internal")]
 		private static extern void soomlaProfile_GetContacts(string provider, string rewardJSON);
+		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_GetFeed(string provider, string rewardJSON);
 		[DllImport ("__Internal")]
 		private static extern int soomlaProfile_GetStoredUserProfile(string provider, out IntPtr json);
 		[DllImport ("__Internal")]
@@ -101,9 +106,17 @@ namespace Soomla.Profile {
 		//
 		//		protected override void _uploadImage(Provider provider, string message, string filePath,
 		//		                                    Reward reward) { }
-		
+
+		protected override void _uploadImage(Provider provider, string message, string filePath, Reward reward) {
+			soomlaProfile_UploadImage(provider.ToString(), message, filePath, GetRewardJsonStr(reward));
+		}
+
 		protected override void _getContacts(Provider provider, Reward reward) {
 			soomlaProfile_GetContacts(provider.ToString(), GetRewardJsonStr(reward));
+		}
+
+		protected override void _getFeed(Provider provider, Reward reward) {
+			soomlaProfile_GetFeed(provider.ToString(), GetRewardJsonStr(reward));
 		}
 		
 		protected override UserProfile _getStoredUserProfile(Provider provider) { 

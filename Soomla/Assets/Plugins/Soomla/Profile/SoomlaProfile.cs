@@ -85,10 +85,10 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
-//		public static void UploadImage(Provider provider, string message, string filePath,
-//		                               Reward reward) {
-//			instance._uploadImage(provider, message, filePath, reward);
-//		}
+		public static void UploadImage(Provider provider, string message, string filePath,
+		                               Reward reward) {
+			instance._uploadImage(provider, message, filePath, reward);
+		}
 
 		/// <summary>
 		/// Will fetch UserProfiles of contacts of the current user.
@@ -99,6 +99,16 @@ namespace Soomla.Profile
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful fetching.</param>
 		public static void GetContacts(Provider provider, Reward reward) {
 			instance._getContacts(provider, reward);
+		}
+
+		/// <summary>
+		///  Will fetch posts from user feed 
+		///
+		/// </summary>
+		/// <param name="provider">Provider.</param>
+		/// <param name="reward">Reward.</param>
+		public static void GetFeed(Provider provider, Reward reward) {
+			instance._getFeed(provider, reward);
 		}
 
 		/// <summary>
@@ -190,11 +200,12 @@ namespace Soomla.Profile
 //		protected virtual void _uploadImage(Provider provider, string message, string filename,
 //		                                    byte[] imageBytes, int quality, Reward reward) { }
 //
-//		protected virtual void _uploadImage(Provider provider, string message, string filePath,
-//		                                    Reward reward) { }
+		protected virtual void _uploadImage(Provider provider, string message, string filePath,
+		                                    Reward reward) { }
 
 		protected virtual void _getContacts(Provider provider, Reward reward) { }
 
+		protected virtual void _getFeed(Provider provider, Reward reward) { }
 
 		// event pushing back to native (when using FB Unity SDK)
 		protected virtual void _pushEventLoginStarted(Provider provider) { }

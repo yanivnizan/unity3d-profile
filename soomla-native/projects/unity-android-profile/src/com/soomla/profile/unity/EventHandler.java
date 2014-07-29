@@ -159,7 +159,7 @@ public class EventHandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFailedEvent", jsonObject.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFailed", jsonObject.toString());
     }
 
     @Subscribe
@@ -178,12 +178,12 @@ public class EventHandler {
             e.printStackTrace();
         }
 
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFinishedEvent", jsonObject.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsFinished", jsonObject.toString());
     }
 
     @Subscribe
     public void onGetContactsStartedEvent(GetContactsStartedEvent getContactsStartedEvent) {
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsStartedEvent", getContactsStartedEvent.Provider.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetContactsStarted", getContactsStartedEvent.Provider.toString());
     }
 
     @Subscribe
@@ -195,7 +195,7 @@ public class EventHandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFailedEvent", jsonObject.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFailed", jsonObject.toString());
     }
 
     @Subscribe
@@ -214,7 +214,7 @@ public class EventHandler {
             e.printStackTrace();
         }
 
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFinishedEvent", jsonObject.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onGetFeedFinished", jsonObject.toString());
     }
 
     @Subscribe
@@ -231,6 +231,6 @@ public class EventHandler {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        UnityPlayer.UnitySendMessage("ProfileEvents", "onRewardGivenEvent", jsonObject.toString());
+        UnityPlayer.UnitySendMessage("ProfileEvents", "onRewardGiven", jsonObject.toString());
     }
 }

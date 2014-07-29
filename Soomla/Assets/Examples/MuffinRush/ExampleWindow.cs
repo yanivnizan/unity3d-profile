@@ -119,7 +119,7 @@ namespace Soomla.Example {
 //			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
 
 			SoomlaStore.Initialize(new MuffinRushAssets());
-			SoomlaProfile.Initialize();
+			SoomlaProfile.Initialize(true);
 
 			#if UNITY_IPHONE
 			Handheld.SetActivityIndicatorStyle(iOSActivityIndicatorStyle.Gray);
@@ -163,27 +163,27 @@ namespace Soomla.Example {
 			}
 		}
 
-		private void OnSocialActionFinished(SocialActionType socialActionType) {
+		private void OnSocialActionFinished(Provider provider, SocialActionType socialActionType) {
 			Handheld.StopActivityIndicator();
 		}
 
-		private void OnSocialActionFailed(SocialActionType socialActionType, string message) {
+		private void OnSocialActionFailed(Provider provider, SocialActionType socialActionType, string message) {
 			Handheld.StopActivityIndicator();
 		}
 
-		private void onGetContactsFinished(List<UserProfile> contacts) {
+		private void onGetContactsFinished(Provider provider, List<UserProfile> contacts) {
 			Handheld.StopActivityIndicator();
 			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetContactsFinished]", "friends:" + contacts);
 		}
-		private void onGetContactsFailed(string reason) {
+		private void onGetContactsFailed(Provider provider, string reason) {
 			Handheld.StopActivityIndicator();
 			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetContactsFailed]", "reason:" + reason);
 		}
-		private void onGetFeedFinished(List<string> posts) {
+		private void onGetFeedFinished(Provider provider, List<string> posts) {
 			Handheld.StopActivityIndicator();
 			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetFeedFinished]", "posts:" + posts);
 		}
-		private void onGetFeedFailed(string reason) {
+		private void onGetFeedFailed(Provider provider, string reason) {
 			Handheld.StopActivityIndicator();
 			SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow[onGetFeedFailed]", "reason:" + reason);
 		}

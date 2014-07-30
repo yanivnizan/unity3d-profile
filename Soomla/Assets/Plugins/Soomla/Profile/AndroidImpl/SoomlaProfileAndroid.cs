@@ -153,6 +153,19 @@ namespace Soomla.Profile {
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
 
+		protected override void _openAppRatingPage() {
+			AndroidJNI.PushLocalFrame(100);
+			using (AndroidJavaClass unityActivityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+				using(AndroidJavaObject unityActivity = unityActivityClass.GetStatic<AndroidJavaObject>("currentActivity")) {
+					using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
+						ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "openAppRatingPage", unityActivity);
+					}
+				}
+			}
+
+			AndroidJNI.PopLocalFrame(IntPtr.Zero);
+		}
+
 		// event pushing back to native (when using FB Unity SDK)
 		protected override void _pushEventLoginStarted(Provider provider) {
 			AndroidJNI.PushLocalFrame(100);

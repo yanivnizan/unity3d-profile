@@ -307,6 +307,29 @@ public sealed partial class FB : ScriptableObject
 				callback = GetContactsCallback;
 			}
 			break;
+		case "/me/feed": {
+			bool isPost = method == Facebook.HttpMethod.POST;
+			SocialActionType actionType = isPost ?
+				SocialActionType.UPDATE_STATUS : SocialActionType.GET_FEED;
+			SoomlaProfile.PushEventSocialActionStarted(Provider.FACEBOOK, actionType);
+			if (callback != null) {
+				if(isPost) {
+					callback += UpdateStatusCallback;
+				}
+				else {
+					callback += GetFeedCallback;
+				}
+			}
+			else {
+				if(isPost) {
+					callback = UpdateStatusCallback;
+				}
+				else {
+					callback = GetFeedCallback;
+				}
+			}
+			break;
+		}
 
 		default:
 //			SoomlaProfile.PushEventSocialActionStarted(Provider.FACEBOOK, SocialActionType.GRAPH);

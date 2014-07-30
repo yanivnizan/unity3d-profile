@@ -142,15 +142,19 @@ extern "C"{
         [[SoomlaProfile getInstance] getContactsWithProvider:provider andReward:reward];
     }
     
-    void soomlaProfile_GetFeeds(const char* sProvider, const char* sRewardJson) {
-//        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
-//        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
-//        Reward* reward = nil;
-//        if(sRewardJson) {
-//            NSString* rewardJson = [NSString stringWithUTF8String:sRewardJson];
-//            reward = [[Reward alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:rewardJson]];
-//        }
-//        [[SoomlaProfile getInstance] getFeedsWithProvider:provider andReward:reward];
+    void soomlaProfile_GetFeed(const char* sProvider, const char* sRewardJson) {
+        NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
+        Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
+        Reward* reward = nil;
+        if(sRewardJson) {
+            NSString* rewardJson = [NSString stringWithUTF8String:sRewardJson];
+            reward = [[Reward alloc] initWithDictionary:[SoomlaUtils jsonStringToDict:rewardJson]];
+        }
+        [[SoomlaProfile getInstance] getFeedWithProvider:provider andReward:reward];
+    }
+    
+    void soomlaProfile_OpenAppRatingPage() {
+        [[SoomlaProfile getInstance] openAppRatingPage];
     }
     
     // events pushed from external provider (Unity FB SDK etc.)
@@ -231,5 +235,4 @@ extern "C"{
     //    void pushEventGetContactsFailed(enum SocialActionType socialActionType, const char* message) {
     //        
     //    }
-
 }

@@ -12,6 +12,8 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.using System;
 
+#define USING_UNITY_PROVIDER
+
 using UnityEngine;
 using System.Text.RegularExpressions;
 
@@ -48,6 +50,7 @@ namespace Soomla.Profile
 			instance._initialize(usingUnityProvider);
 		}
 
+#if !USING_UNITY_PROVIDER
 		/// <summary>
 		/// Will post a status to the user's social page.
 		/// 
@@ -122,16 +125,6 @@ namespace Soomla.Profile
 		}
 
 		/// <summary>
-		/// Stores the user profile.
-		/// The UserProfile should contain the provider internally
-		/// </summary>
-		/// <param name="userProfile">User profile.</param>
-		/// <param name="notify">If set to <c>true</c> notify.</param>
-		public static void StoreUserProfile (UserProfile userProfile, bool notify = false) {
-			instance._storeUserProfile (userProfile, notify);
-		}
-
-		/// <summary>
 		/// Will log you out from the given provider.
 		/// </summary>
 		/// <param name="provider">The provider to log out from.</param>
@@ -147,7 +140,24 @@ namespace Soomla.Profile
 		public static void Login(Provider provider, Reward reward) {
 			instance._login(provider, reward);
 		}
+#endif
 
+		/// <summary>
+		/// Stores the user profile.
+		/// The UserProfile should contain the provider internally
+		/// </summary>
+		/// <param name="userProfile">User profile.</param>
+		/// <param name="notify">If set to <c>true</c> notify.</param>
+		public static void StoreUserProfile (UserProfile userProfile, bool notify = false) {
+			instance._storeUserProfile (userProfile, notify);
+		}
+
+		/// <summary>
+		/// Opens the app rating page.
+		/// </summary>
+		public static void OpenAppRatingPage() {
+			instance._openAppRatingPage ();
+		}
 
 		// push events
 		public static void PushEventLoginStarted(Provider provider) { 
@@ -184,7 +194,6 @@ namespace Soomla.Profile
 			instance._pushEventSocialActionFailed (provider, actionType, message);
 		}
 			
-
 		protected virtual void _initialize(bool usingUnityProvider) { }
 
 		protected virtual void _login(Provider provider, Reward reward) { }
@@ -206,6 +215,8 @@ namespace Soomla.Profile
 		protected virtual void _getContacts(Provider provider, Reward reward) { }
 
 		protected virtual void _getFeed(Provider provider, Reward reward) { }
+
+		protected virtual void _openAppRatingPage() { }
 
 		// event pushing back to native (when using FB Unity SDK)
 		protected virtual void _pushEventLoginStarted(Provider provider) { }

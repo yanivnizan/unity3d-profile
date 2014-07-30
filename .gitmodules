@@ -7,3 +7,6 @@
 [submodule "submodules/ios-profile"]
 	path = submodules/ios-profile
 	url = https://github.com/soomla/ios-profile
+[submodule "submodules/soomla-unity3d-core"]
+	path = submodules/soomla-unity3d-core
+	url = git@github.com:soomla/soomla-unity3d-core.git

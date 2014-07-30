@@ -38,8 +38,9 @@ public sealed partial class FB : ScriptableObject
 			SoomlaUtils.LogDebug(TAG, "ProfileCallback[result.Texture]:"+result.Texture);
 			string fbUserJson = result.Text;
 			UserProfile userProfile = UserProfileFromFBJson(fbUserJson);
-			// going via the storage will also fire the login finish event
+
 			SoomlaProfile.StoreUserProfile (userProfile, true);
+			ProfileEvents.OnLoginFinished(userProfile);
 		}
 	}
 	
@@ -61,26 +62,33 @@ public sealed partial class FB : ScriptableObject
 			       Facebook.HttpMethod.GET, ProfileCallback);
 		}
 	}
-
-	// call FB.Feed(...)
-//	public static void UpdateStatus() {
-//	}
+	
+	public static void UpdateStatus(string message, Facebook.FacebookDelegate callback = null) {
+		var formData = new Dictionary<string, string>
+		{
+			{ "message", message }
+		};
+		FB.API ("/me/feed", Facebook.HttpMethod.POST, callback, formData);
+	}
+	
+	// UpdateStory: call FB.Feed(...)
 
 	// requires user_friends permission (and only works on canvas games?)
-	public static void GetFriends(Facebook.FacebookDelegate callback) {
+	public static void GetFriends(Facebook.FacebookDelegate callback = null) {
 		FB.API ("/me/friends?fields=id,name,picture,email,first_name,last_name",
 		        Facebook.HttpMethod.GET,
 		        callback);
 	}
 
 	// requires read_stream permission
-	public static void GetFeed(Facebook.FacebookDelegate callback) {
+	public static void GetFeed(Facebook.FacebookDelegate callback = null) {
 		FB.API ("/me/feed",
 		        Facebook.HttpMethod.GET,
 		        callback);
 	}
 	
-	public static void UploadImage(Texture2D tex2D, string fileName, string message, Facebook.FacebookDelegate callback) {
+	public static void UploadImage(Texture2D tex2D, string fileName, string message, 
+	                               Facebook.FacebookDelegate callback = null) {
 		byte[] texBytes = tex2D.EncodeToPNG();
 		
 		var wwwForm = new WWWForm();
@@ -94,9 +102,34 @@ public sealed partial class FB : ScriptableObject
 		// TODO: not as simple, later
 	}
 
+
+	public static Facebook.FacebookDelegate RewardCallback(Reward reward) {
+		return (FBResult result) => {
+			if (result.Error != null) {
+				SoomlaUtils.LogDebug (TAG, "RewardCallback[result.Error]:" + result.Error);
+			} else {
+				reward.Give();
+				SoomlaUtils.LogDebug (TAG, "RewardCallback[result.Text]:" + result.Text);
+				SoomlaUtils.LogDebug (TAG, "RewardCallback[result.Texture]:" + result.Texture);
+			}
+		};
+	}
+
+	private static void UpdateStatusCallback(FBResult result) {
+		if (result.Error != null) {
+			SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Error]:"+result.Error);
+			SoomlaProfile.PushEventSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPDATE_STATUS, result.Error);
+		}
+		else {
+			SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Text]:"+result.Text);
+			SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Texture]:"+result.Texture);
+			SoomlaProfile.PushEventSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPDATE_STATUS);
+		}
+	}
+
 	private static void FeedCallback(FBResult result) {
 		if (result.Error != null) {
-			SoomlaProfile.PushEventSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPDATE_STATUS, result.Error);
+			SoomlaProfile.PushEventSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPDATE_STORY, result.Error);
 		}
 		else {
 			SoomlaUtils.LogDebug(TAG, "FeedCallback[result.Text]:"+result.Text);
@@ -104,10 +137,10 @@ public sealed partial class FB : ScriptableObject
 			var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
 			object obj = 0;
 			if (responseObject.TryGetValue("cancelled", out obj)) {
-				SoomlaProfile.PushEventSocialActionCancelled(Provider.FACEBOOK, SocialActionType.UPDATE_STATUS);
+				SoomlaProfile.PushEventSocialActionCancelled(Provider.FACEBOOK, SocialActionType.UPDATE_STORY);
 			}
 			else /*if (responseObject.TryGetValue ("id", out obj))*/ {
-				SoomlaProfile.PushEventSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPDATE_STATUS);
+				SoomlaProfile.PushEventSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPDATE_STORY);
 			}
 		}
 	}
@@ -140,6 +173,18 @@ public sealed partial class FB : ScriptableObject
 			SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Text]:"+result.Text);
 			SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Texture]:"+result.Texture);
 			SoomlaProfile.PushEventSocialActionFinished(Provider.FACEBOOK, SocialActionType.GET_CONTACTS);
+		}
+	}
+
+	private static void GetFeedCallback(FBResult result) {
+		if (result.Error != null) {
+			SoomlaUtils.LogDebug(TAG, "GetFeedCallback[result.Error]:"+result.Error);
+			SoomlaProfile.PushEventSocialActionFailed (Provider.FACEBOOK, SocialActionType.GET_FEED, result.Error);
+		}
+		else {
+			SoomlaUtils.LogDebug(TAG, "GetFeedCallback[result.Text]:"+result.Text);
+			SoomlaUtils.LogDebug(TAG, "GetFeedCallback[result.Texture]:"+result.Texture);
+			SoomlaProfile.PushEventSocialActionFinished(Provider.FACEBOOK, SocialActionType.GET_FEED);
 		}
 	}
 

@@ -77,6 +77,8 @@ namespace Soomla.Profile {
 		[DllImport ("__Internal")]
 		private static extern void soomlaProfile_PushEventSocialActionFailed(string provider, string actionType, string message);
 
+		[DllImport ("__Internal")]
+		private static extern void soomlaProfile_OpenAppRatingPage();
 
 		protected override void _initialize (bool usingUnityProvider) {
 			soomlaProfile_Initialize(usingUnityProvider);
@@ -169,6 +171,10 @@ namespace Soomla.Profile {
 		}
 		protected override void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { 
 			soomlaProfile_PushEventSocialActionFailed(provider.ToString(), actionType.ToString(), message);
+		}
+
+		protected override void _openAppRatingPage() {
+			soomlaProfile_OpenAppRatingPage();
 		}
 
 		private string GetRewardJsonStr(Reward reward) {

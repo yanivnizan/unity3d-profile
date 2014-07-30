@@ -1,5 +1,7 @@
 package com.soomla.profile.unity;
 
+import android.content.Context;
+
 import com.soomla.BusProvider;
 import com.soomla.profile.SoomlaProfile;
 import com.soomla.profile.data.UserProfileStorage;
@@ -91,6 +93,9 @@ public class UnitySoomlaProfile {
         SoomlaProfile.getInstance().login(UnityPlayer.currentActivity, provider, reward);
     }
 
+    public static void openAppRatingPage(Context context) {
+        SoomlaProfile.getInstance().openAppRatingPage(context);
+    }
 
     // events pushed from external provider (Unity FB SDK etc.)
 

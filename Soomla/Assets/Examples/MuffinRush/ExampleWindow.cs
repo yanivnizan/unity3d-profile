@@ -47,6 +47,7 @@ namespace Soomla.Example {
 		}
 		
 		private static bool isVisible = false;
+		private bool isFBReady = false;
 
 		/// <summary>
 		/// Initializes the game state before the game starts. 
@@ -120,6 +121,9 @@ namespace Soomla.Example {
 
 			SoomlaStore.Initialize(new MuffinRushAssets());
 			SoomlaProfile.Initialize(true);
+			FB.Init (
+				onInitComplete: () => { isFBReady = true; }
+			);
 
 			#if UNITY_IPHONE
 			Handheld.SetActivityIndicatorStyle(iOSActivityIndicatorStyle.Gray);
@@ -137,7 +141,10 @@ namespace Soomla.Example {
 			if (userProfile.Provider == Provider.FACEBOOK) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
 				reward.Repeatable = true;
+
 //				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
+				FB.UpdateStatus("I love SOOMLA !", FB.RewardCallback(reward));
+
 //				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
 //				                          "I think i love SOOMLA",
 //				                          "Refaelos",
@@ -147,8 +154,20 @@ namespace Soomla.Example {
 //				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
 //				                          reward);
 
-				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
-				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
+				FB.Feed(toId: "", //own timeline, can be ID of friend
+				        link: "http://soom.la",
+				        linkName: "Refaelos",
+				        linkCaption: "this is a caption",
+				        linkDescription: "Trying to test a story",
+				        picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
+				        callback: FB.RewardCallback(reward)
+				        );
+
+//				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
+//				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
+
+				FB.GetFriends();
+				FB.GetFeed();
 
 				// code for this needs to be done in LateUpdate/TakeScreenshot (see there)
 //				bScreenshot = true;
@@ -156,7 +175,7 @@ namespace Soomla.Example {
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
 				reward.Repeatable = true;
-				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
+//				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
 //				SoomlaProfile.UpdateStory(Provider.TWITTER, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else {
 				SoomlaUtils.LogError("SOOMLA/UNITY ExampleWindow", "Unknown provider after login finished.");
@@ -330,7 +349,9 @@ namespace Soomla.Example {
 			string screenshotPath = ScreenShotName (Screen.width, Screen.height);
 			File.WriteAllBytes(screenshotPath, imageBytes);
 			Debug.Log(string.Format("Took screenshot to: {0}", screenshotPath));
-			SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotFile", screenshotPath, null);
+
+			FB.UploadImage ("screenshotFile", screenshotPath);
+//			SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotFile", screenshotPath, null);
 
 			yield return null;
 		}
@@ -413,18 +434,19 @@ namespace Soomla.Example {
 				GUI.Label(new Rect(productSize + 10f,y+productSize/3f,Screen.width-productSize-15f,productSize/3f),vg.Description);
 
 				GUI.color = Color.white;
-				if(GUI.Button(new Rect(Screen.width/4f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
+				if(isFBReady && GUI.Button(new Rect(Screen.width/4f,y+productSize*2/3f,60f, 60f), tFacebook, GUIStyle.none)) {
 					Debug.Log("SOOMLA/UNITY facebook clicked");
 					Handheld.StartActivityIndicator();      
 					vgToGive = vg;
-					SoomlaProfile.Login(Provider.FACEBOOK, null);
+//					SoomlaProfile.Login(Provider.FACEBOOK, null);
+					FB.Login();
 	            }
-	            if(GUI.Button(new Rect(70f+Screen.width/4f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
-					Debug.Log("SOOMLA/UNITY twitter clicked");
-					Handheld.StartActivityIndicator();      
-					vgToGive = vg;
-					SoomlaProfile.Login(Provider.TWITTER, null);
-				}
+//	            if(GUI.Button(new Rect(70f+Screen.width/4f,y+productSize*2/3f,60f, 60f), tTwitter, GUIStyle.none)) {
+//					Debug.Log("SOOMLA/UNITY twitter clicked");
+//					Handheld.StartActivityIndicator();      
+//					vgToGive = vg;
+////					SoomlaProfile.Login(Provider.TWITTER, null);
+//				}
 				GUI.color = Color.black;
 
 				GUI.Label(new Rect(Screen.width/2f,y+productSize*2/3f,Screen.width,productSize/3f),"price:" + ((PurchaseWithVirtualItem)vg.PurchaseType).Amount);

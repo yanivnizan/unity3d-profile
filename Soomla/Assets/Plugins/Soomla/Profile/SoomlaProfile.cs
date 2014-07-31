@@ -53,7 +53,7 @@ namespace Soomla.Profile
 #if !USING_UNITY_PROVIDER
 		/// <summary>
 		/// Will post a status to the user's social page.
-		/// 
+		///
 		/// This operation requires a successful login.
 		/// </summary>
 		/// <param name="provider">The <c>Provider</c> the given status should be posted to.</param>
@@ -66,7 +66,7 @@ namespace Soomla.Profile
 		/// <summary>
 		/// Will post a full story to the user's social page.
 		/// A story contains: title, description, image and more.
-		/// 
+		///
 		/// This operation requires a successful login.
 		/// </summary>
 		/// <param name="provider">The <c>Provider</c> the given story should be posted to.</param>
@@ -77,7 +77,7 @@ namespace Soomla.Profile
 		/// <param name="link">A link to a web page.</param>
 		/// <param name="pictureUrl">A link to an image on the web.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
-		public static void UpdateStory(Provider provider, string message, string name, 
+		public static void UpdateStory(Provider provider, string message, string name,
 		                               string caption, string description, string link,
 		                               string pictureUrl, Reward reward) {
 			instance._updateStory(provider, message, name, caption, description, link, pictureUrl, reward);
@@ -95,7 +95,7 @@ namespace Soomla.Profile
 
 		/// <summary>
 		/// Will fetch UserProfiles of contacts of the current user.
-		/// 
+		///
 		/// This operation requires a successful login.
 		/// </summary>
 		/// <param name="provider">The <c>Provider</c> we should try to fetch contacts from.</param>
@@ -105,23 +105,13 @@ namespace Soomla.Profile
 		}
 
 		/// <summary>
-		///  Will fetch posts from user feed 
+		///  Will fetch posts from user feed
 		///
 		/// </summary>
 		/// <param name="provider">Provider.</param>
 		/// <param name="reward">Reward.</param>
 		public static void GetFeed(Provider provider, Reward reward) {
 			instance._getFeed(provider, reward);
-		}
-
-		/// <summary>
-		/// This will fetch the UserProfile that is saved for the given provider.
-		/// UserProfiles are automatically saved in the local storage for a provider after a successful login.
-		/// </summary>
-		/// <returns>The stored user profile.</returns>
-		/// <param name="provider">The provider you need to fetch UserProfile for.</param>
-		public static UserProfile GetStoredUserProfile(Provider provider) {
-			return instance._getStoredUserProfile(provider);
 		}
 
 		/// <summary>
@@ -143,6 +133,16 @@ namespace Soomla.Profile
 #endif
 
 		/// <summary>
+		/// This will fetch the UserProfile that is saved for the given provider.
+		/// UserProfiles are automatically saved in the local storage for a provider after a successful login.
+		/// </summary>
+		/// <returns>The stored user profile.</returns>
+		/// <param name="provider">The provider you need to fetch UserProfile for.</param>
+		public static UserProfile GetStoredUserProfile(Provider provider) {
+			return instance._getStoredUserProfile(provider);
+		}
+
+		/// <summary>
 		/// Stores the user profile.
 		/// The UserProfile should contain the provider internally
 		/// </summary>
@@ -160,49 +160,49 @@ namespace Soomla.Profile
 		}
 
 		// push events
-		public static void PushEventLoginStarted(Provider provider) { 
+		public static void PushEventLoginStarted(Provider provider) {
 			instance._pushEventLoginStarted(provider);
 		}
 		public static void PushEventLoginFinished(string userProfileJson) {
 			instance._pushEventLoginFinished(userProfileJson);
 		}
-		public static void PushEventLoginFailed(Provider provider, string message) { 
-			instance._pushEventLoginFailed(provider, message); 
+		public static void PushEventLoginFailed(Provider provider, string message) {
+			instance._pushEventLoginFailed(provider, message);
 		}
-		public static void PushEventLoginCancelled(Provider provider) { 
+		public static void PushEventLoginCancelled(Provider provider) {
 			instance._pushEventLoginCancelled(provider);
 		}
 		public static void PushEventLogoutStarted(Provider provider) {
-			instance._pushEventLogoutStarted(provider); 
+			instance._pushEventLogoutStarted(provider);
 		}
 		public static void PushEventLogoutFinished(Provider provider) {
 			instance._pushEventLogoutFinished(provider);
 		}
 		public static void PushEventLogoutFailed(Provider provider, string message) {
-			instance._pushEventLogoutFailed(provider, message); 
+			instance._pushEventLogoutFailed(provider, message);
 		}
-		public static void PushEventSocialActionStarted(Provider provider, SocialActionType actionType) { 
+		public static void PushEventSocialActionStarted(Provider provider, SocialActionType actionType) {
 			instance._pushEventSocialActionStarted(provider, actionType);
 		}
-		public static void PushEventSocialActionFinished(Provider provider, SocialActionType actionType) { 
+		public static void PushEventSocialActionFinished(Provider provider, SocialActionType actionType) {
 			instance._pushEventSocialActionFinished(provider, actionType);
 		}
-		public static void PushEventSocialActionCancelled(Provider provider, SocialActionType actionType) { 
+		public static void PushEventSocialActionCancelled(Provider provider, SocialActionType actionType) {
 			instance._pushEventSocialActionCancelled(provider, actionType);
 		}
 		public static void PushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) {
 			instance._pushEventSocialActionFailed (provider, actionType, message);
 		}
-			
+
 		protected virtual void _initialize(bool usingUnityProvider) { }
 
 		protected virtual void _login(Provider provider, Reward reward) { }
-		
+
 		protected virtual void _logout(Provider provider) { }
 
 		protected virtual void _updateStatus(Provider provider, string status, Reward reward) { }
 
-		protected virtual void _updateStory(Provider provider, string message, string name, 
+		protected virtual void _updateStory(Provider provider, string message, string name,
 		                                    string caption, string description, string link,
 		                                    string pictureUrl, Reward reward) { }
 
@@ -232,7 +232,7 @@ namespace Soomla.Profile
 		protected virtual void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { }
 
 
-		protected virtual UserProfile _getStoredUserProfile(Provider provider) { 
+		protected virtual UserProfile _getStoredUserProfile(Provider provider) {
 #if UNITY_EDITOR
 			string key = keyUserProfile(provider);
 			string value = PlayerPrefs.GetString (key);
@@ -241,13 +241,13 @@ namespace Soomla.Profile
 			return null;
 		}
 
-		protected virtual void _storeUserProfile(UserProfile userProfile, bool notify) { 
+		protected virtual void _storeUserProfile(UserProfile userProfile, bool notify) {
 #if UNITY_EDITOR
 			string key = keyUserProfile(userProfile.Provider);
 			string val = userProfile.toJSONObject().ToString();
 			SoomlaUtils.LogDebug(TAG, "key/val:" + key + "/" + val);
 			PlayerPrefs.SetString(key, val);
-			
+
 			if (notify) {
 				ProfileEvents.OnUserProfileUpdated(userProfile);
 			}
@@ -268,4 +268,3 @@ namespace Soomla.Profile
 		protected const string TAG = "SOOMLA SoomlaProfile";
 	}
 }
-

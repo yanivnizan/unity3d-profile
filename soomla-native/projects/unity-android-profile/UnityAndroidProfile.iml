@@ -37,15 +37,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../Soomla/Assets/Plugins/Android/SoomlaAndroidCore.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -56,6 +47,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../Soomla/Assets/Plugins/Android/AndroidStore.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../Soomla/Assets/Plugins/Android/AndroidProfile.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

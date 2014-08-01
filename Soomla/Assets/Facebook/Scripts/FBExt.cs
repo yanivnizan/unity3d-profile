@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -7,7 +7,7 @@ using Facebook.MiniJSON;
 using Soomla;
 using Soomla.Profile;
 
-public sealed partial class FB : ScriptableObject 
+public sealed partial class FB : ScriptableObject
 {
 	public static UserProfile UserProfileFromFBJson(string fbUserJson) {
 		JSONObject fbJsonObject = new JSONObject (fbUserJson);
@@ -25,14 +25,15 @@ public sealed partial class FB : ScriptableObject
 		soomlaJsonObject.AddField(PJSONConsts.UP_LASTNAME, fbJsonObject["last_name"].str);
 		soomlaJsonObject.AddField(PJSONConsts.UP_AVATAR, fbJsonObject["picture"]["data"]["url"].str);
 		UserProfile userProfile = new UserProfile (soomlaJsonObject);
-		
+
 		return userProfile;
 	}
 
 	private static void ProfileCallback(FBResult result) {
 		if (result.Error != null) {
-			SoomlaProfile.PushEventLoginFailed (Provider.FACEBOOK, result.Error);			
-		} 
+			SoomlaUtils.LogDebug (TAG, "ProfileCallback[result.Error]:" + result.Error);
+			SoomlaProfile.PushEventLoginFailed (Provider.FACEBOOK, result.Error);
+		}
 		else {
 			SoomlaUtils.LogDebug(TAG, "ProfileCallback[result.Text]:"+result.Text);
 			SoomlaUtils.LogDebug(TAG, "ProfileCallback[result.Texture]:"+result.Texture);
@@ -43,12 +44,14 @@ public sealed partial class FB : ScriptableObject
 			ProfileEvents.OnLoginFinished(userProfile);
 		}
 	}
-	
+
 	private static void LoginCallback(FBResult result) {
 		if (result.Error != null) {
-			SoomlaProfile.PushEventLoginFailed (Provider.FACEBOOK, result.Error);			
+			SoomlaUtils.LogDebug (TAG, "LoginCallback[result.Error]:" + result.Error);
+			SoomlaProfile.PushEventLoginFailed (Provider.FACEBOOK, result.Error);
 		}
 		else if (!FB.IsLoggedIn) {
+			SoomlaUtils.LogDebug (TAG, "LoginCallback[cancelled]");
 			SoomlaProfile.PushEventLoginCancelled(Provider.FACEBOOK);
 		}
 		else {
@@ -57,12 +60,12 @@ public sealed partial class FB : ScriptableObject
 				// check response.Text and response.Error
 				SoomlaUtils.LogWarning("SOOMLA FBConsole", "me/permissions" + response.Text);
 			});
-			
+
 			FB.API("/me?fields=id,name,email,first_name,last_name,picture",
 			       Facebook.HttpMethod.GET, ProfileCallback);
 		}
 	}
-	
+
 	public static void UpdateStatus(string message, Facebook.FacebookDelegate callback = null) {
 		var formData = new Dictionary<string, string>
 		{
@@ -70,7 +73,7 @@ public sealed partial class FB : ScriptableObject
 		};
 		FB.API ("/me/feed", Facebook.HttpMethod.POST, callback, formData);
 	}
-	
+
 	// UpdateStory: call FB.Feed(...)
 
 	// requires user_friends permission (and only works on canvas games?)
@@ -86,15 +89,15 @@ public sealed partial class FB : ScriptableObject
 		        Facebook.HttpMethod.GET,
 		        callback);
 	}
-	
-	public static void UploadImage(Texture2D tex2D, string fileName, string message, 
+
+	public static void UploadImage(Texture2D tex2D, string fileName, string message,
 	                               Facebook.FacebookDelegate callback = null) {
 		byte[] texBytes = tex2D.EncodeToPNG();
-		
+
 		var wwwForm = new WWWForm();
 		wwwForm.AddBinaryData("image", texBytes, fileName);
 		wwwForm.AddField("message", message);
-		
+
 		FB.API("/me/photos", Facebook.HttpMethod.POST, callback, wwwForm);
 	}
 

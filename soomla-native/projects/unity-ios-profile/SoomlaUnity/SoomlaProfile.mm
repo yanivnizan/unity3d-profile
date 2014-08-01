@@ -26,26 +26,36 @@ extern "C"{
     }
     
 	int soomlaProfile_GetStoredUserProfile(const char* sProvider, char** json) {
+        NSLog(@"SOOMLA/UNITY soomlaProfile_GetStoredUserProfile");
         NSString* providerIdS = [NSString stringWithUTF8String:sProvider];
 		@try {
             Provider provider = [UserProfileUtils providerStringToEnum:providerIdS];
             UserProfile* userProfile = nil;
             if ([SoomlaProfile isUsingExternalProvider]) {
+                NSLog(@"SOOMLA/UNITY isUsingExternalProvider[true]");
                 userProfile = [UserProfileStorage getUserProfile:provider];
+                NSLog(@"SOOMLA/UNITY userProfile:%@", [userProfile debugDescription]);
+                if (!userProfile) {
+                    return EXCEPTION_USER_PROFILE_NOT_FOUND;
+                }
             }
             else {
+                NSLog(@"SOOMLA/UNITY isUsingExternalProvider[false]");
                 userProfile = [[SoomlaProfile getInstance] getStoredUserProfileWithProvider:provider];
             }
-            NSString* userProfileJson = [SoomlaUtils dictToJsonString:[userProfile toDictionary]];
+            
+            NSDictionary* userDict = [userProfile toDictionary];
+            NSLog(@"SOOMLA/UNITY userDict:%@", userDict);
+            NSString* userProfileJson = [SoomlaUtils dictToJsonString:userDict];
             *json = AutonomousStringCopy([userProfileJson UTF8String]);
 		}
 		
 		@catch (ProviderNotFoundException* e) {
-            NSLog(@"Couldn't find a Provider with providerId: %@.", providerIdS);
+            NSLog(@"SOOMLA/UNITY Couldn't find a Provider with providerId: %@.", providerIdS);
 			return EXCEPTION_PROVIDER_NOT_FOUND;
         }
         @catch (UserProfileNotFoundException* e) {
-            NSLog(@"Couldn't find a UserProfile for providerId %@.", providerIdS);
+            NSLog(@"SOOMLA/UNITY Couldn't find a UserProfile for providerId %@.", providerIdS);
 			return EXCEPTION_USER_PROFILE_NOT_FOUND;
         }
 

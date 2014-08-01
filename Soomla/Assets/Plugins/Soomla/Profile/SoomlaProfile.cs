@@ -236,7 +236,9 @@ namespace Soomla.Profile
 #if UNITY_EDITOR
 			string key = keyUserProfile(provider);
 			string value = PlayerPrefs.GetString (key);
-			return new UserProfile (new JSONObject (value));
+			if (!string.IsNullOrEmpty(value)) {
+				return new UserProfile (new JSONObject (value));
+			}		
 #endif
 			return null;
 		}

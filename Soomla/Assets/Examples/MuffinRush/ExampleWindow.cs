@@ -21,8 +21,9 @@ using System.IO;
 using Soomla;
 using Soomla.Profile;
 using Soomla.Store;
+using Soomla.Example;
 
-namespace Soomla.Example {
+//namespace Soomla.Example {
 
 	/// <summary>
 	/// This class contains functions that initialize the game and that display the different screens of the game.
@@ -140,7 +141,7 @@ namespace Soomla.Example {
 		private void OnLoginFinished(UserProfile userProfile) {
 			if (userProfile.Provider == Provider.FACEBOOK) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
-				reward.Repeatable = true;
+				reward.Schedule = Schedule.AnyTimeUnLimited();
 
 //				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
 				FB.UpdateStatus("I love SOOMLA !", FB.RewardCallback(reward));
@@ -174,7 +175,7 @@ namespace Soomla.Example {
 
 			} else if (userProfile.Provider == Provider.TWITTER) {
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 11);
-				reward.Repeatable = true;
+				reward.Schedule = Schedule.AnyTimeUnLimited();
 //				SoomlaProfile.UpdateStatus(Provider.TWITTER, "I love SOOMLA !", reward);
 //				SoomlaProfile.UpdateStory(Provider.TWITTER, "I think i love SOOMLA", "Refaelos", "this is a caption", "Trying to test a story", "http://soom.la", "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg", reward);
 			} else {
@@ -570,5 +571,5 @@ namespace Soomla.Example {
 		}
 	
 	}
-}
+//}
 

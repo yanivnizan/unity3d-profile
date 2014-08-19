@@ -121,7 +121,7 @@ using Soomla.Example;
 //			StoreEvents.OnSoomlaStoreInitialized += OnSoomlaStoreInitialized;
 
 			SoomlaStore.Initialize(new MuffinRushAssets());
-			SoomlaProfile.Initialize(true);
+			SoomlaProfile.Initialize();
 			FB.Init (
 				onInitComplete: () => { isFBReady = true; }
 			);
@@ -143,32 +143,19 @@ using Soomla.Example;
 				Reward reward = new VirtualItemReward("status_" + vgToGive.ItemId, "", vgToGive.ItemId, 10);
 				reward.Schedule = Schedule.AnyTimeUnLimited();
 
-//				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
-				FB.UpdateStatus("I love SOOMLA !", FB.RewardCallback(reward));
+				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I love SOOMLA !", reward);
 
-//				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
-//				                          "I think i love SOOMLA",
-//				                          "Refaelos",
-//				                          "this is a caption",
-//				                          "Trying to test a story", 
-//				                          "http://soom.la",
-//				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
-//				                          reward);
+				SoomlaProfile.UpdateStory(Provider.FACEBOOK,
+				                          "I think i love SOOMLA",
+				                          "Refaelos",
+				                          "this is a caption",
+				                          "Trying to test a story", 
+				                          "http://soom.la",
+				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
+				                          reward);
 
-				FB.Feed(toId: "", //own timeline, can be ID of friend
-				        link: "http://soom.la",
-				        linkName: "Refaelos",
-				        linkCaption: "this is a caption",
-				        linkDescription: "Trying to test a story",
-				        picture: "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
-				        callback: FB.RewardCallback(reward)
-				        );
-
-//				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
+				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
 //				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
-
-				FB.GetFriends();
-				FB.GetFeed();
 
 				// code for this needs to be done in LateUpdate/TakeScreenshot (see there)
 //				bScreenshot = true;
@@ -328,34 +315,50 @@ using Soomla.Example;
 			                     System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
 		}
 
-		private IEnumerator TakeScreenshot() {
-			yield return new WaitForEndOfFrame ();
+//		private IEnumerator TakeScreenshot() {
+//			yield return new WaitForEndOfFrame ();
+//
+//			// screenshot
+//			Texture2D image = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+//			image.ReadPixels(new Rect(0,0,Screen.width, Screen.height), 0,0,false);
+//			image.Apply();
+//			
+//			// using byte[]
+////			byte[] imageBytes = image.EncodeToJPG();
+//			byte[] imageBytes = image.EncodeToPNG();
+//			Debug.Log ("imageBytes.Length:" + imageBytes.Length);
+//			Destroy (image);
+////				SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotBytes", imageBytes, "screen.png", 100, null);
+//			
+//			// using file
+//			// TODO: if using this code to upload via file, include the following permission in AndroidManifest.xml
+//			// TODO: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+//			//string screenshotPath = Application.dataPath + "/../SavedScreen.jpg";
+//			string screenshotPath = ScreenShotName (Screen.width, Screen.height);
+//			File.WriteAllBytes(screenshotPath, imageBytes);
+//			Debug.Log(string.Format("Took screenshot to: {0}", screenshotPath));
+//
+////			FB.UploadImage ("screenshotFile", screenshotPath);
+////			SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotFile", screenshotPath, null);
+//
+//		StartCoroutine(TakeScreenshot());
+//
+//			yield return null;
+//		}
 
-			// screenshot
-			Texture2D image = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-			image.ReadPixels(new Rect(0,0,Screen.width, Screen.height), 0,0,false);
-			image.Apply();
-			
-			// using byte[]
-//			byte[] imageBytes = image.EncodeToJPG();
-			byte[] imageBytes = image.EncodeToPNG();
-			Debug.Log ("imageBytes.Length:" + imageBytes.Length);
-			Destroy (image);
-//				SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotBytes", imageBytes, "screen.png", 100, null);
-			
-			// using file
-			// TODO: if using this code to upload via file, include the following permission in AndroidManifest.xml
-			// TODO: <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-			//string screenshotPath = Application.dataPath + "/../SavedScreen.jpg";
-			string screenshotPath = ScreenShotName (Screen.width, Screen.height);
-			File.WriteAllBytes(screenshotPath, imageBytes);
-			Debug.Log(string.Format("Took screenshot to: {0}", screenshotPath));
+	private IEnumerator TakeScreenshot() 
+	{
+		yield return new WaitForEndOfFrame();
+		
+		var width = Screen.width;
+		var height = Screen.height;
+		var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+		// Read screen contents into the texture
+		tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+		tex.Apply();
 
-			FB.UploadImage ("screenshotFile", screenshotPath);
-//			SoomlaProfile.UploadImage(Provider.FACEBOOK, "screenshotFile", screenshotPath, null);
-
-			yield return null;
-		}
+		SoomlaProfile.UploadImage(Provider.FACEBOOK, tex, "store", "herp derp.  I did a thing!  Did I do this right?", null);
+	}
 
 		/// <summary>
 		/// Displays the welcome screen of the game. 

@@ -21,12 +21,9 @@ namespace Soomla.Profile {
 	/// This class provides error codes for each of the errors available in iOS-profile. 
 	/// </summary>
 	public static class IOS_ProfileErrorCodes {
-
 		public static int NO_ERROR = 0;
-
-		public static int EXCEPTION_PROVIDER_NOT_FOUND = -1;
-
-		public static int EXCEPTION_USER_PROFILE_NOT_FOUND = -2;
+		public static int EXCEPTION_PROVIDER_NOT_FOUND = -301;
+		public static int EXCEPTION_USER_PROFILE_NOT_FOUND = -302;
 
 		/// <summary>
 		/// Checks the error code and throws the relevant exception.

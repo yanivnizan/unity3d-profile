@@ -27,14 +27,27 @@ namespace Soomla.Profile {
 		private const string TAG = "SOOMLA ProfileEvents";
 
 		private static ProfileEvents instance = null;
+		#pragma warning disable 414
+		private static ProfileEventPusher pep = null;
+		#pragma warning restore 414
 
 		/// <summary>
 		/// Initializes game state before the game starts.
 		/// </summary>
 		void Awake(){
 			if(instance == null){ 	// making sure we only initialize one instance.
+				SoomlaUtils.LogDebug(TAG, "Initializing ProfileEvents (Awake)");
+
 				instance = this;
 				GameObject.DontDestroyOnLoad(this.gameObject);
+
+				// now we initialize the event pusher
+				#if UNITY_ANDROID && !UNITY_EDITOR
+				pep = new ProfileEventPusherAndroid();
+				#elif UNITY_IOS && !UNITY_EDITOR
+				pep = new ProfileEventPusherIOS();
+				#endif
+
 			} else {				// Destroying unused instances.
 				GameObject.Destroy(this.gameObject);
 			}
@@ -293,20 +306,6 @@ namespace Soomla.Profile {
 			ProfileEvents.OnGetFeedStarted(Provider.fromString(message));
 		}
 
-		/// <summary>
-		/// Will be called when a reward was given to the user.
-		/// </summary>
-		/// <param name="message">Will contain a JSON representation of a <c>Reward</c> and a flag saying if it's a Badge or not.</param>
-		public void onRewardGiven(string message) {
-			SoomlaUtils.LogDebug(TAG, "SOOMLA/UNITY onRewardGiven:" + message);
-
-			JSONObject resObj = new JSONObject(message);
-			JSONObject rewardObj = resObj["reward"];
-			Reward reward = Reward.fromJSONObject(rewardObj);
-			bool isBadge = resObj["isBadge"].b;
-			ProfileEvents.OnRewardGiven(reward, isBadge);
-		}
-
 
 		public delegate void Action();
 
@@ -322,7 +321,7 @@ namespace Soomla.Profile {
 
 		public static Action<Provider, string> OnLogoutFailed = delegate {};
 		
-		public static Action<Provider> OnLogoutFinished = delegate {};
+		public static Action<Provider> OnLogoutFinished = delegate {}; 
 
 		public static Action<Provider> OnLogoutStarted = delegate {};
 
@@ -346,6 +345,34 @@ namespace Soomla.Profile {
 		
 		public static Action<Provider> OnGetFeedStarted = delegate {};
 
-		public static Action<Reward, bool> OnRewardGiven = delegate {};
+
+		public class ProfileEventPusher {
+			public ProfileEventPusher() {
+				ProfileEvents.OnLoginCancelled += _pushEventLoginStarted;
+				ProfileEvents.OnLoginFailed += _pushEventLoginFailed;
+				ProfileEvents.OnLoginFinished += _pushEventLoginFinished;
+				ProfileEvents.OnLoginStarted += _pushEventLoginStarted;
+				ProfileEvents.OnLogoutFailed += _pushEventLogoutFailed;
+				ProfileEvents.OnLogoutFinished += _pushEventLogoutFinished;
+				ProfileEvents.OnLogoutStarted += _pushEventLogoutStarted;
+				ProfileEvents.OnSocialActionCancelled += _pushEventSocialActionCancelled;
+				ProfileEvents.OnSocialActionFailed += _pushEventSocialActionFailed;
+				ProfileEvents.OnSocialActionFinished += _pushEventSocialActionFinished;
+				ProfileEvents.OnSocialActionStarted += _pushEventSocialActionStarted;
+			}
+
+			// event pushing back to native (when using FB Unity SDK)
+			protected virtual void _pushEventLoginStarted(Provider provider) {}
+			protected virtual void _pushEventLoginFinished(UserProfile userProfileJson){}
+			protected virtual void _pushEventLoginFailed(Provider provider, string message){}
+			protected virtual void _pushEventLoginCancelled(Provider provider){}
+			protected virtual void _pushEventLogoutStarted(Provider provider){}
+			protected virtual void _pushEventLogoutFinished(Provider provider){}
+			protected virtual void _pushEventLogoutFailed(Provider provider, string message){}
+			protected virtual void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType){}
+			protected virtual void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType){}
+			protected virtual void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType){}
+			protected virtual void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message){}
+		}
 	}
 }

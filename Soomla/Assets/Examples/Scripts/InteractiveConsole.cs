@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using Soomla.Profile;
+
 public sealed class InteractiveConsole : MonoBehaviour
 {
     #region FB.Init() example
@@ -12,13 +14,7 @@ public sealed class InteractiveConsole : MonoBehaviour
 
     private void CallFBInit()
     {
-        FB.Init(OnInitComplete, OnHideUnity);
-    }
-
-    private void OnInitComplete()
-    {
-        Debug.Log("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
-        isInit = true;
+		SoomlaProfile.Initialize();
     }
 
     private void OnHideUnity(bool isGameShown)

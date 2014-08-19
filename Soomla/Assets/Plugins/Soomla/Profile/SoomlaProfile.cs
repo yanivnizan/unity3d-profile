@@ -12,10 +12,9 @@
 /// See the License for the specific language governing permissions and
 /// limitations under the License.using System;
 
-#define USING_UNITY_PROVIDER
-
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Soomla.Profile
 {
@@ -43,14 +42,17 @@ namespace Soomla.Profile
 			}
 		}
 
+
+		static Dictionary<Provider, SocialProvider> providers = new Dictionary<Provider, SocialProvider>();
+
 		/// <summary>
 		/// Initializes the SOOMLA Profile Module.
 		/// </summary>
-		public static void Initialize(bool usingUnityProvider) {
-			instance._initialize(usingUnityProvider);
+		public static void Initialize() {
+			instance._initialize();
+			providers.Add(Provider.FACEBOOK, new FBSocialProvider());
 		}
 
-#if !USING_UNITY_PROVIDER
 		/// <summary>
 		/// Will post a status to the user's social page.
 		///
@@ -60,7 +62,18 @@ namespace Soomla.Profile
 		/// <param name="status">The actual status text.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
 		public static void UpdateStatus(Provider provider, string status, Reward reward) {
-			instance._updateStatus(provider, status, reward);
+		
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STATUS);
+			providers[provider].UpdateStatus(status,
+			        /* success */	() => { 
+								ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS); 
+								if (reward != null) {
+									reward.Give();
+								}
+							},
+					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STATUS, error); }
+				);
+
 		}
 
 		/// <summary>
@@ -80,7 +93,19 @@ namespace Soomla.Profile
 		public static void UpdateStory(Provider provider, string message, string name,
 		                               string caption, string description, string link,
 		                               string pictureUrl, Reward reward) {
-			instance._updateStory(provider, message, name, caption, description, link, pictureUrl, reward);
+
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STORY);
+			providers[provider].UpdateStory(message, name, caption, link, pictureUrl,
+			        /* success */	() => { 
+											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STORY); 
+											if (reward != null) {
+												reward.Give();
+											}
+										},
+					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STORY, error); },
+					/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPDATE_STORY); }
+				);
+
 		}
 
 //		public static void UploadImage(Provider provider, string message, string filename,
@@ -88,9 +113,21 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
-		public static void UploadImage(Provider provider, string message, string filePath,
+		public static void UploadImage(Provider provider, Texture2D tex2D, string fileName, string message,
 		                               Reward reward) {
-			instance._uploadImage(provider, message, filePath, reward);
+
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPLOAD_IMAGE);
+			providers[provider].UploadImage(tex2D, fileName, message,
+					/* success */	() => { 
+											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPLOAD_IMAGE); 
+											if (reward != null) {
+												reward.Give();
+											}
+										},
+					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPLOAD_IMAGE, error); },
+					/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPLOAD_IMAGE); }
+				);
+
 		}
 
 		/// <summary>
@@ -100,8 +137,16 @@ namespace Soomla.Profile
 		/// </summary>
 		/// <param name="provider">The <c>Provider</c> we should try to fetch contacts from.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful fetching.</param>
-		public static void GetContacts(Provider provider, Reward reward) {
-			instance._getContacts(provider, reward);
+		public static void GetContacts(Provider provider) {
+
+			ProfileEvents.OnGetContactsStarted(provider);
+			providers[provider].GetContacts(
+				/* success */	(List<UserProfile> profiles) => { 
+											ProfileEvents.OnGetContactsFinished(provider, profiles);
+										},
+				/* fail */		(string message) => {  ProfileEvents.OnGetContactsFailed(provider, message); }
+			);
+
 		}
 
 		/// <summary>
@@ -110,16 +155,24 @@ namespace Soomla.Profile
 		/// </summary>
 		/// <param name="provider">Provider.</param>
 		/// <param name="reward">Reward.</param>
-		public static void GetFeed(Provider provider, Reward reward) {
-			instance._getFeed(provider, reward);
-		}
+//		public static void GetFeed(Provider provider, Reward reward) {
+//
+//			// TODO: implement with FB SDK
+//
+//		}
 
 		/// <summary>
 		/// Will log you out from the given provider.
 		/// </summary>
 		/// <param name="provider">The provider to log out from.</param>
 		public static void Logout(Provider provider) {
-			instance._logout(provider);
+
+			ProfileEvents.OnLogoutStarted(provider);
+			providers[provider].Logout(
+				/* success */	() => { ProfileEvents.OnLogoutFinished(provider); },
+				/* fail */		(string message) => {  ProfileEvents.OnLogoutFailed (provider, message); }
+			);
+
 		}
 
 		/// <summary>
@@ -128,9 +181,20 @@ namespace Soomla.Profile
 		/// <param name="provider">The provider to log in to.</param>
 		/// <param name="reward">Give your users a reward for logging in.</param>
 		public static void Login(Provider provider, Reward reward) {
-			instance._login(provider, reward);
+			ProfileEvents.OnLoginStarted(provider);
+			providers[provider].Login(
+				/* success */	(UserProfile userProfile) => { 
+										ProfileEvents.OnLoginFinished(userProfile); 
+										if (reward != null) {
+											reward.Give();
+										}
+									},
+				/* fail */		(string message) => {  ProfileEvents.OnLoginFailed (provider, message); },
+				/* cancel */	() => {  ProfileEvents.OnLoginCancelled(provider); }
+			);
 		}
-#endif
+
+
 
 		/// <summary>
 		/// This will fetch the UserProfile that is saved for the given provider.
@@ -159,77 +223,12 @@ namespace Soomla.Profile
 			instance._openAppRatingPage ();
 		}
 
-		// push events
-		public static void PushEventLoginStarted(Provider provider) {
-			instance._pushEventLoginStarted(provider);
-		}
-		public static void PushEventLoginFinished(string userProfileJson) {
-			instance._pushEventLoginFinished(userProfileJson);
-		}
-		public static void PushEventLoginFailed(Provider provider, string message) {
-			instance._pushEventLoginFailed(provider, message);
-		}
-		public static void PushEventLoginCancelled(Provider provider) {
-			instance._pushEventLoginCancelled(provider);
-		}
-		public static void PushEventLogoutStarted(Provider provider) {
-			instance._pushEventLogoutStarted(provider);
-		}
-		public static void PushEventLogoutFinished(Provider provider) {
-			instance._pushEventLogoutFinished(provider);
-		}
-		public static void PushEventLogoutFailed(Provider provider, string message) {
-			instance._pushEventLogoutFailed(provider, message);
-		}
-		public static void PushEventSocialActionStarted(Provider provider, SocialActionType actionType) {
-			instance._pushEventSocialActionStarted(provider, actionType);
-		}
-		public static void PushEventSocialActionFinished(Provider provider, SocialActionType actionType) {
-			instance._pushEventSocialActionFinished(provider, actionType);
-		}
-		public static void PushEventSocialActionCancelled(Provider provider, SocialActionType actionType) {
-			instance._pushEventSocialActionCancelled(provider, actionType);
-		}
-		public static void PushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) {
-			instance._pushEventSocialActionFailed (provider, actionType, message);
-		}
 
-		protected virtual void _initialize(bool usingUnityProvider) { }
-
-		protected virtual void _login(Provider provider, Reward reward) { }
-
-		protected virtual void _logout(Provider provider) { }
-
-		protected virtual void _updateStatus(Provider provider, string status, Reward reward) { }
-
-		protected virtual void _updateStory(Provider provider, string message, string name,
-		                                    string caption, string description, string link,
-		                                    string pictureUrl, Reward reward) { }
-
-//		protected virtual void _uploadImage(Provider provider, string message, string filename,
-//		                                    byte[] imageBytes, int quality, Reward reward) { }
-//
-		protected virtual void _uploadImage(Provider provider, string message, string filePath,
-		                                    Reward reward) { }
-
-		protected virtual void _getContacts(Provider provider, Reward reward) { }
-
-		protected virtual void _getFeed(Provider provider, Reward reward) { }
+		protected virtual void _initialize() { }
 
 		protected virtual void _openAppRatingPage() { }
 
-		// event pushing back to native (when using FB Unity SDK)
-		protected virtual void _pushEventLoginStarted(Provider provider) { }
-		protected virtual void _pushEventLoginFinished(string userProfileJson) { }
-		protected virtual void _pushEventLoginFailed(Provider provider, string message) { }
-		protected virtual void _pushEventLoginCancelled(Provider provider) { }
-		protected virtual void _pushEventLogoutStarted(Provider provider) { }
-		protected virtual void _pushEventLogoutFinished(Provider provider) { }
-		protected virtual void _pushEventLogoutFailed(Provider provider, string message) { }
-		protected virtual void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType) { }
-		protected virtual void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType) { }
-		protected virtual void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType) { }
-		protected virtual void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { }
+
 
 
 		protected virtual UserProfile _getStoredUserProfile(Provider provider) {

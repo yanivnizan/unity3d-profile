@@ -51,6 +51,11 @@ namespace Soomla.Profile
 		public static void Initialize() {
 			instance._initialize();
 			providers.Add(Provider.FACEBOOK, new FBSocialProvider());
+			ProfileEvents.OnSoomlaProfileInitialized();
+		}
+
+		public static bool IsLoggedIn(Provider provider) {
+			return providers.ContainsKey(provider) && providers[provider].IsLoggedIn();
 		}
 
 		/// <summary>
@@ -91,7 +96,7 @@ namespace Soomla.Profile
 		/// <param name="pictureUrl">A link to an image on the web.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
 		public static void UpdateStory(Provider provider, string message, string name,
-		                               string caption, string description, string link,
+		                               string caption, string link,
 		                               string pictureUrl, Reward reward) {
 
 			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STORY);

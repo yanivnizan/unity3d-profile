@@ -28,14 +28,14 @@ public sealed class InteractiveConsole : MonoBehaviour
 
     private void CallFBLogin()
     {
-        FB.Login("email,publish_actions", LoginCallback);
+		SoomlaProfile.Login(Provider.FACEBOOK, null);
     }
 
     void LoginCallback(FBResult result)
     {
         if (result.Error != null)
             lastResponse = "Error Response:\n" + result.Error;
-        else if (!FB.IsLoggedIn)
+        else if (!SoomlaProfile.IsLoggedIn(Provider.FACEBOOK))
         {
             lastResponse = "Login cancelled by Player";
         }
@@ -47,7 +47,7 @@ public sealed class InteractiveConsole : MonoBehaviour
 
     private void CallFBLogout()
     {
-        FB.Logout();
+		SoomlaProfile.Logout(Provider.FACEBOOK);
     }
     #endregion
 
@@ -149,25 +149,26 @@ public sealed class InteractiveConsole : MonoBehaviour
 
     private void CallFBFeed()
     {
-        Dictionary<string, string[]> feedProperties = null;
-        if (IncludeFeedProperties)
-        {
-            feedProperties = FeedProperties;
-        }
-        FB.Feed(
-            toId: FeedToId,
-            link: FeedLink,
-            linkName: FeedLinkName,
-            linkCaption: FeedLinkCaption,
-            linkDescription: FeedLinkDescription,
-            picture: FeedPicture,
-            mediaSource: FeedMediaSource,
-            actionName: FeedActionName,
-            actionLink: FeedActionLink,
-            reference: FeedReference,
-            properties: feedProperties,
-            callback: Callback
-        );
+		SoomlaProfile.UpdateStory(Provider.FACEBOOK, FeedLinkDescription, FeedLinkName, FeedLinkCaption, FeedLink, FeedPicture, null);
+//        Dictionary<string, string[]> feedProperties = null;
+//        if (IncludeFeedProperties)
+//        {
+//            feedProperties = FeedProperties;
+//        }
+//        FB.Feed(
+//            toId: FeedToId,
+//            link: FeedLink,
+//            linkName: FeedLinkName,
+//            linkCaption: FeedLinkCaption,
+//            linkDescription: FeedLinkDescription,
+//            picture: FeedPicture,
+//            mediaSource: FeedMediaSource,
+//            actionName: FeedActionName,
+//            actionLink: FeedActionLink,
+//            reference: FeedReference,
+//            properties: feedProperties,
+//            callback: Callback
+//        );
     }
 
     #endregion
@@ -309,6 +310,20 @@ public sealed class InteractiveConsole : MonoBehaviour
 
         FeedProperties.Add("key1", new[] { "valueString1" });
         FeedProperties.Add("key2", new[] { "valueString2", "http://www.facebook.com" });
+
+		ProfileEvents.OnSoomlaProfileInitialized += () => {
+			Soomla.SoomlaUtils.LogDebug("InteractiveConsole", "SoomlaProfile Initialized !");
+			isInit = true;
+		};
+
+		ProfileEvents.OnLoginFinished += (UserProfile UserProfile) => {
+			Soomla.SoomlaUtils.LogDebug("InteractiveConsole", "login finished for: " + UserProfile.toJSONObject().print());
+			SoomlaProfile.GetContacts(Provider.FACEBOOK);
+		};
+
+		ProfileEvents.OnGetContactsFinished += (Provider provider, List<UserProfile> profiles) => {
+			Soomla.SoomlaUtils.LogDebug("InteractiveConsole", "get contacts for: " + profiles.Count());
+		};
     }
 
     void OnGUI()
@@ -347,7 +362,7 @@ public sealed class InteractiveConsole : MonoBehaviour
         }
 
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8
-        GUI.enabled = FB.IsLoggedIn;
+        GUI.enabled = SoomlaProfile.IsLoggedIn(Provider.FACEBOOK);
         if (Button("Logout"))
         {
             CallFBLogout();
@@ -365,7 +380,7 @@ public sealed class InteractiveConsole : MonoBehaviour
         }
 #endif
 
-        GUI.enabled = FB.IsLoggedIn;
+        GUI.enabled = SoomlaProfile.IsLoggedIn(Provider.FACEBOOK);
         GUILayout.Space(10);
         LabelAndTextField("Title (optional): ", ref FriendSelectorTitle);
         LabelAndTextField("Message: ", ref FriendSelectorMessage);
@@ -450,7 +465,7 @@ public sealed class InteractiveConsole : MonoBehaviour
         {
             status = "Take screenshot";
 
-            StartCoroutine(TakeScreenshot());
+			StartCoroutine(UploadScreenshot());
         }
 
         if (Button("Get Deep Link"))
@@ -506,7 +521,7 @@ public sealed class InteractiveConsole : MonoBehaviour
                 FB.AppId,
                 (isInit) ? "Loaded Successfully" : "Not Loaded",
                 FB.UserId,
-                FB.IsLoggedIn,
+                SoomlaProfile.IsLoggedIn(Provider.FACEBOOK),
                 FB.AccessToken,
                 FB.AccessTokenExpiresAt,
                 lastResponse
@@ -543,7 +558,7 @@ public sealed class InteractiveConsole : MonoBehaviour
         }
     }
 
-    private IEnumerator TakeScreenshot() 
+    private IEnumerator UploadScreenshot() 
     {
         yield return new WaitForEndOfFrame();
 
@@ -553,13 +568,8 @@ public sealed class InteractiveConsole : MonoBehaviour
         // Read screen contents into the texture
         tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         tex.Apply();
-        byte[] screenshot = tex.EncodeToPNG();
 
-        var wwwForm = new WWWForm();
-        wwwForm.AddBinaryData("image", screenshot, "InteractiveConsole.png");
-        wwwForm.AddField("message", "herp derp.  I did a thing!  Did I do this right?");
-
-        FB.API("me/photos", Facebook.HttpMethod.POST, Callback, wwwForm);
+		SoomlaProfile.UploadImage(Provider.FACEBOOK, tex, "InteractiveConsole.png", "herp derp.  I did a thing!  Did I do this right?", null);
     }
 
     private bool Button(string label)

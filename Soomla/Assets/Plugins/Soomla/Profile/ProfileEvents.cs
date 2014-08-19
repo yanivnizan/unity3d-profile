@@ -309,6 +309,8 @@ namespace Soomla.Profile {
 
 		public delegate void Action();
 
+		public static Action OnSoomlaProfileInitialized = delegate {};
+
 		public static Action<Provider> OnLoginCancelled = delegate {};
 
 		public static Action<UserProfile> OnUserProfileUpdated = delegate {};

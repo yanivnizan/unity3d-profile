@@ -149,12 +149,11 @@ using Soomla.Example;
 				                          "I think i love SOOMLA",
 				                          "Refaelos",
 				                          "this is a caption",
-				                          "Trying to test a story", 
 				                          "http://soom.la",
 				                          "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/t31.0-1/c112.36.400.400/p480x480/902919_358601500912799_1525904972_o.jpg",
 				                          reward);
 
-				SoomlaProfile.GetContacts(Provider.FACEBOOK, null);
+				SoomlaProfile.GetContacts(Provider.FACEBOOK);
 //				SoomlaProfile.GetFeed(Provider.FACEBOOK, null);
 
 				// code for this needs to be done in LateUpdate/TakeScreenshot (see there)

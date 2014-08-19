@@ -47,6 +47,7 @@ namespace Soomla.Profile
 //		public abstract void GetFeed(FeedSuccess success, FeedFailed fail);
 		public abstract void Logout(LogoutSuccess success, LogoutFailed fail);
 		public abstract void Login(LoginSuccess success, LoginFailed fail, LoginCancelled cancel);
+		public abstract bool IsLoggedIn();
 	}
 }
 

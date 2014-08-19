@@ -189,6 +189,10 @@ namespace Soomla.Profile
 			});
 		}
 
+		public override bool IsLoggedIn() {
+			return FB.IsLoggedIn;
+		}
+
 
 		/** Initialize Callbacks **/
 

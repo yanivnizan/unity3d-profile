@@ -86,7 +86,7 @@ public class ExampleWindow : MonoBehaviour {
 	/// </summary>
 	void Start () {
 
-		fgoodDog = (Font)Resources.Load("Profile/GoodDog" + fontSuffix);
+		fgoodDog = (Font)Resources.Load("Fonts/GoodDog" + fontSuffix);
 
 		tBackground = (Texture2D)Resources.Load("Profile/BG");
 		tShed = (Texture2D)Resources.Load("Profile/Headline");

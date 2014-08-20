@@ -33,8 +33,6 @@ echo "creating unitypackage for SOOMLA Profile"
     Assets/Plugins/iOS/libSoomlaiOSProfile.a \
     Assets/Plugins/iOS/libUnityiOSProfile.a \
     Assets/Plugins/Soomla/Profile \
-    Assets/Facebook/Scripts/FB.cs \
-    Assets/Facebook/Scripts/FBExt.cs \
     Assets/Soomla/Editor/build-tools/Soomla_ProfileRunner.py \
     Assets/Soomla/Prefabs/ProfileEvents.prefab \
   $PWD/soomla-unity3d-profile.unitypackage \

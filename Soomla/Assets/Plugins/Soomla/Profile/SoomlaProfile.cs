@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Soomla.Profile
 {
@@ -133,6 +134,24 @@ namespace Soomla.Profile
 					/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPLOAD_IMAGE); }
 				);
 
+		}
+
+		public static void UploadCurrentScreenShot(MonoBehaviour mb, Provider provider, string title, string message, Reward reward) {
+			mb.StartCoroutine(TakeScreenshot(provider, title, message, reward));
+		}
+
+		private static IEnumerator TakeScreenshot(Provider provider, string title, string message, Reward reward) 
+		{
+			yield return new WaitForEndOfFrame();
+			
+			var width = Screen.width;
+			var height = Screen.height;
+			var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+			// Read screen contents into the texture
+			tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+			tex.Apply();
+			
+			UploadImage(provider, tex, title, message, reward);
 		}
 
 		/// <summary>

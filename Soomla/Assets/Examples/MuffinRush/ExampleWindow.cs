@@ -20,7 +20,6 @@ using System.IO;
 
 using Soomla;
 using Soomla.Profile;
-using Soomla.Store;
 using Soomla.Example;
 
 /// <summary>
@@ -87,7 +86,7 @@ public class ExampleWindow : MonoBehaviour {
 	/// </summary>
 	void Start () {
 
-		fgoodDog = (Font)Resources.Load("SoomlaStore/GoodDog" + fontSuffix);
+		fgoodDog = (Font)Resources.Load("Profile/GoodDog" + fontSuffix);
 
 		tBackground = (Texture2D)Resources.Load("Profile/BG");
 		tShed = (Texture2D)Resources.Load("Profile/Headline");

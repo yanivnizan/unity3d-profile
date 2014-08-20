@@ -21,7 +21,7 @@ unity3d-profile is the Unity3d flavor of SOOMLA's Profile Module.
 
 ## Download
 
-####Pre baked unitypackage: [unity3d-profile v1.5.3](http://bit.ly/1rc21Zo)  
+####Pre baked unitypackage: [unity3d-profile v1.0](http://bit.ly/1sUDdG0)  
 
 ## Debugging
 
@@ -40,7 +40,7 @@ $ git clone --recursive git@github.com:soomla/unity3d-profile.git
 
 1. Go over the guidelines for downloading and importing the official Facebook SDK: https://developers.facebook.com/docs/unity/getting-started/canvas    - You don't need to initialize FB. SoomlaProfile will initialize it for you.
 2. Move the folder `Facebook` from `Assets` to `Assets/Plugins`  -  SOOMLA works from the Plugins folder so it'll be available to UnityScript devs. So you'll have to move Facebook in there as well.
-3. Download and import [soomla-unity3d-core.unitypackage]() and [unity3d-profile.unitypackage](). If you also want to use Store related rewards you'll need to go over the instructions of [unity3d-store]()
+3. Download and import [soomla-unity3d-core.unitypackage](https://github.com/soomla/unity3d-profile/blob/master/soomla-unity3d-core.unitypackage) and [unity3d-profile.unitypackage](http://bit.ly/1sUDdG0). If you also want to use Store related rewards you'll need to go over the instructions of [unity3d-store](https://github.com/soomla/unity3d-store)
 4. Drag the "CoreEvents" and "ProfileEvents" Prefabs from `../Assets/Soomla/Prefabs` into your scene. You should see it listed in the "Hierarchy" panel. [This step MUST be done for unity3d-profile to work properly!]
 5. On the menu bar click "Window -> Soomla -> Edit Settings" and change the value for "Soomla Secret".
     - _Soomla Secret_ - is an encryption secret you provide that will be used to secure your data. (If you used versions before v1.5.2 this secret MUST be the same as Custom Secret)  

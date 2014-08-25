@@ -71,7 +71,7 @@ namespace Soomla.Profile
 		
 			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STATUS);
 			providers[provider].UpdateStatus(status,
-			        /* success */	() => { 
+			        /* success */	() => {
 								ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS); 
 								if (reward != null) {
 									reward.Give();
@@ -208,6 +208,7 @@ namespace Soomla.Profile
 			ProfileEvents.OnLoginStarted(provider);
 			providers[provider].Login(
 				/* success */	(UserProfile userProfile) => { 
+										StoreUserProfile(userProfile);
 										ProfileEvents.OnLoginFinished(userProfile); 
 										if (reward != null) {
 											reward.Give();

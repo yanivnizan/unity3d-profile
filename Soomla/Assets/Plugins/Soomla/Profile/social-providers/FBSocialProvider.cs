@@ -193,6 +193,9 @@ namespace Soomla.Profile
 			return FB.IsLoggedIn;
 		}
 
+		public override void Like(string pageName) {
+			Application.OpenURL("https://www.facebook.com/" + pageName);
+		}
 
 		/** Initialize Callbacks **/
 

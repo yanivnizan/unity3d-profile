@@ -218,8 +218,9 @@ namespace Soomla.Profile
 			);
 		}
 
-		public static void Like(string link, Reward reward=null) {
-			Application.OpenURL(link);
+		public static void Like(Provider provider, string pageName, Reward reward=null) {
+			providers[provider].Like(pageName);
+
 			if (reward != null) {
 				reward.Give();
 			}

@@ -218,6 +218,12 @@ namespace Soomla.Profile
 			);
 		}
 
+		public static void Like(string link, Reward reward=null) {
+			Application.OpenURL(link);
+			if (reward != null) {
+				reward.Give();
+			}
+		}
 
 
 		/// <summary>

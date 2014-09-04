@@ -46,7 +46,10 @@ namespace Soomla.Profile
 		
 		GUIContent fbAppId = new GUIContent("FB app Id:");
 		GUIContent fbAppNS = new GUIContent("FB app namespace:");
-		
+
+		GUIContent profileVersion = new GUIContent("Profile Version [?]", "The SOOMLA Profile version. ");
+		GUIContent profileBuildVersion = new GUIContent("Profile Build [?]", "The SOOMLA Profile build.");
+
 		public void OnEnable() {
 			// Generating AndroidManifest.xml
 			//			ManifestTools.GenerateManifest();
@@ -59,7 +62,9 @@ namespace Soomla.Profile
 		}
 		
 		public void OnInfoGUI() {
-			
+			SoomlaEditorScript.SelectableLabelField(profileVersion, "1.0");
+			SoomlaEditorScript.SelectableLabelField(profileBuildVersion, "1");
+			EditorGUILayout.Space();
 		}
 		
 		public void OnSoomlaGUI() {

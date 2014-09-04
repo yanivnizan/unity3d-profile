@@ -51,7 +51,7 @@ namespace Soomla.Profile {
 		protected override void _pushEventLoginStarted(Provider provider) {
 			soomlaProfile_PushEventLoginStarted(provider.ToString());
 		}
-		protected override void _pushEventLoginFinished(UserProfile userProfileJson) { 
+		protected override void _pushEventLoginFinished(UserProfile userProfile) { 
 			soomlaProfile_PushEventLoginFinished(userProfile.toJSONObject().print());
 		}
 		protected override void _pushEventLoginFailed(Provider provider, string message) {

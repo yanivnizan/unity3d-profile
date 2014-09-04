@@ -165,13 +165,6 @@ public class ExampleWindow : MonoBehaviour {
 		}
 	}
 
-//	void LateUpdate() {
-//		if(bScreenshot) {
-//			bScreenshot = false;
-//			StartCoroutine(TakeScreenshot());
-//		}
-//	}
-
 	/// <summary>
 	/// Calls the relevant function to display the correct screen of the game.
 	/// </summary>
@@ -211,9 +204,6 @@ public class ExampleWindow : MonoBehaviour {
 			if(GUI.Button(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), "")){
 				SoomlaProfile.UpdateStatus(Provider.FACEBOOK, "I LOVE SOOMLA !  http://www.soom.la", null);
 			}
-
-//			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tShare, 
-//			                ScaleMode.StretchToFill, true);
 		} else {
 			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tShareDisable, 
 			                ScaleMode.StretchToFill, true);
@@ -245,8 +235,6 @@ public class ExampleWindow : MonoBehaviour {
 				                          "http://about.soom.la/wp-content/uploads/2014/05/330x268-spockbot.png",
 				                          null);
 			}
-//			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tShareStory, 
-//			                ScaleMode.StretchToFill, true);
 		} else {
 			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tShareStoryDisable, 
 			                ScaleMode.StretchToFill, true);
@@ -273,8 +261,6 @@ public class ExampleWindow : MonoBehaviour {
 			if(GUI.Button(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), "")){
 				SoomlaProfile.UploadCurrentScreenShot(this, Provider.FACEBOOK, "Awesome Test App of SOOMLA Profile!", "This a screenshot of the current state of SOOMLA's test app on my computer.", null);
 			}
-//			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tUpload, 
-//			                ScaleMode.StretchToFill, true);
 		} else {
 			GUI.DrawTexture(new Rect(timesW(50.0f),timesH(rowsTop),timesW(212.0f),timesH(120.0f)), tUploadDisable, 
 			                ScaleMode.StretchToFill, true);
@@ -297,8 +283,6 @@ public class ExampleWindow : MonoBehaviour {
 			if(GUI.Button(new Rect(timesW(20.0f),timesH(950f),timesW(598.0f),timesH(141.0f)), "")){
 				SoomlaProfile.Logout(Provider.FACEBOOK);
 			}
-//			GUI.DrawTexture(new Rect(timesW(20.0f),timesH(950f),timesW(598.0f),timesH(141.0f)), tLogout, 
-//			                ScaleMode.StretchToFill, true);
 
 		} else if (isInit) {
 			GUI.skin.button.normal.background = tConnect;
@@ -307,8 +291,6 @@ public class ExampleWindow : MonoBehaviour {
 			if(GUI.Button(new Rect(timesW(20.0f),timesH(950f),timesW(598.0f),timesH(141.0f)), "")){
 				SoomlaProfile.Login(Provider.FACEBOOK, null);
 			}
-//			GUI.DrawTexture(new Rect(timesW(20.0f),timesH(950f),timesW(598.0f),timesH(141.0f)), tConnect, 
-//			                ScaleMode.StretchToFill, true);
 		}
 
 	}

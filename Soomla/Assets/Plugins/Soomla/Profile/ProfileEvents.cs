@@ -347,6 +347,12 @@ namespace Soomla.Profile {
 		
 		public static Action<Provider> OnGetFeedStarted = delegate {};
 
+		public static Action<Provider> OnAddAppRequestStarted = delegate {};
+
+		public static Action<Provider, string> OnAddAppRequestFinished = delegate {};
+
+		public static Action<Provider, string> OnAddAppRequestFailed = delegate {};
+
 
 		public class ProfileEventPusher {
 			public ProfileEventPusher() {

@@ -16,6 +16,7 @@ using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace Soomla.Profile
 {
@@ -48,6 +49,8 @@ namespace Soomla.Profile
 
 		/// <summary>
 		/// Initializes the SOOMLA Profile Module.
+		/// 
+		/// NOTE: must be called before any of its methods can be used
 		/// </summary>
 		public static void Initialize() {
 			instance._initialize();
@@ -55,12 +58,18 @@ namespace Soomla.Profile
 			ProfileEvents.OnSoomlaProfileInitialized();
 		}
 
+		/// <summary>
+		/// Checks if the user is logged into the supplied provider
+		/// </summary>
+		/// <returns><c>true</c> if is logged in the specified provider; otherwise, <c>false</c>.</returns>
+		/// <param name="provider">The provider on which to check if the user is logged in.</param>
 		public static bool IsLoggedIn(Provider provider) {
 			return providers.ContainsKey(provider) && providers[provider].IsLoggedIn();
 		}
 
 		/// <summary>
-		/// Will post a status to the user's social page.
+		/// Updates the user's status on the provided provider. Upon a successful
+		/// update, the user will receive the supplied reward.
 		///
 		/// This operation requires a successful login.
 		/// </summary>
@@ -68,11 +77,11 @@ namespace Soomla.Profile
 		/// <param name="status">The actual status text.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
 		public static void UpdateStatus(Provider provider, string status, Reward reward) {
-		
+
 			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STATUS);
 			providers[provider].UpdateStatus(status,
-			        /* success */	() => { 
-								ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS); 
+			        /* success */	() => {
+								ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS);
 								if (reward != null) {
 									reward.Give();
 								}
@@ -102,8 +111,8 @@ namespace Soomla.Profile
 
 			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STORY);
 			providers[provider].UpdateStory(message, name, caption, link, pictureUrl,
-			        /* success */	() => { 
-											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STORY); 
+			        /* success */	() => {
+											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STORY);
 											if (reward != null) {
 												reward.Give();
 											}
@@ -119,13 +128,22 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
+		/// <summary>
+		/// Uploads an image to the user's profile in the supplied provider. 
+		/// Upon a successful upload, the user will receive the supplied reward.
+		/// </summary>
+		/// <param name="provider">The provider on which to upload an image for the user.</param>
+		/// <param name="tex2D">A texture of the image to be uploaded.</param>
+		/// <param name="fileName">A name for the file representing the image.</param>
+		/// <param name="message">The main text which will appear on the uploaded image.</param>
+		/// <param name="reward">reward The reward which will be granted to the user upon a successful upload.</param>
 		public static void UploadImage(Provider provider, Texture2D tex2D, string fileName, string message,
 		                               Reward reward) {
 
 			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPLOAD_IMAGE);
 			providers[provider].UploadImage(tex2D, fileName, message,
-					/* success */	() => { 
-											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPLOAD_IMAGE); 
+					/* success */	() => {
+											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPLOAD_IMAGE);
 											if (reward != null) {
 												reward.Give();
 											}
@@ -136,22 +154,16 @@ namespace Soomla.Profile
 
 		}
 
+		/// <summary>
+		/// Uploads the current screen shot.
+		/// </summary>
+		/// <param name="mb">The current MonoBehaviour.</param>
+		/// <param name="provider">The provider on which to upload an image for the user.</param>
+		/// <param name="title">The title of the image to be uploaded.</param>
+		/// <param name="message">The main text which will appear on the uploaded image.</param>
+		/// <param name="reward">reward The reward which will be granted to the user upon a successful upload.</param>
 		public static void UploadCurrentScreenShot(MonoBehaviour mb, Provider provider, string title, string message, Reward reward) {
 			mb.StartCoroutine(TakeScreenshot(provider, title, message, reward));
-		}
-
-		private static IEnumerator TakeScreenshot(Provider provider, string title, string message, Reward reward) 
-		{
-			yield return new WaitForEndOfFrame();
-			
-			var width = Screen.width;
-			var height = Screen.height;
-			var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
-			// Read screen contents into the texture
-			tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-			tex.Apply();
-			
-			UploadImage(provider, tex, title, message, reward);
 		}
 
 		/// <summary>
@@ -165,13 +177,33 @@ namespace Soomla.Profile
 
 			ProfileEvents.OnGetContactsStarted(provider);
 			providers[provider].GetContacts(
-				/* success */	(List<UserProfile> profiles) => { 
+				/* success */	(List<UserProfile> profiles) => {
 											ProfileEvents.OnGetContactsFinished(provider, profiles);
 										},
 				/* fail */		(string message) => {  ProfileEvents.OnGetContactsFailed(provider, message); }
 			);
 
 		}
+
+		// TODO: this is irrelevant for now. Will be updated soon.
+//		public static void AddAppRequest(Provider provider, string message, string[] to, string extraData, string dialogTitle) {
+//			providers[provider].AppRequest(message, to, extraData, dialogTitle,
+//			    /* success */	(string requestId, List<string> recipients) => {
+//									string requestsStr = KeyValueStorage.GetValue("soomla.profile.apprequests");
+//									List<string> requests = new List<string>();
+//									if (!string.IsNullOrEmpty(requestsStr)) {
+//										requests = requestsStr.Split(',').ToList();
+//									}
+//									requests.Add(requestId);
+//									KeyValueStorage.SetValue("soomla.profile.apprequests", string.Join(",", requests.ToArray()));
+//									KeyValueStorage.SetValue(requestId, string.Join(",", recipients.ToArray()));
+//									ProfileEvents.OnAddAppRequestFinished(provider, requestId);
+//								},
+//				/* fail */		(string errMsg) => {
+//									ProfileEvents.OnAddAppRequestFailed(provider, errMsg);
+//								});
+//		}
+
 
 		/// <summary>
 		///  Will fetch posts from user feed
@@ -207,8 +239,9 @@ namespace Soomla.Profile
 		public static void Login(Provider provider, Reward reward) {
 			ProfileEvents.OnLoginStarted(provider);
 			providers[provider].Login(
-				/* success */	(UserProfile userProfile) => { 
-										ProfileEvents.OnLoginFinished(userProfile); 
+				/* success */	(UserProfile userProfile) => {
+										StoreUserProfile(userProfile);
+										ProfileEvents.OnLoginFinished(userProfile);
 										if (reward != null) {
 											reward.Give();
 										}
@@ -261,7 +294,7 @@ namespace Soomla.Profile
 			string value = PlayerPrefs.GetString (key);
 			if (!string.IsNullOrEmpty(value)) {
 				return new UserProfile (new JSONObject (value));
-			}		
+			}
 #endif
 			return null;
 		}
@@ -279,7 +312,21 @@ namespace Soomla.Profile
 #endif
 		}
 
-		/** keys **/
+		private static IEnumerator TakeScreenshot(Provider provider, string title, string message, Reward reward)
+		{
+			yield return new WaitForEndOfFrame();
+			
+			var width = Screen.width;
+			var height = Screen.height;
+			var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+			// Read screen contents into the texture
+			tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+			tex.Apply();
+			
+			UploadImage(provider, tex, title, message, reward);
+		}
+
+		/** keys when running in editor **/
 #if UNITY_EDITOR
 		private const string DB_KEY_PREFIX = "soomla.profile.";
 

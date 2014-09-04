@@ -18,7 +18,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Facebook.MiniJSON;
 using System.Text.RegularExpressions;
-
+using System.Linq;
 
 namespace Soomla.Profile
 {
@@ -41,13 +41,11 @@ namespace Soomla.Profile
 
 						if (result.Error != null) {
 							SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Error]:"+result.Error);
-//							ProfileEvents.OnSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPDATE_STATUS, result.Error);
 							fail(result.Error);
 						}
 						else {
 							SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Text]:"+result.Text);
 							SoomlaUtils.LogDebug(TAG, "UpdateStatusCallback[result.Texture]:"+result.Texture);
-//							ProfileEvents.OnSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPDATE_STATUS);
 							success();
 						}
 		
@@ -66,7 +64,6 @@ namespace Soomla.Profile
 				callback: (FBResult result) => {
 
 						if (result.Error != null) {
-//							ProfileEvents.OnSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPDATE_STORY, result.Error);
 							fail(result.Error);
 						}
 						else {
@@ -75,11 +72,9 @@ namespace Soomla.Profile
 							var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
 							object obj = 0;
 							if (responseObject.TryGetValue("cancelled", out obj)) {
-//								ProfileEvents.OnSocialActionCancelled(Provider.FACEBOOK, SocialActionType.UPDATE_STORY);
 								cancel();
 							}
 							else /*if (responseObject.TryGetValue ("id", out obj))*/ {
-//								ProfileEvents.OnSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPDATE_STORY);
 								success();
 							}
 						}
@@ -191,6 +186,31 @@ namespace Soomla.Profile
 
 		public override bool IsLoggedIn() {
 			return FB.IsLoggedIn;
+		}
+
+		public override void AppRequest(string message, string[] to, string extraData, string dialogTitle, AppRequestSuccess success, AppRequestFailed fail) {
+			FB.AppRequest(message,
+			              to,
+			              "", null, null,
+			              extraData,
+			              dialogTitle,
+			              (FBResult result) => {
+								if (result.Error != null) {
+									SoomlaUtils.LogError(TAG, "AppRequest[result.Error]: "+result.Error);
+									fail(result.Error);
+								}
+								else {
+									SoomlaUtils.LogDebug(TAG, "AppRequest[result.Text]: "+result.Text);
+									SoomlaUtils.LogDebug(TAG, "AppRequest[result.Texture]: "+result.Texture);
+									JSONObject jsonResponse = new JSONObject(result.Text);
+									List<JSONObject> jsonRecipinets = jsonResponse["to"].list;
+									List<string> recipients = new List<string>();
+									foreach (JSONObject o in jsonRecipinets) {
+										recipients.Add(o.str);
+									}
+									success(jsonResponse["request"].str, recipients);
+								}
+							});
 		}
 
 

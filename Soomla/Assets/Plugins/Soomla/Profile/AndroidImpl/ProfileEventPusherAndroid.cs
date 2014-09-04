@@ -23,28 +23,28 @@ namespace Soomla.Profile {
 #if UNITY_ANDROID && !UNITY_EDITOR
 
 		// event pushing back to native (when using FB Unity SDK)
-		protected override void _pushEventLoginStarted(Provider provider) {
+		protected override void _pushEventLoginStarted(Provider provider, string payload) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventLoginStarted", provider.ToString());
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventLoginFinished(UserProfile userProfile) { 
+		protected override void _pushEventLoginFinished(UserProfile userProfile, string payload) { 
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventLoginFinished", userProfile.toJSONObject().print());
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventLoginFailed(Provider provider, string message) {
+		protected override void _pushEventLoginFailed(Provider provider, string message, string payload) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventLoginFailed", provider.ToString(), message);
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventLoginCancelled(Provider provider) { 
+		protected override void _pushEventLoginCancelled(Provider provider, string payload) { 
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventLoginCancelled", provider.ToString());
@@ -73,7 +73,7 @@ namespace Soomla.Profile {
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType) { 
+		protected override void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType, string payload) { 
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventSocialActionStarted",
@@ -81,7 +81,7 @@ namespace Soomla.Profile {
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType) {
+		protected override void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType, string payload) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventSocialActionFinished",
@@ -89,7 +89,7 @@ namespace Soomla.Profile {
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType) {
+		protected override void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType, string payload) {
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventSocialActionCancelled",
@@ -97,7 +97,7 @@ namespace Soomla.Profile {
 			}
 			AndroidJNI.PopLocalFrame(IntPtr.Zero);
 		}
-		protected override void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { 
+		protected override void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message, string payload) { 
 			AndroidJNI.PushLocalFrame(100);
 			using(AndroidJavaClass jniSoomlaProfile = new AndroidJavaClass("com.soomla.profile.unity.UnitySoomlaProfile")) {
 				ProfileJNIHandler.CallStaticVoid(jniSoomlaProfile, "pushEventSocialActionFailed", 

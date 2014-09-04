@@ -96,7 +96,6 @@ namespace Soomla.Profile
 					
 						if (result.Error != null) {
 							SoomlaUtils.LogDebug(TAG, "UploadImageCallback[result.Error]: "+result.Error);
-//							ProfileEvents.OnSocialActionFailed (Provider.FACEBOOK, SocialActionType.UPLOAD_IMAGE, result.Error);
 							fail(result.Error);
 					     }
 						else {
@@ -105,11 +104,9 @@ namespace Soomla.Profile
 							var responseObject = Json.Deserialize(result.Text) as Dictionary<string, object>;
 							object obj = 0;
 							if (responseObject.TryGetValue("cancelled", out obj)) {
-//								ProfileEvents.OnSocialActionCancelled(Provider.FACEBOOK, SocialActionType.UPLOAD_IMAGE);
 								cancel();
 							}
 							else /*if (responseObject.TryGetValue ("id", out obj))*/ {
-//								ProfileEvents.OnSocialActionFinished(Provider.FACEBOOK, SocialActionType.UPLOAD_IMAGE);
 								success();
 							}
 						}
@@ -123,22 +120,16 @@ namespace Soomla.Profile
 			        (FBResult result) => {
 						if (result.Error != null) {
 							SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Error]: "+result.Error);
-//							ProfileEvents.OnSocialActionFailed (Provider.FACEBOOK, SocialActionType.GET_CONTACTS, result.Error);
 							fail(result.Error);
 					     }
 						else {
 							SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Text]: "+result.Text);
 							SoomlaUtils.LogDebug(TAG, "GetContactsCallback[result.Texture]: "+result.Texture);
-//							ProfileEvents.OnSocialActionFinished(Provider.FACEBOOK, SocialActionType.GET_CONTACTS);
 							JSONObject jsonContacts = new JSONObject(result.Text);
 							success(UserProfilesFromFBJsonObjs(jsonContacts["data"].list));
 						}
 					});
 		}
-
-//		public override void GetFeed(FeedSuccess success, FeedFailed fail) {
-//
-//		}
 
 		public override void Logout(LogoutSuccess success, LogoutFailed fail) {
 			FB.Logout();
@@ -213,6 +204,9 @@ namespace Soomla.Profile
 							});
 		}
 
+		public override void Like(string pageName) {
+			Application.OpenURL("https://www.facebook.com/" + pageName);
+		}
 
 		/** Initialize Callbacks **/
 

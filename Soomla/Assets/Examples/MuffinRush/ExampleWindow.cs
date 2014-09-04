@@ -117,12 +117,12 @@ public class ExampleWindow : MonoBehaviour {
 			isInit = true;
 		};
 		
-		ProfileEvents.OnLoginFinished += (UserProfile UserProfile) => {
+		ProfileEvents.OnLoginFinished += (UserProfile UserProfile, string payload) => {
 			Soomla.SoomlaUtils.LogDebug("ExampleWindow", "login finished for: " + UserProfile.toJSONObject().print());
 			SoomlaProfile.GetContacts(Provider.FACEBOOK);
 		};
 		
-		ProfileEvents.OnGetContactsFinished += (Provider provider, List<UserProfile> profiles) => {
+		ProfileEvents.OnGetContactsFinished += (Provider provider, List<UserProfile> profiles, string payload) => {
 			Soomla.SoomlaUtils.LogDebug("ExampleWindow", "get contacts for: " + profiles.Count);
 		};
 

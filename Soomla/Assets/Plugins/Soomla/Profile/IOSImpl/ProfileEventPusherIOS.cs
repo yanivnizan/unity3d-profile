@@ -48,16 +48,17 @@ namespace Soomla.Profile {
 
 
 		// event pushing back to native (when using FB Unity SDK)
-		protected override void _pushEventLoginStarted(Provider provider) {
+		protected override void _pushEventLoginStarted(Provider provider, string payload) {
 			soomlaProfile_PushEventLoginStarted(provider.ToString());
 		}
-		protected override void _pushEventLoginFinished(UserProfile userProfile) { 
+
+		protected override void _pushEventLoginFinished(UserProfile userProfile, string payload) { 
 			soomlaProfile_PushEventLoginFinished(userProfile.toJSONObject().print());
 		}
-		protected override void _pushEventLoginFailed(Provider provider, string message) {
+		protected override void _pushEventLoginFailed(Provider provider, string message, string payload) {
 			soomlaProfile_PushEventLoginFailed(provider.ToString(), message);
 		}
-		protected override void _pushEventLoginCancelled(Provider provider) { 
+		protected override void _pushEventLoginCancelled(Provider provider, string payload) { 
 			soomlaProfile_PushEventLoginCancelled(provider.ToString());
 		}
 		protected override void _pushEventLogoutStarted(Provider provider) { 
@@ -69,16 +70,16 @@ namespace Soomla.Profile {
 		protected override void _pushEventLogoutFailed(Provider provider, string message) {
 			soomlaProfile_PushEventLogoutFailed(provider.ToString(), message);
 		}
-		protected override void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType) { 
+		protected override void _pushEventSocialActionStarted(Provider provider, SocialActionType actionType, string payload) { 
 			soomlaProfile_PushEventSocialActionStarted(provider.ToString(), actionType.ToString());
 		}
-		protected override void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType) {
+		protected override void _pushEventSocialActionFinished(Provider provider, SocialActionType actionType, string payload) {
 			soomlaProfile_PushEventSocialActionFinished(provider.ToString(), actionType.ToString());
 		}
-		protected override void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType) {
+		protected override void _pushEventSocialActionCancelled(Provider provider, SocialActionType actionType, string payload) {
 			soomlaProfile_PushEventSocialActionCancelled(provider.ToString(), actionType.ToString());
 		}
-		protected override void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message) { 
+		protected override void _pushEventSocialActionFailed(Provider provider, SocialActionType actionType, string message, string payload) { 
 			soomlaProfile_PushEventSocialActionFailed(provider.ToString(), actionType.ToString(), message);
 		}
 

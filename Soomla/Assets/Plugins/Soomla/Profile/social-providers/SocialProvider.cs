@@ -73,8 +73,14 @@ namespace Soomla.Profile
 		/// See docs in <see cref="SoomlaProfile.AppRequest"/>
 		/// </summary>
 		public abstract void AppRequest(string message, string[] to, string extraData, string dialogTitle, AppRequestSuccess success, AppRequestFailed fail);
+		/// <summary>
+		/// See docs in <see cref="SoomlaProfile.Like"/>
+		/// </summary>
+		public abstract void Like(string pageName);
 		// TODO: irrelevant for now. Will be updated soon.
 		//		public abstract void GetFeed(FeedSuccess success, FeedFailed fail);
+
+
 	}
 }
 

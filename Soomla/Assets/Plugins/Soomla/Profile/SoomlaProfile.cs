@@ -76,17 +76,17 @@ namespace Soomla.Profile
 		/// <param name="provider">The <c>Provider</c> the given status should be posted to.</param>
 		/// <param name="status">The actual status text.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
-		public static void UpdateStatus(Provider provider, string status, Reward reward) {
-
-			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STATUS);
+		public static void UpdateStatus(Provider provider, string status, string payload="", Reward reward = null) {
+		
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STATUS, payload);
 			providers[provider].UpdateStatus(status,
-			        /* success */	() => {
-								ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS);
-								if (reward != null) {
-									reward.Give();
-								}
-							},
-					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STATUS, error); }
+	        /* success */	() => {
+						ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STATUS, payload); 
+						if (reward != null) {
+							reward.Give();
+						}
+					},
+			/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STATUS, error, payload); }
 				);
 
 		}
@@ -107,18 +107,18 @@ namespace Soomla.Profile
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful posting.</param>
 		public static void UpdateStory(Provider provider, string message, string name,
 		                               string caption, string link,
-		                               string pictureUrl, Reward reward) {
+		                               string pictureUrl, string payload="", Reward reward = null) {
 
-			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STORY);
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPDATE_STORY, payload);
 			providers[provider].UpdateStory(message, name, caption, link, pictureUrl,
-			        /* success */	() => {
-											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STORY);
-											if (reward != null) {
-												reward.Give();
-											}
-										},
-					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STORY, error); },
-					/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPDATE_STORY); }
+	        /* success */	() => { 
+									ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPDATE_STORY, payload); 
+									if (reward != null) {
+										reward.Give();
+									}
+								},
+			/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPDATE_STORY, error, payload); },
+			/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPDATE_STORY, payload); }
 				);
 
 		}
@@ -128,42 +128,25 @@ namespace Soomla.Profile
 //			instance._uploadImage(provider, message, filename, imageBytes, quality, reward);
 //		}
 //
-		/// <summary>
-		/// Uploads an image to the user's profile in the supplied provider. 
-		/// Upon a successful upload, the user will receive the supplied reward.
-		/// </summary>
-		/// <param name="provider">The provider on which to upload an image for the user.</param>
-		/// <param name="tex2D">A texture of the image to be uploaded.</param>
-		/// <param name="fileName">A name for the file representing the image.</param>
-		/// <param name="message">The main text which will appear on the uploaded image.</param>
-		/// <param name="reward">reward The reward which will be granted to the user upon a successful upload.</param>
-		public static void UploadImage(Provider provider, Texture2D tex2D, string fileName, string message,
-		                               Reward reward) {
+		public static void UploadImage(Provider provider, Texture2D tex2D, string fileName, string message, string payload="",
+		                               Reward reward = null) {
 
-			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPLOAD_IMAGE);
+			ProfileEvents.OnSocialActionStarted(provider, SocialActionType.UPLOAD_IMAGE, payload);
 			providers[provider].UploadImage(tex2D, fileName, message,
-					/* success */	() => {
-											ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPLOAD_IMAGE);
-											if (reward != null) {
-												reward.Give();
-											}
-										},
-					/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPLOAD_IMAGE, error); },
-					/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPLOAD_IMAGE); }
+			/* success */	() => { 
+									ProfileEvents.OnSocialActionFinished(provider, SocialActionType.UPLOAD_IMAGE, payload); 
+									if (reward != null) {
+										reward.Give();
+									}
+								},
+			/* fail */		(string error) => {  ProfileEvents.OnSocialActionFailed (provider, SocialActionType.UPLOAD_IMAGE, error, payload); },
+			/* cancel */	() => {  ProfileEvents.OnSocialActionCancelled(provider, SocialActionType.UPLOAD_IMAGE, payload); }
 				);
 
 		}
 
-		/// <summary>
-		/// Uploads the current screen shot.
-		/// </summary>
-		/// <param name="mb">The current MonoBehaviour.</param>
-		/// <param name="provider">The provider on which to upload an image for the user.</param>
-		/// <param name="title">The title of the image to be uploaded.</param>
-		/// <param name="message">The main text which will appear on the uploaded image.</param>
-		/// <param name="reward">reward The reward which will be granted to the user upon a successful upload.</param>
-		public static void UploadCurrentScreenShot(MonoBehaviour mb, Provider provider, string title, string message, Reward reward) {
-			mb.StartCoroutine(TakeScreenshot(provider, title, message, reward));
+		public static void UploadCurrentScreenShot(MonoBehaviour mb, Provider provider, string title, string message, string payload="", Reward reward = null) {
+			mb.StartCoroutine(TakeScreenshot(provider, title, message, payload, reward));
 		}
 
 		/// <summary>
@@ -173,16 +156,15 @@ namespace Soomla.Profile
 		/// </summary>
 		/// <param name="provider">The <c>Provider</c> we should try to fetch contacts from.</param>
 		/// <param name="reward">A <c>Reward</c> to give to the user after a successful fetching.</param>
-		public static void GetContacts(Provider provider) {
+		public static void GetContacts(Provider provider, string payload="") {
 
-			ProfileEvents.OnGetContactsStarted(provider);
+			ProfileEvents.OnGetContactsStarted(provider, payload);
 			providers[provider].GetContacts(
-				/* success */	(List<UserProfile> profiles) => {
-											ProfileEvents.OnGetContactsFinished(provider, profiles);
-										},
-				/* fail */		(string message) => {  ProfileEvents.OnGetContactsFailed(provider, message); }
+			/* success */	(List<UserProfile> profiles) => { 
+										ProfileEvents.OnGetContactsFinished(provider, profiles, payload);
+									},
+			/* fail */		(string message) => {  ProfileEvents.OnGetContactsFailed(provider, message, payload); }
 			);
-
 		}
 
 		// TODO: this is irrelevant for now. Will be updated soon.
@@ -236,21 +218,35 @@ namespace Soomla.Profile
 		/// </summary>
 		/// <param name="provider">The provider to log in to.</param>
 		/// <param name="reward">Give your users a reward for logging in.</param>
-		public static void Login(Provider provider, Reward reward) {
-			ProfileEvents.OnLoginStarted(provider);
+		public static void Login(Provider provider, string payload="", Reward reward = null) {
+			ProfileEvents.OnLoginStarted(provider, payload);
 			providers[provider].Login(
-				/* success */	(UserProfile userProfile) => {
-										StoreUserProfile(userProfile);
-										ProfileEvents.OnLoginFinished(userProfile);
-										if (reward != null) {
-											reward.Give();
-										}
-									},
-				/* fail */		(string message) => {  ProfileEvents.OnLoginFailed (provider, message); },
-				/* cancel */	() => {  ProfileEvents.OnLoginCancelled(provider); }
+			/* success */	(UserProfile userProfile) => { 
+									StoreUserProfile(userProfile);
+									ProfileEvents.OnLoginFinished(userProfile, payload); 
+									if (reward != null) {
+										reward.Give();
+									}
+								},
+			/* fail */		(string message) => {  ProfileEvents.OnLoginFailed (provider, message, payload); },
+			/* cancel */	() => {  ProfileEvents.OnLoginCancelled(provider, payload); }
 			);
 		}
 
+		/// <summary>
+		/// Like the specified pageName in the given provider.
+		/// </summary>
+		/// <param name="provider">The provider the page exists in.</param>
+		/// <param name="pageName">The name of the page as written in facebook in the URL. 
+		/// For a url http://www.facebook.com/MyPage you need to provide pageName="MyPage".</param>
+		/// <param name="reward">Give your users a reward for his like.</param>
+		public static void Like(Provider provider, string pageName, Reward reward=null) {
+			providers[provider].Like(pageName);
+
+			if (reward != null) {
+				reward.Give();
+			}
+		}
 
 
 		/// <summary>
@@ -312,7 +308,7 @@ namespace Soomla.Profile
 #endif
 		}
 
-		private static IEnumerator TakeScreenshot(Provider provider, string title, string message, Reward reward)
+		private static IEnumerator TakeScreenshot(Provider provider, string title, string message, string payload, Reward reward)
 		{
 			yield return new WaitForEndOfFrame();
 			
@@ -323,7 +319,7 @@ namespace Soomla.Profile
 			tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
 			tex.Apply();
 			
-			UploadImage(provider, tex, title, message, reward);
+			UploadImage(provider, tex, title, message, payload, reward);
 		}
 
 		/** keys when running in editor **/

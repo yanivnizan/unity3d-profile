@@ -16,7 +16,7 @@ unity3d-profile
 
 unity3d-profile is the Unity3d flavor of SOOMLA's Profile Module.
 
-![SOOMLA's Profile Module](http://know.soom.la/img/tutorial_img/soomla_diagrams/EconomyModel.png)
+![SOOMLA's Profile Module](http://know.soom.la/img/tutorial_img/soomla_diagrams/Profile.png)
 
 
 ## Download
